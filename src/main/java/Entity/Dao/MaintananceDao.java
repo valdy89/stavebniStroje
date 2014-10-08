@@ -9,6 +9,6 @@ package Entity.Dao;
  *
  * @author Milan
  */
-public class MaintananceDao {
+public interface MaintananceDao {
     
 }

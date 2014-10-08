@@ -5,10 +5,19 @@
  */
 package Entity.Dao;
 
+import Entity.Machine;
+
 /**
  *
  * @author Milan
  */
-public class MachineDao {
+public interface MachineDao {
     
+    void persist(Machine machine);
+    
+    void remove(Machine machine);
+    
+    Machine findById(Long id);
+    
+    Machine findByType(String type);
 }

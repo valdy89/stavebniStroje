@@ -5,10 +5,12 @@
  */
 package Entity.DaoImpl;
 
+import Entity.Dao.CustomerDao;
+
 /**
  *
  * @author Milan
  */
-public class CustomerDaoImpl {
+public class CustomerDaoImpl implements CustomerDao{
     
 }

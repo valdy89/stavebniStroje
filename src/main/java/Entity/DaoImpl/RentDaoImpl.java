@@ -5,10 +5,12 @@
  */
 package Entity.DaoImpl;
 
+import Entity.Dao.RentDao;
+
 /**
  *
  * @author Milan
  */
-public class RentDaoImpl {
+public class RentDaoImpl implements RentDao{
     
 }

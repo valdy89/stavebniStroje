@@ -5,10 +5,12 @@
  */
 package Entity.DaoImpl;
 
+import Entity.Dao.MaintananceDao;
+
 /**
  *
  * @author Milan
  */
-public class MaintananceDaoImpl {
+public class MaintananceDaoImpl implements MaintananceDao{
     
 }
