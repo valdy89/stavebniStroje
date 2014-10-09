@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity.DaoImpl;
-
-import Entity.Dao.MaintananceDao;
+package Entity.Dao;
 
 /**
  *
  * @author Milan
  */
-public class MaintananceDaoImpl implements MaintananceDao{
+public interface RevisionDao {
     
 }

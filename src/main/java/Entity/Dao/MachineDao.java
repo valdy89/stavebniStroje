@@ -6,6 +6,8 @@
 package Entity.Dao;
 
 import Entity.Machine;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -13,11 +15,15 @@ import Entity.Machine;
  */
 public interface MachineDao {
     
+    //CRUD
     void persist(Machine machine);
-    
+    void update(Machine machine);
     void remove(Machine machine);
-    
     Machine findById(Long id);
-    
-    Machine findByType(String type);
+    //Other find methods
+    List<Machine> findByType(String type);
+    List<Machine> findAll();
+    List<Machine> findByRevisionDate(Date specificDate);
+    List<Machine> findByRevisionDate(Date dateFrom, Date dateTo);
+    List<Machine> findByPrice();
 }

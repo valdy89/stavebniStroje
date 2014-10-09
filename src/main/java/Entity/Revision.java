@@ -8,6 +8,6 @@ package Entity;
  *
  * @author xvalusek
  */
-public class Maintanance {
+public class Revision {
     
 }
