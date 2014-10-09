@@ -5,10 +5,23 @@
  */
 package Entity.Dao;
 
+import Entity.Customer;
+import java.util.List;
+import Util.LegalStatus;
+
 /**
  *
- * @author Milan
+ * @author milos
  */
 public interface CustomerDao {
+    
+    public void create(Customer customer);
+    public Customer get(Long id);
+    public void update(Customer customer);
+    public void remove(Customer customer);
+    public List<Customer> findAll();
+    public Customer findByLegalStatus(LegalStatus legalStatus);
+    
+
     
 }
