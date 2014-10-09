@@ -12,6 +12,7 @@ import java.util.List;
 import Util.LegalStatus;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -23,33 +24,50 @@ public class CustomerDaoImpl implements CustomerDao {
     private EntityManager entityManager;
     
     @Override
-    public void create(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void createCustomer(Customer customer) {
+        if (customer == null) {
+            throw new IllegalArgumentException("Customer cannot to be null.");
+        }
+    
     }
 
     @Override
-    public Customer get(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Customer getCustomer(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id of the customer cannot be null.");
+        }
+        Customer customer = entityManager.find(Customer.class, id);
+        return customer;
+    
     }
 
     @Override
-    public void update(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateCustomer(Customer customer) {
+        if (customer == null) {
+            throw new IllegalArgumentException("Customer to be updated cannot to be null.");
+        }
+        entityManager.merge(customer);
+    
     }
 
     @Override
-    public void remove(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeCustomer (Customer customer) {
+        if (customer == null) {
+            throw new IllegalArgumentException("Customer to be removed cannot to be null.");
+        }
+        Customer c = entityManager.find(Customer.class, customer.getId());
+        if (c == null) {
+            throw new IllegalArgumentException("Customer doesn't exist in the database.");
+        }
+        entityManager.remove(c);            
+        
     }
 
     @Override
     public List<Customer> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Customer> tq = entityManager.createQuery(
+                "SELECT customer FROM Customer as customer ORDER BY customer.secondName, customer.firstName", Customer.class);
+        return tq.getResultList();
     }
 
-    @Override
-    public Customer findByLegalStatus(LegalStatus legalStatus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

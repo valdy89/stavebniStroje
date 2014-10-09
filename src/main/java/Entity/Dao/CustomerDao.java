@@ -7,7 +7,7 @@ package Entity.Dao;
 
 import Entity.Customer;
 import java.util.List;
-import Util.LegalStatus;
+
 
 /**
  *
@@ -15,13 +15,12 @@ import Util.LegalStatus;
  */
 public interface CustomerDao {
     
-    public void create(Customer customer);
-    public Customer get(Long id);
-    public void update(Customer customer);
-    public void remove(Customer customer);
+    public void createCustomer(Customer customer);
+    public Customer getCustomer(Long id);
+    public void updateCustomer(Customer customer);
+    public void removeCustomer(Customer customer);
     public List<Customer> findAll();
-    public Customer findByLegalStatus(LegalStatus legalStatus);
-    
+   
 
     
 }
