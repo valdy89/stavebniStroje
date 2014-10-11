@@ -8,6 +8,7 @@ package Entity.Dao;
 import Entity.Machine;
 import java.util.Date;
 import java.util.List;
+import org.joda.money.BigMoney;
 
 /**
  *
@@ -25,5 +26,5 @@ public interface MachineDao {
     List<Machine> findAll();
     List<Machine> findByRevisionDate(Date specificDate);
     List<Machine> findByRevisionDate(Date dateFrom, Date dateTo);
-    List<Machine> findByPrice();
+    List<Machine> findByPrice(BigMoney price);
 }

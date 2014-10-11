@@ -19,14 +19,11 @@ import org.joda.money.BigMoney;
  */
 public class MachineDaoImpl implements MachineDao {
 
-    protected Class entityClass;
-
-    @PersistenceContext
+  
+    @PersistenceContext(unitName="stroje")
     protected EntityManager entityManager;
 
     public MachineDaoImpl() {
-        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-        this.entityClass = (Class) genericSuperclass.getActualTypeArguments()[1];
     }
 
     public void persist(Machine machine) {
@@ -50,27 +47,27 @@ public class MachineDaoImpl implements MachineDao {
     }
 
     public Machine findById(Long id) {
-        return (Machine) entityManager.find(entityClass, id);
+        return (Machine) entityManager.find(Machine.class, id);
     }
 
     @Override
     public List<Machine> findAll() {
         Query q = entityManager.createQuery(
-                "SELECT machine FROM " + entityClass.getName() + " machine");
+                "SELECT machine FROM Machine machine");
         return (List) q.getResultList();
     }
 
     @Override
     public List<Machine> findByType(String type) {
         Query q = entityManager.createQuery(
-                "SELECT machine FROM " + entityClass.getName() + " machine WHERE type = "+ type.toString());
+                "SELECT machine FROM Machine machine WHERE type = "+ type.toString());
         return (List) q.getResultList();
     }
 
     @Override
     public List<Machine> findByRevisionDate(Date specificDate) {
     Query q = entityManager.createQuery(
-                "SELECT machine FROM " + entityClass.getName() + " machine JOIN machine.revision  revision WHERE revision.dateOfRevision = :date_since"); 
+                "SELECT machine FROM Machine machine JOIN machine.revision  revision WHERE revision.dateOfRevision = :date_since"); 
 		q.setParameter("date_since", specificDate);
         return (List) q.getResultList();
     }
@@ -79,7 +76,7 @@ public class MachineDaoImpl implements MachineDao {
     public List<Machine> findByRevisionDate(Date dateFrom, Date dateTo) {
    
     Query q = entityManager.createQuery(
-                "SELECT machine FROM " + entityClass.getName() + " machine JOIN machine.revision  revision WHERE revision.dateOfRevision BETWEEN :date_from AND :date_to"); 
+                "SELECT machine FROM Machine machine JOIN machine.revision  revision WHERE revision.dateOfRevision BETWEEN :date_from AND :date_to"); 
 		q.setParameter("date_from", dateFrom);
                 q.setParameter("date_to", dateTo);
         return (List) q.getResultList();
@@ -88,7 +85,7 @@ public class MachineDaoImpl implements MachineDao {
     @Override
     public List<Machine> findByPrice(BigMoney price) {
          Query q = entityManager.createQuery(
-                "SELECT machine FROM " + entityClass.getName() + " machine WHERE type = "+ price.getAmount());
+                "SELECT machine FROM Machine machine WHERE type = "+ price.getAmount());
         return (List) q.getResultList();
     }
 

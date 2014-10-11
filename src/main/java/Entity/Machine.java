@@ -4,7 +4,9 @@
  */
 package Entity;
 
+import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -12,7 +14,10 @@ import javax.persistence.*;
  * @author xvalusek
  */
 @Entity
-public class Machine {
+@Table(name = "Machine")
+public class Machine  implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue
@@ -26,6 +31,9 @@ public class Machine {
     
     @Column
     private String description;
+    
+    @OneToMany(mappedBy="Rent")
+    private Set<Rent> rents;
     
     public long getId() {
         return id;
@@ -57,6 +65,14 @@ public class Machine {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Rent> getRents() {
+        return rents;
+    }
+
+    public void setRents(Set<Rent> rents) {
+        this.rents = rents;
     }
 
     @Override
