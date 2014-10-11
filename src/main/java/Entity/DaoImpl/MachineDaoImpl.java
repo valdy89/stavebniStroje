@@ -19,13 +19,17 @@ import org.joda.money.BigMoney;
  */
 public class MachineDaoImpl implements MachineDao {
 
-    @PersistenceContext
     protected EntityManager entityManager;
 
-    public MachineDaoImpl() {
+    public MachineDaoImpl(EntityManager em) {
+        entityManager = em;
     }
-
+    
+    @Override
     public void persist(Machine machine) {
+       if (machine == null) {
+            throw new IllegalArgumentException("Customer to be updated cannot to be null.");
+        }
         entityManager.persist(machine);
         entityManager.flush();
         entityManager.refresh(machine);

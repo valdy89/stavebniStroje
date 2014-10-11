@@ -34,7 +34,7 @@ public class Machine implements Serializable {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "rent")
+    @OneToMany(mappedBy = "machine")
     private Collection<Rent> rents = new ArrayList<Rent>();
 
     public long getId() {
