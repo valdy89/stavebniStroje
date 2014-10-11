@@ -5,6 +5,8 @@
 package Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
@@ -15,8 +17,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "Machine")
-public class Machine  implements Serializable {
-    
+public class Machine implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -28,13 +30,13 @@ public class Machine  implements Serializable {
 
     @Column
     private String type;
-    
+
     @Column
     private String description;
-    
-    @OneToMany(mappedBy="Rent")
-    private Set<Rent> rents;
-    
+
+    @OneToMany(mappedBy = "rent")
+    private Collection<Rent> rents = new ArrayList<Rent>();
+
     public long getId() {
         return id;
     }
@@ -67,7 +69,7 @@ public class Machine  implements Serializable {
         this.description = description;
     }
 
-    public Set<Rent> getRents() {
+    public Collection<Rent> getRents() {
         return rents;
     }
 

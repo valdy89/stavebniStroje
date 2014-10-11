@@ -11,6 +11,6 @@ import Entity.Dao.RevisionDao;
  *
  * @author Milan
  */
-public class RevisionDaoImpl implements RevisionDao{
-    
+public class RevisionDaoImpl implements RevisionDao {
+
 }

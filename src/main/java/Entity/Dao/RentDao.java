@@ -10,5 +10,5 @@ package Entity.Dao;
  * @author Milan
  */
 public interface RentDao {
-    
+
 }

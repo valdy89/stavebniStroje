@@ -11,6 +11,6 @@ import Entity.Dao.RentDao;
  *
  * @author Milan
  */
-public class RentDaoImpl implements RentDao{
-    
+public class RentDaoImpl implements RentDao {
+
 }

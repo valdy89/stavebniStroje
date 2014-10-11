@@ -8,19 +8,20 @@ package Entity.Dao;
 import Entity.Customer;
 import java.util.List;
 
-
 /**
  *
  * @author milos
  */
 public interface CustomerDao {
-    
-    public void createCustomer(Customer customer);
-    public Customer getCustomer(Long id);
-    public void updateCustomer(Customer customer);
-    public void removeCustomer(Customer customer);
-    public List<Customer> findAll();
-   
 
-    
+    public void createCustomer(Customer customer);
+
+    public Customer getCustomer(Long id);
+
+    public void updateCustomer(Customer customer);
+
+    public void removeCustomer(Customer customer);
+
+    public List<Customer> findAll();
+
 }

@@ -10,7 +10,7 @@ package Util;
  * @author milos
  */
 public enum LegalStatus {
-    
+
     NATURAL("NATURAL PERSON"),
     LEGAL("LEGAL PERSON");
 

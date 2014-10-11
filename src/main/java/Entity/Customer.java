@@ -20,8 +20,8 @@ import Util.LegalStatus;
  */
 @Entity
 @Table(name = "User")
-public class Customer  implements Serializable {
-    
+public class Customer implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,10 +32,9 @@ public class Customer  implements Serializable {
     private String secondName;
     @Column(name = "ADDRESS", length = 100)
     private String address;
-    @Column(name = "LEGALSTATUS")    
+    @Column(name = "LEGALSTATUS")
     private LegalStatus legalStatus;
 
-    
     public long getId() {
         return id;
     }
@@ -117,7 +116,4 @@ public class Customer  implements Serializable {
         return "Customer{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", address=" + address + ", legalStatus=" + legalStatus + '}';
     }
 
-    
-    
-    
 }

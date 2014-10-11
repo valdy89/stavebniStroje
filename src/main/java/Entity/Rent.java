@@ -12,10 +12,14 @@ import javax.persistence.*;
  * @author xvalusek
  */
 @Entity
-public class Rent  implements Serializable {
-    
+public class Rent implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    
+    @ManyToOne
+    private Machine machine = null;
+
 }

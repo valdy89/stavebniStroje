@@ -5,7 +5,6 @@
  */
 package Entity.DaoImpl;
 
-
 import Entity.Customer;
 import Entity.Dao.CustomerDao;
 import java.util.List;
@@ -19,16 +18,16 @@ import javax.persistence.TypedQuery;
  * @author milos
  */
 public class CustomerDaoImpl implements CustomerDao {
-    
+
     @PersistenceContext
     private EntityManager entityManager;
-    
+
     @Override
     public void createCustomer(Customer customer) {
         if (customer == null) {
             throw new IllegalArgumentException("Customer cannot to be null.");
         }
-    
+
     }
 
     @Override
@@ -38,7 +37,7 @@ public class CustomerDaoImpl implements CustomerDao {
         }
         Customer customer = entityManager.find(Customer.class, id);
         return customer;
-    
+
     }
 
     @Override
@@ -47,11 +46,11 @@ public class CustomerDaoImpl implements CustomerDao {
             throw new IllegalArgumentException("Customer to be updated cannot to be null.");
         }
         entityManager.merge(customer);
-    
+
     }
 
     @Override
-    public void removeCustomer (Customer customer) {
+    public void removeCustomer(Customer customer) {
         if (customer == null) {
             throw new IllegalArgumentException("Customer to be removed cannot to be null.");
         }
@@ -59,8 +58,8 @@ public class CustomerDaoImpl implements CustomerDao {
         if (c == null) {
             throw new IllegalArgumentException("Customer doesn't exist in the database.");
         }
-        entityManager.remove(c);            
-        
+        entityManager.remove(c);
+
     }
 
     @Override
