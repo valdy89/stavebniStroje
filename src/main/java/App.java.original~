@@ -21,9 +21,8 @@ public class App {
         EntityManager em1 = emf.createEntityManager();
 
         em1.getTransaction().begin();
-        MachineDao machineDao = new MachineDaoImpl(em1);
+        MachineDao machineDao = new MachineDaoImpl();
         Machine machine = new Machine();
-        machine.setName("test");
         machineDao.persist(machine);
         System.out.println(machine.getId());
         em1.flush();

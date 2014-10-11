@@ -31,19 +31,23 @@ public class MachineDaoImplTest {
 
     @PersistenceUnit
     public EntityManagerFactory emf;
-
+    
     @PersistenceUnit
     public EntityManager em;
 
-    MachineDaoImpl instance = new MachineDaoImpl();
+    MachineDaoImpl instance;
+    
 
     public MachineDaoImplTest() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("stroje");
+        em = emf.createEntityManager();
+        instance = new MachineDaoImpl(em);
+
     }
 
     @BeforeClass
     public static void setUpClass() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("stroje");
-        EntityManager em = emf.createEntityManager();
+        
 
     }
 
@@ -53,38 +57,43 @@ public class MachineDaoImplTest {
 
     @Before
     public void setUp() {
+        em.getTransaction().begin();
+       
+       
     }
 
     @After
     public void tearDown() {
-    }
+         em.close();
+           }
 
     /**
      * Test of persist method, of class MachineDaoImpl.
      */
     @Test
     public void testPersist() {
-        System.out.println("persist");
+        
+        
         Machine machine = new Machine();
         machine.setType("4568");
         machine.setName("Test");
         machine.setDescription("test");
         Set<Rent> rent = new HashSet<Rent>();
+        
+        
         machine.setRents(rent);
-
+        
         instance.persist(machine);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        assertTrue(machine.getId() > 0);
     }
-    /*
+    
      /**
      * Test of update method, of class MachineDaoImpl.
-     
-     @org.junit.Test
+     */
+     @Test
      public void testUpdate() {
-     System.out.println("update");
-     Machine machine = null;
-     MachineDaoImpl instance = new MachineDaoImpl();
+     
      instance.update(machine);
      // TODO review the generated test code and remove the default call to fail.
      fail("The test case is a prototype.");
@@ -92,7 +101,7 @@ public class MachineDaoImplTest {
 
      /**
      * Test of remove method, of class MachineDaoImpl.
-     
+     */
      @Test
      public void testRemove() {
      System.out.println("remove");
@@ -105,7 +114,7 @@ public class MachineDaoImplTest {
 
      /**
      * Test of findById method, of class MachineDaoImpl.
-     
+     */
      @Test
      public void testFindById() {
      System.out.println("findById");
@@ -118,9 +127,9 @@ public class MachineDaoImplTest {
      fail("The test case is a prototype.");
      }
 
-     *
+     /*
      * Test of findAll method, of class MachineDaoImpl.
-     *//*
+     */
      @Test
      public void testFindAll() {
      System.out.println("findAll");
@@ -131,11 +140,11 @@ public class MachineDaoImplTest {
      // TODO review the generated test code and remove the default call to fail.
      fail("The test case is a prototype.");
      }
-     */
+     
 
     /**
      * Test of findByType method, of class MachineDaoImpl.
-     *//*
+     */
      @Test
      public void testFindByType() {
      System.out.println("findByType");
@@ -146,7 +155,7 @@ public class MachineDaoImplTest {
      assertEquals(expResult, result);
      // TODO review the generated test code and remove the default call to fail.
      fail("The test case is a prototype.");
-     }*/
+     }
 
     /**
      * Test of findByRevisionDate method, of class MachineDaoImpl.
@@ -163,7 +172,7 @@ public class MachineDaoImplTest {
     /**
      * Test of findByRevisionDate method, of class MachineDaoImpl.
      */
-    /*
+    
      @Test
      public void testFindByRevisionDate_Date_Date() {
      System.out.println("findByRevisionDate");
@@ -176,11 +185,11 @@ public class MachineDaoImplTest {
      // TODO review the generated test code and remove the default call to fail.
      fail("The test case is a prototype.");
      }
-     */
+     
     /**
      * Test of findByPrice method, of class MachineDaoImpl.
      */
-    /*  @Test
+     @Test
      public void testFindByPrice() {
      System.out.println("findByPrice");
      BigMoney price = null;
@@ -191,5 +200,5 @@ public class MachineDaoImplTest {
      // TODO review the generated test code and remove the default call to fail.
      fail("The test case is a prototype.");
      }
-     */
+     
 }

@@ -19,7 +19,7 @@ import Util.LegalStatus;
  * @author Milos Petrovic
  */
 @Entity
-@Table(name = "Customer")
+@Table(name = "User")
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
