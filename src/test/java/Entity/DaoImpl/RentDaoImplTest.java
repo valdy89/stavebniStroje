@@ -11,12 +11,12 @@ import Entity.Machine;
 import Entity.Rent;
 import Entity.Revision;
 import Util.LegalStatus;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -28,6 +28,7 @@ import org.junit.Test;
 
 /**
  * Class for testing CustomerDao
+ *
  * @author milos
  */
 public class RentDaoImplTest {
@@ -162,22 +163,22 @@ public class RentDaoImplTest {
 
         Assert.assertEquals(rents, returnedList);
     }
-    
+
     @Test
     public void testFindByDate() {
-        
+
         Rent rent1 = createRent();
         Rent rent2 = createRent();
-        
+
         rent1.setStartOfRent(changeDay(new Date(), -3));
         rent1.setEndOfRent(changeDay(new Date(), -2));
-        
+
         rent2.setStartOfRent(changeDay(new Date(), -1));
         rent2.setEndOfRent(changeDay(new Date(), 1));
-        
+
         insert(rent1);
         insert(rent2);
-        
+
         Collection<Rent> col = instance.findByDate(new Date());
         Assert.assertEquals(1, col.size());
         Assert.assertTrue(col.contains(rent2));
@@ -187,9 +188,9 @@ public class RentDaoImplTest {
     public void testFindByCustomer() {
         Customer c = createCustomer();
         Machine m = createMachine();
-        
+
     }
-    
+
     private void insert(Rent rent) {
         em.getTransaction().begin();
         instance.persist(rent);
@@ -216,12 +217,12 @@ public class RentDaoImplTest {
 
     private Date changeDay(Date date, int day) {
         Calendar cal = Calendar.getInstance();
-        
+
         cal.setTime(date);
         cal.add(Calendar.DATE, day);
         return cal.getTime();
     }
-    
+
     private Rent createRent() {
         Customer c = createCustomer();
         Machine m = createMachine();
@@ -270,6 +271,7 @@ public class RentDaoImplTest {
         Machine m = new Machine();
         m.setDescription("nice machine");
         m.setName("Name");
+        m.setPrice(BigDecimal.ZERO);
         m.setRents(new ArrayList<Rent>());
         m.setRevisions(new ArrayDeque<Revision>());
         m.setType("Type A");
