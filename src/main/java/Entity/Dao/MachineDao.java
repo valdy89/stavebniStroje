@@ -6,13 +6,14 @@
 package Entity.Dao;
 
 import Entity.Machine;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import org.joda.money.BigMoney;
 
 /**
  *
- * @author Milan
+ * @author Milan Valúšek
  */
 public interface MachineDao {
 
@@ -30,9 +31,9 @@ public interface MachineDao {
 
     List<Machine> findAll();
 
-    List<Machine> findByRevisionDate(Date specificDate);
+    //We will not probably use it
+    //List<Machine> findByRevisionDate(Date specificDate);
+    //List<Machine> findByRentDate(Date dateFrom, Date dateTo);
 
-    List<Machine> findByRevisionDate(Date dateFrom, Date dateTo);
-
-    List<Machine> findByPrice(BigMoney price);
+    List<Machine> findByPrice(BigDecimal price);
 }

@@ -5,15 +5,17 @@
 package Entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
+import org.joda.money.BigMoney;
 
 /**
  *
- * @author xvalusek
+ * @author Milan Valúšek
  */
 @Entity
 @Table(name = "Machine")
@@ -28,7 +30,7 @@ public class Machine implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private String type;
 
     @Column
@@ -40,6 +42,9 @@ public class Machine implements Serializable {
     @OneToMany(mappedBy = "machine")
     private Collection<Revision> revisions = new ArrayList<Revision>();
 
+    @Column(nullable = false)
+    private BigDecimal price;
+    
     public long getId() {
         return id;
     }
@@ -86,6 +91,14 @@ public class Machine implements Serializable {
 
     public void setRevisions(Collection<Revision> revisions) {
         this.revisions = revisions;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     @Override

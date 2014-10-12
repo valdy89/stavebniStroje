@@ -5,20 +5,25 @@
  */
 package Entity.DaoImpl;
 
+import Entity.Customer;
 import Entity.Machine;
 import Entity.Rent;
 import Entity.Revision;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import org.joda.money.BigMoney;
+import org.joda.money.BigMoneyProvider;
+import org.joda.money.CurrencyUnit;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -28,13 +33,13 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Milan
+ * @author Milan Valúšek
  */
 public class MachineDaoImplTest {
 
     @PersistenceUnit
     public EntityManagerFactory emf;
-    
+
     @PersistenceUnit
     public EntityManager em;
 
@@ -42,105 +47,99 @@ public class MachineDaoImplTest {
     Machine machine;
 
     public MachineDaoImplTest() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("stroje");
-        em = emf.createEntityManager();
-        instance = new MachineDaoImpl(em);
+        emf = Persistence.createEntityManagerFactory("stroje");
 
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-        
-
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
     }
 
     @Before
     public void setUp() {
-       em.getTransaction().begin();
+        
+        em = emf.createEntityManager();
+        instance = new MachineDaoImpl(em);
+        em.getTransaction().begin();
         Machine machine = new Machine();
         machine.setType("P");
         machine.setName("Persist");
         machine.setDescription("Persis");
-        Collection<Rent> rent = new ArrayList<Rent>();
+        machine.setPrice(new BigDecimal(1000));
+        Rent rent1 = new Rent();
+        rent1.setMachine(machine);
+        rent1.setStartOfRent(new Date(2010, 10, 10));
+        rent1.setEndOfRent(new Date(2010, 10, 15));
+        rent1.setCustomer(new Customer());
+        Collection<Rent> rents = new ArrayList<Rent>();
         Collection<Revision> revisions = new ArrayList<Revision>();
-        machine.setRents(rent);
+        rents.add(rent1);
+        machine.setRents(rents);
         machine.setRevisions(revisions);
-        
+
         em.persist(machine);
+        
+        
         em.refresh(machine);
         this.machine = machine;
         em.getTransaction().commit();
-       
-       
+
     }
 
     @After
     public void tearDown() {
-         em.close();
-           }
+        em.close();
+    }
 
     /**
      * Test of persist method, of class MachineDaoImpl.
      */
     @Test
     public void testPersist() {
-        
-         em.getTransaction().begin();
-         machine = new Machine();
-        machine.setType("4568");
-        machine.setName("Test");
-        machine.setDescription("test");
-        Set<Rent> rent = new HashSet<Rent>();
-        machine.setRents(rent);
-        
+
+        em.getTransaction().begin();
         instance.persist(machine);
         em.getTransaction().commit();
         assertTrue(machine.getId() > 0);
     }
-    
-     /**
+
+    /**
      * Test of update method, of class MachineDaoImpl.
      */
-     @Test
-     public void testUpdate() {
-     em.getTransaction().begin();
-     String machineBefore = em.find(Machine.class, machine.getId()).getName();
-     machine.setName("New persist");
-     instance.update(machine);
-     String machineNew = em.find(Machine.class, machine.getId()).getName();
-     em.getTransaction().commit();
-     
-         assertNotSame(machineNew,machineBefore);
-     }
+    @Test
+    public void testUpdate() {
+        em.getTransaction().begin();
+        String machineBefore = em.find(Machine.class, machine.getId()).getName();
+        machine.setName("New persist");
+        instance.update(machine);
+        String machineNew = em.find(Machine.class, machine.getId()).getName();
+        em.getTransaction().commit();
 
-     @Test
-     public void testRemove() {
-     em.getTransaction().begin();
-     Machine machineBefore = em.find(Machine.class, machine.getId());
-         assertNotNull(machineBefore);
-     instance.remove(machine);
-     Machine machineNew = em.find(Machine.class, machine.getId());
-     assertNull(machineNew);
-     em.getTransaction().commit();
-     }
+        assertNotSame(machineNew, machineBefore);
+    }
+
+    @Test
+    public void testRemove() {
+
+        em.getTransaction().begin();
+        Machine machineBefore = em.find(Machine.class, machine.getId());
+        assertNotNull(machineBefore);
+        instance.remove(machine);
+        Machine machineNew = em.find(Machine.class, machine.getId());
+        em.getTransaction().commit();
+
+        assertNull(machineNew);
+
+    }
 
     /**
      * Test of findById method, of class MachineDaoImpl.
      */
     @Test
     public void testFindById() {
-        System.out.println("findById");
-        Long id = null;
-        MachineDaoImpl instance = null;
-        Machine expResult = null;
-        Machine result = instance.findById(id);
-        assertEquals(expResult, result);
+        
+        em.getTransaction().begin();
+        Machine m = instance.findById(machine.getId());
+        em.getTransaction().commit();
+        assertEquals(machine, m);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -148,13 +147,15 @@ public class MachineDaoImplTest {
      */
     @Test
     public void testFindAll() {
-        System.out.println("findAll");
-        MachineDaoImpl instance = null;
-        List<Machine> expResult = null;
-        List<Machine> result = instance.findAll();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+     
+        Collection<Machine> expResult = new ArrayList();
+        expResult.add(machine);
+        em.getTransaction().begin();
+        Collection<Machine> result = instance.findAll();
+        em.getTransaction().commit();
+        
+         assertEquals(expResult, result);
+        
     }
 
     /**
@@ -162,59 +163,77 @@ public class MachineDaoImplTest {
      */
     @Test
     public void testFindByType() {
-        System.out.println("findByType");
-        String type = "";
-        MachineDaoImpl instance = null;
-        List<Machine> expResult = null;
-        List<Machine> result = instance.findByType(type);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+         Collection<Machine> expResult = new ArrayList();
+        expResult.add(machine);
+        em.getTransaction().begin();
+        Collection<Machine> result = instance.findByType(machine.getType());
+        Collection<Machine> notResult = instance.findByType("P123");
+        em.getTransaction().commit();
+        
+         assertEquals(expResult, result);
+         assertNotSame(notResult, expResult);
     }
+    
+    
 
-    /**
-     * Test of findByRevisionDate method, of class MachineDaoImpl.
-     */
-    @Test
-    public void testFindByRevisionDate_Date() {
-        System.out.println("findByRevisionDate");
-        Date specificDate = null;
-        MachineDaoImpl instance = null;
-        List<Machine> expResult = null;
-        List<Machine> result = instance.findByRevisionDate(specificDate);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of findByRevisionDate method, of class MachineDaoImpl.
-     */
-    @Test
-    public void testFindByRevisionDate_Date_Date() {
-        System.out.println("findByRevisionDate");
-        Date dateFrom = null;
-        Date dateTo = null;
-        MachineDaoImpl instance = null;
-        List<Machine> expResult = null;
-        List<Machine> result = instance.findByRevisionDate(dateFrom, dateTo);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
 
     /**
      * Test of findByPrice method, of class MachineDaoImpl.
      */
     @Test
     public void testFindByPrice() {
-        System.out.println("findByPrice");
-        BigMoney price = null;
-        MachineDaoImpl instance = null;
-        List<Machine> expResult = null;
-        List<Machine> result = instance.findByPrice(price);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
+      
+         Collection<Machine> expResult = new ArrayList();
+        expResult.add(machine);
+        em.getTransaction().begin();
+        Collection<Machine> result = instance.findByPrice(new BigDecimal(1000));
+        Collection<Machine> notResult = instance.findByPrice(new BigDecimal(10020));
+        em.getTransaction().commit();
+        
+         assertEquals(expResult, result);
     }
+    
+    
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveNull() {
+         em.getTransaction().begin();
+        instance.remove(null);
+         em.getTransaction().commit();
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindByIdNull() {
+         em.getTransaction().begin();
+        instance.findById(null);
+         em.getTransaction().commit();
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateNull() {
+         em.getTransaction().begin();
+        instance.update(null);
+         em.getTransaction().commit();
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testPersistNull() {
+         em.getTransaction().begin();
+        instance.persist(null);
+         em.getTransaction().commit();
+    }
+    /*
+    @Test
+    public void testFindByRentDate_Date_Date() {
+       Collection<Machine> expResult = new ArrayList();
+        expResult.add(machine);
+        em.getTransaction().begin();
+        
+        List<Machine> result = instance.findByRentDate(new Date(2010, 10, 5), new Date(2010, 10, 20));
+         em.getTransaction().commit();
+        assertEquals(expResult, result);
+        
+    }*/
+    
 }
+

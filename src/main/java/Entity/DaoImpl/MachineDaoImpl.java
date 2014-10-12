@@ -5,9 +5,11 @@
  */
 package Entity.DaoImpl;
 
+import Entity.Customer;
 import Entity.Dao.MachineDao;
 import Entity.Machine;
 import java.lang.reflect.ParameterizedType;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -24,11 +26,11 @@ public class MachineDaoImpl implements MachineDao {
     public MachineDaoImpl(EntityManager em) {
         entityManager = em;
     }
-    
+
     @Override
     public void persist(Machine machine) {
-       if (machine == null) {
-            throw new IllegalArgumentException("Customer to be updated cannot to be null.");
+        if (machine == null) {
+            throw new IllegalArgumentException("Machine to be persist cannot to be null.");
         }
         entityManager.persist(machine);
         entityManager.flush();
@@ -37,6 +39,9 @@ public class MachineDaoImpl implements MachineDao {
 
     @Override
     public void update(Machine machine) {
+        if (machine == null) {
+            throw new IllegalArgumentException("Machine to be update cannot to be null.");
+        }
         entityManager.merge(machine);
         entityManager.persist(machine);
         entityManager.flush();
@@ -45,11 +50,17 @@ public class MachineDaoImpl implements MachineDao {
     }
 
     public void remove(Machine machine) {
+        if (machine == null) {
+            throw new IllegalArgumentException("Machine to be remove cannot to be null.");
+        }
         entityManager.remove(machine);
         entityManager.flush();
     }
 
     public Machine findById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("ID of machine to be find by id cannot to be null or 0.");
+        }
         return (Machine) entityManager.find(Machine.class, id);
     }
 
@@ -62,34 +73,46 @@ public class MachineDaoImpl implements MachineDao {
 
     @Override
     public List<Machine> findByType(String type) {
-        Query q = entityManager.createQuery(
-                "SELECT machine FROM Machine machine WHERE type = " + type.toString());
-        return (List) q.getResultList();
+        if (type == null) {
+            throw new IllegalArgumentException("Machine to be find by type cannot to be null");
+        }
+        TypedQuery<Machine> tq = entityManager.createQuery(
+                "SELECT machine FROM Machine machine WHERE type = :type", Machine.class);
+        tq.setParameter("type", type);
+        return (List) tq.getResultList();
     }
-
+/* right now postponed - not sure if we will use it
     @Override
     public List<Machine> findByRevisionDate(Date specificDate) {
-        Query q = entityManager.createQuery(
-                "SELECT machine FROM Machine machine JOIN machine.revision  revision WHERE revision.dateOfRevision = :date_since");
-        q.setParameter("date_since", specificDate);
-        return (List) q.getResultList();
+        if (specificDate == null) {
+            throw new IllegalArgumentException("Machine to be find by date cannot to be null");
+        }
+        TypedQuery<Machine> tq = entityManager.createQuery(
+                "SELECT machine FROM Machine machine JOIN machine.revision  revision WHERE revision.dateOfRevision >= :date_since", Machine.class);
+        tq.setParameter("date_since", specificDate);
+        return (List) tq.getResultList();
     }
 
     @Override
-    public List<Machine> findByRevisionDate(Date dateFrom, Date dateTo) {
-
-        Query q = entityManager.createQuery(
-                "SELECT machine FROM Machine machine JOIN machine.revision  revision WHERE revision.dateOfRevision BETWEEN :date_from AND :date_to");
-        q.setParameter("date_from", dateFrom);
-        q.setParameter("date_to", dateTo);
-        return (List) q.getResultList();
+    public List<Machine> findByRentDate(Date dateFrom, Date dateTo) {
+        if (dateFrom == null || dateTo == null) {
+            throw new IllegalArgumentException("Machine to be find between dates cannot to be null");
+        }
+        TypedQuery<Machine> tq = entityManager.createQuery(
+                "SELECT machine FROM Machine as machine JOIN machine.rent as rent WHERE rent.startOfRent BETWEEN :date_from AND :date_to OR rent.startOfRent BETWEEN :date_from AND :date_to ", Machine.class);
+        tq.setParameter("date_from", dateFrom.getDate());
+        tq.setParameter("date_to", dateTo.getDate());
+        return (List) tq.getResultList();
     }
-
+*/
     @Override
-    public List<Machine> findByPrice(BigMoney price) {
-        Query q = entityManager.createQuery(
-                "SELECT machine FROM Machine machine WHERE type = " + price.getAmount());
-        return (List) q.getResultList();
+    public List<Machine> findByPrice(BigDecimal price) {
+        TypedQuery<Machine> tq = entityManager.createQuery(
+                "SELECT machine FROM Machine machine WHERE price = :price", Machine.class);
+        tq.setParameter("price", price);
+        return (List) tq.getResultList();
     }
+
+   
 
 }
