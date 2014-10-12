@@ -18,4 +18,7 @@ public class Revision implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    
+    @ManyToOne
+    private Machine machine;
 }

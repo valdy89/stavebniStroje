@@ -36,6 +36,9 @@ public class Machine implements Serializable {
 
     @OneToMany(mappedBy = "machine")
     private Collection<Rent> rents = new ArrayList<Rent>();
+    
+    @OneToMany(mappedBy = "machine")
+    private Collection<Revision> revisions = new ArrayList<Revision>();
 
     public long getId() {
         return id;
@@ -73,8 +76,16 @@ public class Machine implements Serializable {
         return rents;
     }
 
-    public void setRents(Set<Rent> rents) {
+    public void setRents(Collection<Rent> rents) {
         this.rents = rents;
+    }
+
+    public Collection<Revision> getRevisions() {
+        return revisions;
+    }
+
+    public void setRevisions(Collection<Revision> revisions) {
+        this.revisions = revisions;
     }
 
     @Override
