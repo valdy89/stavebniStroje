@@ -9,8 +9,8 @@ import Entity.Customer;
 import Entity.Machine;
 import Entity.Rent;
 import java.time.Duration;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -28,13 +28,13 @@ public interface RentDao {
     Rent findById(Long id);
     
     // Other find methods
-    List<Rent> findAll();
+    Collection<Rent> findAll();
     
-    List<Rent> findByCustomer(Customer customer);
+    Collection<Rent> findByCustomer(Customer customer);
 
-    List<Rent> findByMachine(Machine machine);
+    Collection<Rent> findByMachine(Machine machine);
     
-    List<Rent> findByDuration(Duration duration);
+    Collection<Rent> findByDuration(Duration duration);
     
-    List<Rent> findByDate(Date date);
+    Collection<Rent> findByDate(Date date);
 }

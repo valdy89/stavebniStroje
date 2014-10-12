@@ -10,7 +10,6 @@ import Entity.Dao.RentDao;
 import Entity.Machine;
 import Entity.Rent;
 import java.time.Duration;
-import java.time.Period;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -106,5 +105,4 @@ public class RentDaoImpl implements RentDao {
         q.setParameter("date", date);
         return q.getResultList();
     }
-
 }
