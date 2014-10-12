@@ -14,13 +14,13 @@ import java.util.List;
  */
 public interface CustomerDao {
 
-    public void createCustomer(Customer customer);
+    public void persist(Customer customer);
 
-    public Customer getCustomer(Long id);
+    public Customer findById(Long id);
 
-    public void updateCustomer(Customer customer);
+    public void update(Customer customer);
 
-    public void removeCustomer(Customer customer);
+    public void remove(Customer customer);
 
     public List<Customer> findAll();
 

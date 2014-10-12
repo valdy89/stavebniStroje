@@ -10,6 +10,7 @@ import Entity.Dao.CustomerDao;
 import java.util.List;
 import Util.LegalStatus;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -22,16 +23,24 @@ public class CustomerDaoImpl implements CustomerDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    public CustomerDaoImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+    
+    
     @Override
-    public void createCustomer(Customer customer) {
+    public void persist(Customer customer) {
         if (customer == null) {
             throw new IllegalArgumentException("Customer cannot to be null.");
         }
-
+        entityManager.persist(customer);
+        entityManager.flush();
+        entityManager.refresh(customer);
+       
     }
 
     @Override
-    public Customer getCustomer(Long id) {
+    public Customer findById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Id of the customer cannot be null.");
         }
@@ -41,7 +50,7 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public void updateCustomer(Customer customer) {
+    public void update(Customer customer) {
         if (customer == null) {
             throw new IllegalArgumentException("Customer to be updated cannot to be null.");
         }
@@ -50,7 +59,7 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public void removeCustomer(Customer customer) {
+    public void remove(Customer customer) {
         if (customer == null) {
             throw new IllegalArgumentException("Customer to be removed cannot to be null.");
         }
