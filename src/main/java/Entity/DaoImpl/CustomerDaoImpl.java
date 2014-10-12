@@ -15,6 +15,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 /**
+ * This class implements CustomerDao interface which is used for managing
+ * customer in DB
  *
  * @author milos
  */
@@ -26,8 +28,12 @@ public class CustomerDaoImpl implements CustomerDao {
     public CustomerDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-    
-    
+
+    /**
+     * Method for adding customer to the DB
+     *
+     * @param customer customer which should be added to the DB
+     */
     @Override
     public void persist(Customer customer) {
         if (customer == null) {
@@ -36,9 +42,15 @@ public class CustomerDaoImpl implements CustomerDao {
         entityManager.persist(customer);
         entityManager.flush();
         entityManager.refresh(customer);
-       
+
     }
 
+    /**
+     * This method returns customer which is owner of the Id
+     *
+     * @param id id of the customer which we want to find
+     * @return customer which is owner of the given id
+     */
     @Override
     public Customer findById(Long id) {
         if (id == null) {
@@ -49,6 +61,11 @@ public class CustomerDaoImpl implements CustomerDao {
 
     }
 
+    /**
+     * method is used for updating customer in the DB
+     *
+     * @param customer which needs to be updated
+     */
     @Override
     public void update(Customer customer) {
         if (customer == null) {
@@ -58,6 +75,11 @@ public class CustomerDaoImpl implements CustomerDao {
 
     }
 
+    /**
+     * This method is used to remove customer from the DB
+     *
+     * @param customer which should be removed from the DB
+     */
     @Override
     public void remove(Customer customer) {
         if (customer == null) {
@@ -71,6 +93,11 @@ public class CustomerDaoImpl implements CustomerDao {
 
     }
 
+    /**
+     * This method returns all customers from the DB
+     *
+     * @return list of customers from the DB
+     */
     @Override
     public List<Customer> findAll() {
         TypedQuery<Customer> tq = entityManager.createQuery(
