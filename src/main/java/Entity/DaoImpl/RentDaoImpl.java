@@ -11,15 +11,18 @@ import Entity.Machine;
 import Entity.Rent;
 import java.time.Duration;
 import java.time.Period;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
  * @author Jiri Weiser, 374154
  */
 public class RentDaoImpl implements RentDao {
+
     protected EntityManager entityManager;
 
     public RentDaoImpl(EntityManager em) {
@@ -28,7 +31,9 @@ public class RentDaoImpl implements RentDao {
 
     @Override
     public void persist(Rent rent) {
-        assert rent != null : "Rent to be persisted cannot to be null.";
+        if (rent == null) {
+            throw new IllegalArgumentException("Rent cannot be null.");
+        }
 
         entityManager.persist(rent);
         entityManager.flush();
@@ -37,8 +42,12 @@ public class RentDaoImpl implements RentDao {
 
     @Override
     public void update(Rent rent) {
-        assert rent != null : "Rent to be updated cannot to be null.";
-
+        if (rent == null) {
+            throw new IllegalArgumentException("Rent cannot be null.");
+        }
+        if (findById(rent.getId()) == null) {
+            throw new IllegalArgumentException("Rent must exist before updating.");
+        }
         entityManager.merge(rent);
         entityManager.persist(rent);
         entityManager.flush();
@@ -47,7 +56,12 @@ public class RentDaoImpl implements RentDao {
 
     @Override
     public void remove(Rent rent) {
-        assert rent != null : "Rent to be removed cannot to be null.";
+        if (rent == null) {
+            throw new IllegalArgumentException("Rent cannot be null.");
+        }
+        if (findById(rent.getId()) == null) {
+            throw new IllegalArgumentException("Rent must exist before updating.");
+        }
 
         entityManager.remove(rent);
         entityManager.flush();
@@ -59,28 +73,38 @@ public class RentDaoImpl implements RentDao {
     }
 
     @Override
-    public List<Rent> findAll() {
+    public Collection<Rent> findAll() {
+        Query q = entityManager.createQuery(
+                "SELECT rent FROM Rent rent");
+        return q.getResultList();
+    }
+
+    @Override
+    public Collection<Rent> findByCustomer(Customer customer) {
+        Query q = entityManager.createQuery(
+                "SELECT revision FROM Revision revision WHERE customer.id = :id");
+        q.setParameter("id", customer.getId());
+        return q.getResultList();
+    }
+
+    @Override
+    public Collection<Rent> findByMachine(Machine machine) {
+        Query q = entityManager.createQuery(
+                "SELECT revision FROM Revision revision");
+        return q.getResultList();
+    }
+
+    @Override
+    public Collection<Rent> findByDuration(Duration duration) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Rent> findByCustomer(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Rent> findByMachine(Machine machine) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Rent> findByDuration(Duration duration) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Rent> findByDate(Date date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Collection<Rent> findByDate(Date date) {
+        Query q = entityManager.createQuery(
+                "SELECT rent FROM Rent rent WHERE :date BETWEEN startOfRent AND endOfRent");
+        q.setParameter("date", date);
+        return q.getResultList();
     }
 
 }
