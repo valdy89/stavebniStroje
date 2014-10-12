@@ -5,15 +5,11 @@
  */
 package Entity.DaoImpl;
 
-import Entity.Customer;
 import Entity.Dao.MachineDao;
 import Entity.Machine;
-import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
-import org.joda.money.BigMoney;
 
 /**
  *

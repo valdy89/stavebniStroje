@@ -7,9 +7,7 @@ package Entity.Dao;
 
 import Entity.Machine;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
-import org.joda.money.BigMoney;
 
 /**
  *

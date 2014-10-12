@@ -9,9 +9,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.*;
-import org.joda.money.BigMoney;
 
 /**
  *
