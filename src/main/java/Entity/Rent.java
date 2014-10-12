@@ -14,22 +14,23 @@ import javax.persistence.*;
  * @author Jiri Weiser, 374154
  */
 @Entity
+@Table(name = "Rent")
 public class Rent implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id = 0;
-    
+
     @ManyToOne
     private Machine machine;
-    
+
     @ManyToOne
     private Customer customer;
-    
+
     @Temporal(TemporalType.DATE)
     private Date startOfRent;
-    
+
     @Temporal(TemporalType.DATE)
     private Date endOfRent;
 
@@ -72,7 +73,7 @@ public class Rent implements Serializable {
     public void setEndOfRent(Date endOfRent) {
         this.endOfRent = endOfRent;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -102,12 +103,12 @@ public class Rent implements Serializable {
         if (!Objects.equals(this.customer, other.customer)) {
             return false;
         }
+        //if (this.startOfRent.compareTo(other.startOfRent) == 0) {
         if (!Objects.equals(this.startOfRent, other.startOfRent)) {
             return false;
         }
-        
+
         return Objects.equals(this.endOfRent, other.endOfRent);
     }
-
 
 }
