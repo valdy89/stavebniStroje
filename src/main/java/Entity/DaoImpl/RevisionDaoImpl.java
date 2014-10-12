@@ -27,14 +27,18 @@ public class RevisionDaoImpl implements RevisionDao {
 
     @Override
     public void persist(Revision revision) {
-        assert revision != null : "Revision cannot be null.";
+        if (revision == null) {
+            throw new IllegalArgumentException("Revision cannot be null.");
+        }
 
         entityManager.persist(revision);
     }
 
     @Override
     public void update(Revision revision) {
-        assert revision != null : "Revision cannot be null.";
+        if (revision == null) {
+            throw new IllegalArgumentException("Revision cannot be null.");
+        }
         if (findById(revision.getId()) == null) {
             throw new IllegalArgumentException("Revision must exists before updating.");
         }
@@ -43,7 +47,9 @@ public class RevisionDaoImpl implements RevisionDao {
 
     @Override
     public void remove(Revision revision) {
-        assert revision != null : "Revision cannot be null.";
+        if (revision == null) {
+            throw new IllegalArgumentException("Revision cannot be null.");
+        }
         if (findById(revision.getId()) == null) {
             throw new IllegalArgumentException("Revision must exists before removing.");
         }
@@ -52,7 +58,9 @@ public class RevisionDaoImpl implements RevisionDao {
 
     @Override
     public Revision findById(Long id) {
-        assert id != null : "Revision cannot be null.";
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null.");
+        }
 
         return (Revision) entityManager.find(Revision.class, id);
     }
