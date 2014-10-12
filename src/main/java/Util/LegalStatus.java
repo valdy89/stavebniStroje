@@ -6,7 +6,7 @@
 package Util;
 
 /**
- *
+ * Enum used to store different legal status which can have a customer
  * @author milos
  */
 public enum LegalStatus {
@@ -16,10 +16,17 @@ public enum LegalStatus {
 
     private String legalStatus;
 
+/**
+ * method for adding legal status
+ * @param status which should be added
+ */   
     LegalStatus(String status) {
         this.legalStatus = status;
     }
-
+/**
+ * This method returns legal status
+ * @return legalStatus
+ */
     public String getCustomerStatus() {
         return legalStatus;
     }
