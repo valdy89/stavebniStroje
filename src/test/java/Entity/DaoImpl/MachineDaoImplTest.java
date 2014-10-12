@@ -129,7 +129,7 @@ public class MachineDaoImplTest {
         Machine m = instance.findById(machine.getId());
         em.getTransaction().commit();
         assertEquals(machine, m);
-        // TODO review the generated test code and remove the default call to fail.
+        
        
     }
 
