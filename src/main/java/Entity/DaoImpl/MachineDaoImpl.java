@@ -38,6 +38,9 @@ public class MachineDaoImpl implements MachineDao {
         if (machine == null) {
             throw new IllegalArgumentException("Machine to be update cannot to be null.");
         }
+        if (findById(machine.getId()) == null) {
+            throw new IllegalArgumentException("Machine must exists before updating.");
+        }
         entityManager.merge(machine);
         entityManager.persist(machine);
         entityManager.flush();
