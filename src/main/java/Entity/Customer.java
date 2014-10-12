@@ -15,7 +15,7 @@ import javax.persistence.Entity;
 import Util.LegalStatus;
 
 /**
- *
+ * This class represent customer which can rent a machine
  * @author Milos Petrovic
  */
 @Entity
@@ -35,46 +35,70 @@ public class Customer implements Serializable {
     @Column(name = "LEGALSTATUS")
     private LegalStatus legalStatus;
 
+/**
+ *This method returns customer's ID
+ */    
     public long getId() {
         return id;
     }
-
+/**
+ *This method sets customer's ID
+ */ 
     public void setId(long id) {
         this.id = id;
     }
-
+/**
+ *This method returns customer's first name
+ */
     public String getFirstName() {
         return firstName;
     }
-
+/**
+ *This method set customer's first name
+ */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
+/**
+ *This method returns customer's second/last name
+ */
     public String getSecondName() {
         return secondName;
     }
-
+/**
+ *This method sets customer's second/last name
+ */
     public void setSecondName(String secondName) {
         this.secondName = secondName;
     }
-
+/**
+ *This method returns customer's address
+ */
     public String getAddress() {
         return address;
     }
 
+ /**
+ *This method sets customer's address
+ */
     public void setAddress(String address) {
         this.address = address;
     }
-
+ /**
+ *This method returns customer's legal status. if he is a natural or legal 
+ */
     public LegalStatus getLegalStatus() {
         return legalStatus;
     }
-
+ /**
+ *This method sets customer's legal status
+ */
     public void setLegalStatus(LegalStatus legalStatus) {
         this.legalStatus = legalStatus;
     }
-
+ /**
+ *This method create hash code for the customer
+ */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -83,7 +107,9 @@ public class Customer implements Serializable {
         hash = 31 * hash + Objects.hashCode(this.secondName);
         return hash;
     }
-
+ /**
+ *This method compare two instances
+ */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -110,7 +136,9 @@ public class Customer implements Serializable {
         }
         return true;
     }
-
+ /**
+ *This method prints information about customer
+ */
     @Override
     public String toString() {
         return "Customer{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + secondName + ", address=" + address + ", legalStatus=" + legalStatus + '}';
