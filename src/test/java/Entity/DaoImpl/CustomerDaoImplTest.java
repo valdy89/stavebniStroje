@@ -55,6 +55,30 @@ public class CustomerDaoImplTest {
         Assert.assertTrue(customer.getId() > 0);
     }
     
+    @Test(expected = IllegalArgumentException.class)
+    public void testPersistNull() {
+        instance.persist(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateNull() {
+        instance.update(null);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveNull() {
+        instance.remove(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateNonexistent() {
+        instance.update(create());
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveNonexitent() {
+        instance.remove(create());
+    }
+    
     @Test
     public void testUpdate() {
         Customer customer = create();
