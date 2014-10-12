@@ -71,6 +71,9 @@ public class CustomerDaoImpl implements CustomerDao {
         if (customer == null) {
             throw new IllegalArgumentException("Customer to be updated cannot to be null.");
         }
+        if (findById(customer.getId()) == null) {
+            throw new IllegalArgumentException("Customer must exists before updating.");
+        }
         entityManager.merge(customer);
 
     }
