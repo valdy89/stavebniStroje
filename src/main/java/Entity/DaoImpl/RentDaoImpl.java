@@ -9,7 +9,6 @@ import Entity.Customer;
 import Entity.Dao.RentDao;
 import Entity.Machine;
 import Entity.Rent;
-import java.time.Duration;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -93,11 +92,7 @@ public class RentDaoImpl implements RentDao {
         return q.getResultList();
     }
 
-    @Override
-    public Collection<Rent> findByDuration(Duration duration) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+   
     @Override
     public Collection<Rent> findByDate(Date date) {
         Query q = entityManager.createQuery(

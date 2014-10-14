@@ -8,7 +8,7 @@ package Entity.Dao;
 import Entity.Customer;
 import Entity.Machine;
 import Entity.Rent;
-import java.time.Duration;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -33,8 +33,6 @@ public interface RentDao {
     Collection<Rent> findByCustomer(Customer customer);
 
     Collection<Rent> findByMachine(Machine machine);
-    
-    Collection<Rent> findByDuration(Duration duration);
     
     Collection<Rent> findByDate(Date date);
 }
