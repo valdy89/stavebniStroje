@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity;
+package cz.muni.fi.stavebniStroje.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Entity;
-import Util.LegalStatus;
+import cz.muni.fi.stavebniStroje.util.LegalStatus;
 
 /**
  * This class represent customer which can rent a machine

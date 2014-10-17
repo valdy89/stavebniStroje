@@ -4,13 +4,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity.DaoImpl;
+package cz.muni.fi.stavebniStroje.test.daoImpl;
 
-import Entity.Customer;
-import Entity.Machine;
-import Entity.Rent;
-import Entity.Revision;
-import Util.LegalStatus;
+import cz.muni.fi.stavebniStroje.daoImpl.CustomerDaoImpl;
+import cz.muni.fi.stavebniStroje.daoImpl.MachineDaoImpl;
+import cz.muni.fi.stavebniStroje.daoImpl.RentDaoImpl;
+import cz.muni.fi.stavebniStroje.entity.Customer;
+import cz.muni.fi.stavebniStroje.entity.Machine;
+import cz.muni.fi.stavebniStroje.entity.Rent;
+import cz.muni.fi.stavebniStroje.entity.Revision;
+import cz.muni.fi.stavebniStroje.util.LegalStatus;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.ArrayDeque;

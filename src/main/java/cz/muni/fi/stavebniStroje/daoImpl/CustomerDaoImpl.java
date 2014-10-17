@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity.DaoImpl;
+package cz.muni.fi.stavebniStroje.daoImpl;
 
-import Entity.Customer;
-import Entity.Dao.CustomerDao;
+import cz.muni.fi.stavebniStroje.entity.Customer;
+import cz.muni.fi.stavebniStroje.dao.CustomerDao;
 import java.util.List;
-import Util.LegalStatus;
+import cz.muni.fi.stavebniStroje.util.LegalStatus;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
@@ -40,8 +40,7 @@ public class CustomerDaoImpl implements CustomerDao {
             throw new IllegalArgumentException("Customer cannot to be null.");
         }
         entityManager.persist(customer);
-        entityManager.flush();
-        entityManager.refresh(customer);
+        
 
     }
 

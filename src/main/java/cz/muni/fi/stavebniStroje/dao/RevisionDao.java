@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity.Dao;
+package cz.muni.fi.stavebniStroje.dao;
 
-import Entity.Machine;
-import Entity.Revision;
+import cz.muni.fi.stavebniStroje.entity.Machine;
+import cz.muni.fi.stavebniStroje.entity.Revision;
 import java.util.Collection;
 import java.util.Date;
 

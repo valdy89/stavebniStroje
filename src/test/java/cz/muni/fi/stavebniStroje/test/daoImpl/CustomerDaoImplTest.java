@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity.DaoImpl;
+package cz.muni.fi.stavebniStroje.test.daoImpl;
 
-import Entity.Customer;
-import Util.LegalStatus;
+import cz.muni.fi.stavebniStroje.daoImpl.CustomerDaoImpl;
+import cz.muni.fi.stavebniStroje.entity.Customer;
+import cz.muni.fi.stavebniStroje.util.LegalStatus;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;

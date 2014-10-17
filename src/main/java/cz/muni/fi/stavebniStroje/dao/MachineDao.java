@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity.Dao;
+package cz.muni.fi.stavebniStroje.dao;
 
-import Entity.Machine;
+import cz.muni.fi.stavebniStroje.entity.Machine;
 import java.math.BigDecimal;
 import java.util.List;
 

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity.DaoImpl;
+package cz.muni.fi.stavebniStroje.daoImpl;
 
-import Entity.Dao.MachineDao;
-import Entity.Machine;
+import cz.muni.fi.stavebniStroje.dao.MachineDao;
+import cz.muni.fi.stavebniStroje.entity.Machine;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.*;
@@ -29,8 +29,7 @@ public class MachineDaoImpl implements MachineDao {
             throw new IllegalArgumentException("Machine to be persist cannot to be null.");
         }
         entityManager.persist(machine);
-        entityManager.flush();
-        entityManager.refresh(machine);
+    
     }
 
     @Override
@@ -43,8 +42,7 @@ public class MachineDaoImpl implements MachineDao {
         }
         entityManager.merge(machine);
         entityManager.persist(machine);
-        entityManager.flush();
-        entityManager.refresh(machine);
+       
 
     }
 
@@ -53,7 +51,7 @@ public class MachineDaoImpl implements MachineDao {
             throw new IllegalArgumentException("Machine to be remove cannot to be null.");
         }
         entityManager.remove(machine);
-        entityManager.flush();
+    
     }
 
     public Machine findById(Long id) {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Util;
+package cz.muni.fi.stavebniStroje.util;
 
 /**
  * Enum used to store different legal status which can have a customer
