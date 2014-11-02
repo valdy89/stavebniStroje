@@ -6,7 +6,7 @@
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
         
     <import resource="spring-db-config.xml"/>
-     <import resource="dozer.xml"/>
+    <import resource="dozer.xml"/>
     <aop:aspectj-autoproxy/>
     <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
     

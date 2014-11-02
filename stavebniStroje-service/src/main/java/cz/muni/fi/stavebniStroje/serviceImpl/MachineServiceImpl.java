@@ -51,8 +51,8 @@ public class MachineServiceImpl implements MachineService {
         machineDto.setType(type);
         Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
         machineDao.persist(machine);
-
-        return machineDto;
+        
+        return dozerBeanMapper.map(machine, MachineDto.class);
     }
 
 }
