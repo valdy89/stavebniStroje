@@ -45,7 +45,7 @@
             <artifactId>spring-test</artifactId>
             <version>4.0.6.RELEASE</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
             <version>4.0.6.RELEASE</version>
@@ -77,11 +77,17 @@
             <version>4.10</version>
             <scope>test</scope>
         </dependency>
-       <dependency>
-           <groupId>cz.muni.fi</groupId>
-           <artifactId>stavebniStroje-domain</artifactId>
-           <version>1.0-SNAPSHOT</version>
-       </dependency>
+        <dependency>
+            <groupId>cz.muni.fi</groupId>
+            <artifactId>stavebniStroje-domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+       
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>5.2.2</version>
+        </dependency>
         
     </dependencies>
 </project>

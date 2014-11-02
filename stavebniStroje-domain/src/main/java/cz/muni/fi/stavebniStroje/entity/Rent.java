@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.*;
 
+
 /**
  *
  * @author Jiri Weiser, 374154
