@@ -16,9 +16,15 @@ import javax.persistence.*;
  * @author Milan
  */
 public class MachineDaoImpl implements MachineDao {
-
+    
+    @PersistenceContext
     protected EntityManager entityManager;
-
+    
+    
+    
+    public MachineDaoImpl() { 
+    }
+    
     public MachineDaoImpl(EntityManager em) {
         entityManager = em;
     }

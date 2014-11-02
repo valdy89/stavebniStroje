@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+        
+    <import resource="spring-db-config.xml"/>
+    <aop:aspectj-autoproxy/>
+    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
+    
+
+    <bean id="stavebniStrojeMachineDao" class="cz.muni.fi.stavebniStroje.daoImpl.MachineDaoImpl" />
+
+    <bean id="bankService" class="eu.ibacz.swsc.spring.di.testdependencyinjection.service.impl.BankServiceImpl">
+        <property name="stavebniStrojeMachineDao" ref="springJdbcCustomerDao"/>
+    </bean>
+    
+    <bean class="eu.ibacz.swsc.spring.di.testdependencyinjection.aspect.BankServiceLoggingAspect"  />
+    
+
+    
+</beans>
