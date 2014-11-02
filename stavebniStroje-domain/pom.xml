@@ -5,6 +5,11 @@
     <artifactId>stavebniStroje-domain</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+        <parent>
+        <groupId>cz.muni.fi</groupId>
+        <artifactId>stavebniStroje</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
