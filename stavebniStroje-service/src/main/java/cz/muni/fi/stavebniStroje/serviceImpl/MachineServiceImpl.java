@@ -4,9 +4,11 @@ import cz.muni.fi.stavebniStroje.dao.MachineDao;
 import cz.muni.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.entity.Machine;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MachineServiceImpl implements MachineService {
 
     private MachineDao machineDao;
-    private EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
     @Autowired
     DozerBeanMapper dozerBeanMapper;
 
@@ -31,7 +33,7 @@ public class MachineServiceImpl implements MachineService {
 
     @Required
     public void setEMF(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
+        this.entityManager = entityManagerFactory.createEntityManager();
     }
 
     public List<MachineDto> getAllMachines() {
@@ -49,9 +51,11 @@ public class MachineServiceImpl implements MachineService {
         machineDto.setName(name);
         machineDto.setPrice(price);
         machineDto.setType(type);
-        Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
-        machineDao.persist(machine);
         
+        Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
+        entityManager.getTransaction();
+        machineDao.persist(machine);
+        entityManager.close();
         return dozerBeanMapper.map(machine, MachineDto.class);
     }
 
