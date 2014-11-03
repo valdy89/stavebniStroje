@@ -9,7 +9,6 @@ import cz.muni.fi.stavebniStroje.entity.Customer;
 import cz.muni.fi.stavebniStroje.dao.RentDao;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 import cz.muni.fi.stavebniStroje.entity.Rent;
-import java.time.Duration;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -91,10 +90,7 @@ public class RentDaoImpl implements RentDao {
         return q.getResultList();
     }
 
-    @Override
-    public Collection<Rent> findByDuration(Duration duration) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     @Override
     public Collection<Rent> findByDate(Date date) {
