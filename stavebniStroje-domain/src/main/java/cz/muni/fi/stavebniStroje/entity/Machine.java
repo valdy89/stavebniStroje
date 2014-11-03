@@ -35,10 +35,10 @@ public class Machine implements Serializable {
     private String description;
 
     @OneToMany(mappedBy = "machine")
-    private Collection<Rent> rents = new ArrayList<Rent>();
+    private Collection<Rent> rents = new ArrayList<>();
     
     @OneToMany(mappedBy = "machine")
-    private Collection<Revision> revisions = new ArrayList<Revision>();
+    private Collection<Revision> revisions = new ArrayList<>();
 
     @Column(nullable = false)
     private BigDecimal price;

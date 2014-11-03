@@ -7,6 +7,7 @@ package cz.muni.fi.stavebniStroje.daoImpl;
 
 import cz.muni.fi.stavebniStroje.dao.MachineDao;
 import cz.muni.fi.stavebniStroje.entity.Machine;
+
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.*;

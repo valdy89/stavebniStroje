@@ -8,7 +8,7 @@ package cz.muni.fi.stavebniStroje.dao;
 import cz.muni.fi.stavebniStroje.entity.Customer;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 import cz.muni.fi.stavebniStroje.entity.Rent;
-import java.time.Duration;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -34,7 +34,6 @@ public interface RentDao {
 
     Collection<Rent> findByMachine(Machine machine);
     
-    Collection<Rent> findByDuration(Duration duration);
     
     Collection<Rent> findByDate(Date date);
 }
