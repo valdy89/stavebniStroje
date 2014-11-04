@@ -11,9 +11,20 @@
     <class-b>cz.muni.fi.stavebniStroje.dto.MachineDto</class-b>
     
   </mapping>
+  
   <mapping>         
     <class-a>cz.muni.fi.stavebniStroje.entity.Customer</class-a>
     <class-b>cz.muni.fi.stavebniStroje.dto.CustomerDto</class-b>
+  </mapping>
+  
+   <mapping>         
+    <class-a>cz.muni.fi.stavebniStroje.entity.Rent</class-a>
+    <class-b>cz.muni.fi.stavebniStroje.dto.RentDto</class-b>
+  </mapping>
+  
+  <mapping>         
+    <class-a>cz.muni.fi.stavebniStroje.entity.Revision</class-a>
+    <class-b>cz.muni.fi.stavebniStroje.dto.RevisionDto</class-b>
   </mapping>
 
 </mappings>
