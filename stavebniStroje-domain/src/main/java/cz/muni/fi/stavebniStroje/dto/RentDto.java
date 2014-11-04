@@ -18,12 +18,13 @@ import java.util.Objects;
  */
 public class RentDto implements Serializable {
     
+    private static final long serialVersionUID = 1L;
     private long id = 0;
     private Machine machine;
     private Customer customer;
     private Date startOfRent;
     private Date endOfRent;
-
+   
     public long getId() {
         return id;
     }
