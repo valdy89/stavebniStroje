@@ -6,8 +6,8 @@
 
 package cz.muni.stavebniStroje.service;
 
-import cz.muni.fi.stavebniStroje.entity.Machine;
-import cz.muni.fi.stavebniStroje.entity.Revision;
+import cz.muni.fi.stavebniStroje.dto.MachineDto;
+import cz.muni.fi.stavebniStroje.dto.RevisionDto;
 import java.util.Collection;
 import java.util.Date;
 
@@ -17,18 +17,18 @@ import java.util.Date;
  */
 public interface RevisionService {
     
-    void newRevision(Revision revision);
+    void newRevision(RevisionDto revisionDto);
     
-    void updateRevision(Revision revision);
+    void updateRevision(RevisionDto revisionDto);
 
-    void removeRevision(Revision revision);
+    void removeRevision(RevisionDto revisionDto);
     
-    Revision findRevisionById(Long id);
+    RevisionDto findRevisionById(Long id);
     
-    Collection<Revision> findByEndOfRevision(Date date);
+    Collection<RevisionDto> findByEndOfRevision(Date date);
     
-    Collection<Revision> findRevisionByMachine(Machine machine);
+    Collection<RevisionDto> findRevisionByMachine(MachineDto machineDto);
     
-    Collection<Revision> findAllRevision();
+    Collection<RevisionDto> findAllRevision();
     
 }

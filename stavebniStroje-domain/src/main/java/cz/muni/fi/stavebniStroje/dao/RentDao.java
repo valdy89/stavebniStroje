@@ -34,6 +34,5 @@ public interface RentDao {
 
     Collection<Rent> findByMachine(Machine machine);
     
-    
     Collection<Rent> findByDate(Date date);
 }

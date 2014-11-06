@@ -1,9 +1,10 @@
 
 package cz.muni.stavebniStroje.service;
 
-import cz.muni.fi.stavebniStroje.entity.Customer;
-import cz.muni.fi.stavebniStroje.entity.Machine;
-import cz.muni.fi.stavebniStroje.entity.Rent;
+
+import cz.muni.fi.stavebniStroje.dto.CustomerDto;
+import cz.muni.fi.stavebniStroje.dto.MachineDto;
+import cz.muni.fi.stavebniStroje.dto.RentDto;
 import java.util.Collection;
 import java.util.Date;
 
@@ -15,22 +16,21 @@ import java.util.Date;
  */
 public interface RentService {
 
-    void newRent(Rent rent);
+    void newRent(RentDto rentDto);
 
-    void updateRent(Rent rent);
+    void updateRent(RentDto rentDto);
 
-    void removeRent(Rent rent);
+    void removeRent(RentDto rentDto);
 
-    Rent findRentById(Long id);
+    RentDto findRentById(Long id);
 
-    Collection<Rent> findAllRent();
+    Collection<RentDto> findAllRent();
 
-    Collection<Rent> findRentByCustomer(Customer customer);
+    Collection<RentDto> findRentByCustomer(CustomerDto customerDto);
 
-    Collection<Rent> findRentByMachine(Machine machine);
-
-    Collection<Rent> findRentByStartDate(Date date);
+    Collection<RentDto> findRentByMachine(MachineDto machineDto);
     
-    Collection<Rent> findRentByEndDate(Date date);
+    Collection<RentDto> findRentByDate(Date date);
+
 
 }
