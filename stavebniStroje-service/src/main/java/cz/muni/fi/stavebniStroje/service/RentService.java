@@ -7,6 +7,7 @@ import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.dto.RentDto;
 import java.util.Collection;
 import java.util.Date;
+import org.springframework.dao.DataAccessException;
 
 /**
  *
@@ -16,21 +17,20 @@ import java.util.Date;
  */
 public interface RentService {
 
-    void newRent(RentDto rentDto);
+    void newRent(RentDto rentDto) throws DataAccessException;
 
-    void updateRent(RentDto rentDto);
+    void updateRent(RentDto rentDto) throws DataAccessException;
 
-    void removeRent(RentDto rentDto);
+    void removeRent(RentDto rentDto) throws DataAccessException;
 
-    RentDto findRentById(Long id);
+    RentDto findRentById(Long id) throws DataAccessException;
 
-    Collection<RentDto> findAllRent();
+    Collection<RentDto> findAllRent() throws DataAccessException;
 
-    Collection<RentDto> findRentByCustomer(CustomerDto customerDto);
+    Collection<RentDto> findRentByCustomer(CustomerDto customerDto) throws DataAccessException;
 
-    Collection<RentDto> findRentByMachine(MachineDto machineDto);
+    Collection<RentDto> findRentByMachine(MachineDto machineDto) throws DataAccessException;
     
-    Collection<RentDto> findRentByDate(Date date);
-
+    Collection<RentDto> findRentByDate(Date date) throws DataAccessException;
 
 }

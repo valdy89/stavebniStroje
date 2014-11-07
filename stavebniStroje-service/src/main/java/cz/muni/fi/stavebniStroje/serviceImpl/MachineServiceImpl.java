@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.dozer.DozerBeanMapper;
@@ -16,6 +15,7 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Jiří Weiser
  */
-
 @Service
 @Transactional
 public class MachineServiceImpl implements MachineService {
@@ -51,10 +50,22 @@ public class MachineServiceImpl implements MachineService {
         if (machineDto == null) {
             throw new NullPointerException("Argument machineDto was null");
         }
+<<<<<<< HEAD
         Machine machine = mapper.map(machineDto, Machine.class);
        
         machineDao.persist(machine);
        
+=======
+        try {
+            Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
+            entityManager.getTransaction();
+            machineDao.persist(machine);
+            entityManager.close();
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot persist item due to exception", ex) {
+            };
+        }
+>>>>>>> origin/master
     }
 
     @Transactional
@@ -63,8 +74,13 @@ public class MachineServiceImpl implements MachineService {
         if (machineDto == null) {
             throw new NullPointerException("Argument machineDto was null");
         }
-        Machine machine = mapper.map(machineDto, Machine.class);
-        machineDao.update(machine);
+        try {
+            Machine machine = mapper.map(machineDto, Machine.class);
+            machineDao.update(machine);
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot update item due to exception", ex) {
+            };
+        }
     }
 
     @Override
@@ -72,8 +88,13 @@ public class MachineServiceImpl implements MachineService {
         if (machineDto == null) {
             throw new NullPointerException("Argument machineDto was null");
         }
-        Machine machine = mapper.map(machineDto, Machine.class);
-        machineDao.remove(machine);
+        try {
+            Machine machine = mapper.map(machineDto, Machine.class);
+            machineDao.remove(machine);
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot remove item due to exception", ex) {
+            };
+        }
     }
 
     @Transactional(readOnly = true)
@@ -82,18 +103,28 @@ public class MachineServiceImpl implements MachineService {
         if (id == null) {
             throw new NullPointerException("Argument id was null");
         }
-        Machine machine = machineDao.findById(id);
-        return mapper.map(machine, MachineDto.class);
+        try {
+            Machine machine = machineDao.findById(id);
+            return mapper.map(machine, MachineDto.class);
+        } catch (Exception ex) {
+            throw new DataAccessException("Canno read items due to exception", ex) {
+            };
+        }
     }
 
     @Transactional(readOnly = true)
     @Override
     public Collection<MachineDto> findAllMachines() {
-        List<MachineDto> machines = new ArrayList<>();
-        for (Machine machine : machineDao.findAll()) {
-            machines.add(mapper.map(machine, MachineDto.class));
+        Collection<MachineDto> machines = new ArrayList<>();
+        try {
+            for (Machine machine : machineDao.findAll()) {
+                machines.add(mapper.map(machine, MachineDto.class));
+            }
+            return machines;
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot read items due to exception", ex) {
+            };
         }
-        return machines;
     }
 
     @Transactional(readOnly = true)
@@ -103,10 +134,15 @@ public class MachineServiceImpl implements MachineService {
             throw new NullPointerException("Argument type was null");
         }
         Collection<MachineDto> machines = new ArrayList<>();
-        for (Machine machine : machineDao.findByType(type)) {
-            machines.add(mapper.map(machine, MachineDto.class));
+        try {
+            for (Machine machine : machineDao.findByType(type)) {
+                machines.add(mapper.map(machine, MachineDto.class));
+            }
+            return machines;
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot read items due to exception", ex) {
+            };
         }
-        return machines;
     }
 
     @Override
@@ -115,10 +151,15 @@ public class MachineServiceImpl implements MachineService {
             throw new NullPointerException("Argument price was null");
         }
         Collection<MachineDto> machines = new ArrayList<>();
-        for (Machine machine : machineDao.findByPrice(price)) {
-            machines.add(mapper.map(machine, MachineDto.class));
+        try {
+            for (Machine machine : machineDao.findByPrice(price)) {
+                machines.add(mapper.map(machine, MachineDto.class));
+            }
+            return machines;
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot read items due to exception", ex) {
+            };
         }
-        return machines;
     }
 
 }

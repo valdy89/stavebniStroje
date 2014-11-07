@@ -10,6 +10,7 @@ import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.dto.RevisionDto;
 import java.util.Collection;
 import java.util.Date;
+import org.springframework.dao.DataAccessException;
 
 /**
  *
@@ -17,18 +18,18 @@ import java.util.Date;
  */
 public interface RevisionService {
     
-    void newRevision(RevisionDto revisionDto);
+    void newRevision(RevisionDto revisionDto) throws DataAccessException;
     
-    void updateRevision(RevisionDto revisionDto);
+    void updateRevision(RevisionDto revisionDto) throws DataAccessException;
 
-    void removeRevision(RevisionDto revisionDto);
+    void removeRevision(RevisionDto revisionDto) throws DataAccessException;
     
-    RevisionDto findRevisionById(Long id);
+    RevisionDto findRevisionById(Long id) throws DataAccessException;
     
-    Collection<RevisionDto> findByEndOfRevision(Date date);
+    Collection<RevisionDto> findByEndOfRevision(Date date) throws DataAccessException;
     
-    Collection<RevisionDto> findRevisionByMachine(MachineDto machineDto);
+    Collection<RevisionDto> findRevisionByMachine(MachineDto machineDto) throws DataAccessException;
     
-    Collection<RevisionDto> findAllRevision();
+    Collection<RevisionDto> findAllRevision() throws DataAccessException;
     
 }

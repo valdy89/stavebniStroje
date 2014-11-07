@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package cz.muni.fi.stavebniStroje.serviceImpl;
 
 import cz.muni.fi.stavebniStroje.dao.RevisionDao;
@@ -15,19 +14,19 @@ import cz.muni.fi.stavebniStroje.service.RevisionService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.dao.DataAccessException;
 
 /**
  *
  * @author Dominik David
  */
 public class RevisionServiceImpl implements RevisionService {
-    
+
     private RevisionDao revisionDao;
     private EntityManager entityManager;
     @Autowired
@@ -37,22 +36,27 @@ public class RevisionServiceImpl implements RevisionService {
     public void setEMF(EntityManagerFactory entityManagerFactory) {
         this.entityManager = entityManagerFactory.createEntityManager();
     }
+
     @Required
     public void setRevisionDao(RevisionDao revisionDao) {
         this.revisionDao = revisionDao;
     }
-    
+
     @Override
     public void newRevision(RevisionDto revisionDto) {
         if (revisionDto == null) {
             throw new NullPointerException("Argument revisionDto is null");
         }
-        
-        Revision revision = dozerBeanMapper.map(revisionDto, Revision.class);
-        entityManager.getTransaction();
-        revisionDao.persist(revision);
-        entityManager.close();
-            
+        try {
+            Revision revision = dozerBeanMapper.map(revisionDto, Revision.class);
+            entityManager.getTransaction();
+            revisionDao.persist(revision);
+            entityManager.close();
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot persist item due to exception", ex) {
+            };
+        }
+
     }
 
     @Override
@@ -60,8 +64,13 @@ public class RevisionServiceImpl implements RevisionService {
         if (revisionDto == null) {
             throw new NullPointerException("Argument revisionDto is null");
         }
-        Revision revision = dozerBeanMapper.map(revisionDto, Revision.class);
-        revisionDao.update(revision);        
+        try {
+            Revision revision = dozerBeanMapper.map(revisionDto, Revision.class);
+            revisionDao.update(revision);
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot update item due to exception", ex) {
+            };
+        }
     }
 
     @Override
@@ -69,8 +78,13 @@ public class RevisionServiceImpl implements RevisionService {
         if (revisionDto == null) {
             throw new NullPointerException("Argument revisionDto is null");
         }
-        Revision revision = dozerBeanMapper.map(revisionDto, Revision.class);
-        revisionDao.remove(revision);
+        try {
+            Revision revision = dozerBeanMapper.map(revisionDto, Revision.class);
+            revisionDao.remove(revision);
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot remove item due to exception", ex) {
+            };
+        }
     }
 
     @Override
@@ -78,38 +92,57 @@ public class RevisionServiceImpl implements RevisionService {
         if (id == null) {
             throw new NullPointerException("Argument id was null");
         }
-        Revision revision;
-        revision = revisionDao.findById(id);
-        return dozerBeanMapper.map(revision, RevisionDto.class);
+        try {
+            Revision revision;
+            revision = revisionDao.findById(id);
+            return dozerBeanMapper.map(revision, RevisionDto.class);
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot read item due to exception", ex) {
+            };
+        }
     }
 
     @Override
     public Collection<RevisionDto> findByEndOfRevision(Date date) {
-        List<RevisionDto> revisions = new ArrayList<>();
-        for (Revision revision : revisionDao.findByDate(date)) {
-            revisions.add(dozerBeanMapper.map(revision, RevisionDto.class));
+        Collection<RevisionDto> revisions = new ArrayList<>();
+        try {
+            for (Revision revision : revisionDao.findByDate(date)) {
+                revisions.add(dozerBeanMapper.map(revision, RevisionDto.class));
+            }
+            return revisions;
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot read items due to exception", ex) {
+            };
         }
-        return revisions;
     }
 
     // nejsem si jisty zda ma byt parametr machineDto, nebo jen machine,  funkce v DAO bere jen machine
-    
     @Override
     public Collection<RevisionDto> findRevisionByMachine(MachineDto machineDto) {
-        List<RevisionDto> revisions = new ArrayList<>();  
-        for (Revision revision : revisionDao.findByMachine(dozerBeanMapper.map(machineDto, Machine.class))) {
-            revisions.add(dozerBeanMapper.map(revision, RevisionDto.class));
+        Collection<RevisionDto> revisions = new ArrayList<>();
+        try {
+            for (Revision revision : revisionDao.findByMachine(dozerBeanMapper.map(machineDto, Machine.class))) {
+                revisions.add(dozerBeanMapper.map(revision, RevisionDto.class));
+            }
+            return revisions;
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot read items due to exception", ex) {
+            };
         }
-        return revisions;
     }
 
     @Override
     public Collection<RevisionDto> findAllRevision() {
-        List<RevisionDto> revisions = new ArrayList<>();
-        for (Revision revision : revisionDao.findAll()) {
-            revisions.add(dozerBeanMapper.map(revision, RevisionDto.class));
+        Collection<RevisionDto> revisions = new ArrayList<>();
+        try {
+            for (Revision revision : revisionDao.findAll()) {
+                revisions.add(dozerBeanMapper.map(revision, RevisionDto.class));
+            }
+            return revisions;
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot read items due to exception", ex) {
+            };
         }
-        return revisions;
     }
-    
+
 }
