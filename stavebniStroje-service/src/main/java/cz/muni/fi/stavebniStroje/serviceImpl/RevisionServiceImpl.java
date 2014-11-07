@@ -28,14 +28,9 @@ import org.springframework.dao.DataAccessException;
 public class RevisionServiceImpl implements RevisionService {
 
     private RevisionDao revisionDao;
-    private EntityManager entityManager;
+
     @Autowired
     DozerBeanMapper dozerBeanMapper;
-
-    @Required
-    public void setEMF(EntityManagerFactory entityManagerFactory) {
-        this.entityManager = entityManagerFactory.createEntityManager();
-    }
 
     @Required
     public void setRevisionDao(RevisionDao revisionDao) {
@@ -45,24 +40,21 @@ public class RevisionServiceImpl implements RevisionService {
     @Override
     public void newRevision(RevisionDto revisionDto) {
         if (revisionDto == null) {
-            throw new NullPointerException("Argument revisionDto is null");
+            throw new IllegalArgumentException("Argument revisionDto is null");
         }
         try {
             Revision revision = dozerBeanMapper.map(revisionDto, Revision.class);
-            entityManager.getTransaction();
             revisionDao.persist(revision);
-            entityManager.close();
         } catch (Exception ex) {
             throw new DataAccessException("Cannot persist item due to exception", ex) {
             };
         }
-
     }
 
     @Override
     public void updateRevision(RevisionDto revisionDto) {
         if (revisionDto == null) {
-            throw new NullPointerException("Argument revisionDto is null");
+            throw new IllegalArgumentException("Argument revisionDto is null");
         }
         try {
             Revision revision = dozerBeanMapper.map(revisionDto, Revision.class);
@@ -76,7 +68,7 @@ public class RevisionServiceImpl implements RevisionService {
     @Override
     public void removeRevision(RevisionDto revisionDto) {
         if (revisionDto == null) {
-            throw new NullPointerException("Argument revisionDto is null");
+            throw new IllegalArgumentException("Argument revisionDto is null");
         }
         try {
             Revision revision = dozerBeanMapper.map(revisionDto, Revision.class);
@@ -90,7 +82,7 @@ public class RevisionServiceImpl implements RevisionService {
     @Override
     public RevisionDto findRevisionById(Long id) {
         if (id == null) {
-            throw new NullPointerException("Argument id was null");
+            throw new IllegalArgumentException("Argument id was null");
         }
         try {
             Revision revision;
@@ -104,6 +96,9 @@ public class RevisionServiceImpl implements RevisionService {
 
     @Override
     public Collection<RevisionDto> findByEndOfRevision(Date date) {
+        if (date == null) {
+            throw new IllegalArgumentException("Argument date was null");
+        }
         Collection<RevisionDto> revisions = new ArrayList<>();
         try {
             for (Revision revision : revisionDao.findByDate(date)) {
@@ -119,6 +114,9 @@ public class RevisionServiceImpl implements RevisionService {
     // nejsem si jisty zda ma byt parametr machineDto, nebo jen machine,  funkce v DAO bere jen machine
     @Override
     public Collection<RevisionDto> findRevisionByMachine(MachineDto machineDto) {
+        if (machineDto == null) {
+            throw new IllegalArgumentException("Argument machineDto was null");
+        }
         Collection<RevisionDto> revisions = new ArrayList<>();
         try {
             for (Revision revision : revisionDao.findByMachine(dozerBeanMapper.map(machineDto, Machine.class))) {
