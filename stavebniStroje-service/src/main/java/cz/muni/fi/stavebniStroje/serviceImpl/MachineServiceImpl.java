@@ -53,7 +53,7 @@ public class MachineServiceImpl implements MachineService {
         
 
         try {
-            Machine machine = mapper.map(machineDto, Machine.class);
+            Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
             
             machineDao.persist(machine);
             
