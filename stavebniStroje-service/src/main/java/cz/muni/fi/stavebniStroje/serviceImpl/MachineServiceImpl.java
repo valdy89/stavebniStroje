@@ -47,7 +47,7 @@ public class MachineServiceImpl implements MachineService {
     @Override
     public void newMachine(MachineDto machineDto) {
         if (machineDto == null) {
-            throw new NullPointerException("Argument machineDto was null");
+            throw new IllegalArgumentException("Argument machineDto was null");
         }
 
         
@@ -68,7 +68,7 @@ public class MachineServiceImpl implements MachineService {
     @Override
     public void updateMachine(MachineDto machineDto) {
         if (machineDto == null) {
-            throw new NullPointerException("Argument machineDto was null");
+            throw new IllegalArgumentException("Argument machineDto was null");
         }
         try {
             Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
@@ -82,7 +82,7 @@ public class MachineServiceImpl implements MachineService {
     @Override
     public void removeMachine(MachineDto machineDto) {
         if (machineDto == null) {
-            throw new NullPointerException("Argument machineDto was null");
+            throw new IllegalArgumentException("Argument machineDto was null");
         }
         try {
             Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
@@ -97,7 +97,7 @@ public class MachineServiceImpl implements MachineService {
     @Override
     public MachineDto findMachineById(Long id) {
         if (id == null) {
-            throw new NullPointerException("Argument id was null");
+            throw new IllegalArgumentException("Argument id was null");
         }
         try {
             Machine machine = machineDao.findById(id);
@@ -127,7 +127,7 @@ public class MachineServiceImpl implements MachineService {
     @Override
     public Collection<MachineDto> findMachinesByType(String type) {
         if (type == null) {
-            throw new NullPointerException("Argument type was null");
+            throw new IllegalArgumentException("Argument type was null");
         }
         Collection<MachineDto> machines = new ArrayList<>();
         try {
@@ -144,7 +144,7 @@ public class MachineServiceImpl implements MachineService {
     @Override
     public Collection<MachineDto> findMachinesByPrice(BigDecimal price) {
         if (price == null) {
-            throw new NullPointerException("Argument price was null");
+            throw new IllegalArgumentException("Argument price was null");
         }
         Collection<MachineDto> machines = new ArrayList<>();
         try {
