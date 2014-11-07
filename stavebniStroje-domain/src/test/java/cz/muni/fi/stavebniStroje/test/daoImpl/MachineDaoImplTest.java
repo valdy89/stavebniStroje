@@ -214,18 +214,7 @@ public class MachineDaoImplTest {
         instance.persist(null);
          em.getTransaction().commit();
     }
-    /*
-    @Test
-    public void testFindByRentDate_Date_Date() {
-       Collection<Machine> expResult = new ArrayList();
-        expResult.add(machine);
-        em.getTransaction().begin();
-        
-        List<Machine> result = instance.findByRentDate(new Date(2010, 10, 5), new Date(2010, 10, 20));
-         em.getTransaction().commit();
-        assertEquals(expResult, result);
-        
-    }*/
+   
     
 }
 

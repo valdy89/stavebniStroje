@@ -87,8 +87,9 @@ public class RentDaoImplTest {
     @Test
     public void testPersist() {
         Rent rent = createRent();
-
-        insert(rent);
+        em.getTransaction().begin();
+        instance.persist(rent);
+        em.getTransaction().commit();
 
         Assert.assertTrue(rent.getId() > 0);
     }
@@ -140,12 +141,12 @@ public class RentDaoImplTest {
         instance.remove(rent);
         em.getTransaction().commit();
 
-        Rent c = instance.findById(id);
+        Rent c = em.find(Rent.class,id);
         // cannot find by id
         Assert.assertNull(c);
         // passed object was not changed
         Assert.assertNotNull(rent);
-        Assert.assertNull(instance.findById(rent.getId()));
+        Assert.assertNull(em.find(Rent.class,rent.getId()));
     }
 
     @Test
@@ -158,11 +159,12 @@ public class RentDaoImplTest {
 
         em.getTransaction().begin();
         for (Rent r : rents) {
-            instance.persist(r);
+            em.persist(r);
         }
+        Collection<Rent> returnedList = instance.findAll();
         em.getTransaction().commit();
 
-        Collection<Rent> returnedList = instance.findAll();
+        
 
         Assert.assertEquals(rents, returnedList);
     }
@@ -208,9 +210,9 @@ public class RentDaoImplTest {
 
         for (Object o : objs) {
             if (o.getClass() == Customer.class) {
-                instanceC.persist((Customer) o);
+                em.persist((Customer) o);
             } else if (o.getClass() == Machine.class) {
-                instanceM.persist((Machine) o);
+                em.persist((Machine) o);
             } else {
                 throw new IllegalArgumentException("Objs must contain only Customers and Machines.");
             }

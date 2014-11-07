@@ -51,8 +51,9 @@ public class CustomerDaoImplTest {
     @Test
     public void testPersist() {
         Customer customer = create();
-        
-        insert(customer);
+        em.getTransaction().begin();
+        instance.persist(customer);
+        em.getTransaction().commit();
         Assert.assertTrue(customer.getId() > 0);
     }
     
@@ -167,7 +168,7 @@ public class CustomerDaoImplTest {
     
     private void insert(Customer c) {
         em.getTransaction().begin();
-        instance.persist(c);
+        em.persist(c);
         em.getTransaction().commit();
     }
 }
