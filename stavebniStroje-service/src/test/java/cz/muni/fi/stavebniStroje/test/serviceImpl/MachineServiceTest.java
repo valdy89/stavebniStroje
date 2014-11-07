@@ -36,10 +36,15 @@ public class MachineServiceTest extends AbstractIntegrationTest {
 
     @Mock
     private MachineDao stavebniStrojeMachineDao;
+    
+    @Mock
+    private DozerBeanMapper mapper;
 
     
     public MachineServiceTest() {
+        mapper = new DozerBeanMapper();
      MockitoAnnotations.initMocks(this);
+     ReflectionTestUtils.setField(machineService, "dozerBeanMapper", mapper);
       ReflectionTestUtils.setField(machineService, "entityManager", entityManager);
     }
 
@@ -61,7 +66,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
         machine.setName("machine");
         machineService.newMachine(machineDto);
  
-        verify(stavebniStrojeMachineDao).persist(machine);
+        verify(stavebniStrojeMachineDao).persist(mapper.map(machineDto,Machine.class));
         assertNotNull(machine.getId());
 
     }
