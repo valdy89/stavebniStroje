@@ -12,10 +12,17 @@ import cz.muni.fi.stavebniStroje.service.CustomerService;
 import cz.muni.fi.stavebniStroje.serviceImpl.CustomerServiceImpl;
 import cz.muni.fi.stavebniStroje.util.LegalStatus;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.persistence.EntityManager;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Before;
@@ -24,6 +31,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -96,4 +104,90 @@ public class CustomerServiceTest {
         verify(customerDao).persist(customer);
 
     }
+   
+    /**
+     * Test of getCustomer() method from CustomerServiceImpl.
+     */
+    @Test
+    public void testGetCustomer() {
+        Customer customer = new Customer();
+        customer.setId(100L);
+        customer.setFirstName("Milos");
+        customer.setSecondName("Petrovic");
+        customer.setAddress("Tehnicka 9");
+
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setId(100L);
+        customerDto.setFirstName("Milos");
+        customerDto.setSecondName("Petrovic");
+        customerDto.setAddress("Tehnicka 9");
+
+        customerService.createCustomer(customerDto);
+
+        Long id = customer.getId();
+        Mockito.when(customerDao.findById(id)).thenReturn(customer);
+        CustomerDto res = customerService.getCustomer(id);
+        Mockito.verify(customerDao, Mockito.times(1)).findById(id);
+        assertEquals(customerDto.getId(), res.getId());
+
+    }    
+    
+    /**
+     * Test for updateCustomer() method from CustomerServiceImpl.
+     */      
+    @Test
+    public void testUpdateCustomer() {
+        try {
+            customerService.updateCustomer(null);
+            fail("Didn't throw exception when customer to be updated is null.");
+        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
+            fail("Thrown unexpected exception though customer to be updated is null.");
+        }
+
+        Customer customer = this.setNewCustomer("Petr", "Novak", "Vinarska 5", LegalStatus.LEGAL);
+        customer.setId(7L);
+        CustomerDto customerDto = mapper.map(customer, CustomerDto.class);
+        customerService.updateCustomer(customerDto);
+        verify(customerDao).update(customer);
+    }
+
+    /**
+     * Test for removeCustomer() method from CustomerServiceImpl.
+     */    
+    @Test
+    public void testRemove() {
+        try {
+            customerService.removeCustomer(null);
+            fail("Didn't throw exception when customer to be removed is null.");
+        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
+            fail("Thrown unexpected exception though customer to be removed is null.");
+        }
+
+
+        Customer customer = this.setNewCustomer("Petr", "Novak", "Vinarska 5", LegalStatus.LEGAL);
+        customer.setId(7L);
+        CustomerDto remove = mapper.map(customer, CustomerDto.class);
+        customerService.removeCustomer(remove);
+        verify(customerDao).remove(customer);
+    }  
+    
+    
+    /**
+     * Test for findAllCustomer() method from CustomerServiceImpl.
+     */
+    @Test
+    public void testFindAll() {
+        System.out.println("findAll of customer service impl test");
+        List<Customer> customers = new ArrayList<>(Arrays.asList(new Customer[]{c1, c2, c3}));
+        List<CustomerDto> customersDto = new ArrayList<>(Arrays.asList(new CustomerDto[]{
+                    mapper.map(c1, CustomerDto.class),
+                    mapper.map(c2, CustomerDto.class),
+                    mapper.map(c3, CustomerDto.class)
+                }));
+        when(customerDao.findAll()).thenReturn(customers);
+        List<CustomerDto> allCustomers = (List<CustomerDto>) customerService.findAllCustomer();
+        assertEquals(allCustomers, customersDto);
+    }    
 }
