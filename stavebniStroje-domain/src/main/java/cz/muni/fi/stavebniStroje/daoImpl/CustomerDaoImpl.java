@@ -25,6 +25,10 @@ public class CustomerDaoImpl implements CustomerDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    public CustomerDaoImpl() {
+    }
+
+    
     public CustomerDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

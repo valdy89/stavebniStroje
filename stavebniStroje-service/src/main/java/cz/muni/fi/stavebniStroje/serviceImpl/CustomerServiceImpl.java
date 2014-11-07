@@ -27,7 +27,21 @@ public class CustomerServiceImpl implements CustomerService {
     Mapper mapper = new DozerBeanMapper();
     private EntityManager entityManager;
     CustomerDao customerDao;
-
+    
+    
+    @Required
+    public void setEMF(EntityManagerFactory entityManagerFactory) {
+        this.entityManager = entityManagerFactory.createEntityManager();
+    }
+    @Required
+    public void setCustomerDao(CustomerDao customerDao) {
+        this.customerDao = customerDao;
+    }
+    
+    
+    
+    
+    
     @Transactional    
     @Override
     public void createCustomer(CustomerDto customerDto) {
@@ -42,10 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
         entityManager.close();
     }
 
-    @Required
-    public void setCustomerDao(CustomerDao customerDao) {
-        this.customerDao = customerDao;
-    }
+    
 
     @Transactional 
     @Override
@@ -91,9 +102,5 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
-    @Required
-    public void setEMF(EntityManagerFactory entityManagerFactory) {
-        this.entityManager = entityManagerFactory.createEntityManager();
-    }
 
 }

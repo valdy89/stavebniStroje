@@ -5,7 +5,6 @@ import cz.muni.fi.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -45,12 +44,8 @@ public class MachineServiceImpl implements MachineService {
 
     }
 
-    public MachineDto createNewMachine(String name, String description, BigDecimal price, String type) {
-        MachineDto machineDto = new MachineDto();
-        machineDto.setDescription(description);
-        machineDto.setName(name);
-        machineDto.setPrice(price);
-        machineDto.setType(type);
+    public MachineDto createNewMachine(MachineDto machineDto) {
+      
         
         Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
         entityManager.getTransaction();

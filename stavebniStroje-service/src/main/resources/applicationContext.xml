@@ -13,10 +13,33 @@
 
     <bean id="stavebniStrojeMachineDao" class="cz.muni.fi.stavebniStroje.daoImpl.MachineDaoImpl" /> 
     
-
     <bean id="machineService" class="cz.muni.fi.stavebniStroje.serviceImpl.MachineServiceImpl">
         <property name="EMF" ref="entityManagerFactory"/>
         <property name="machineDao" ref="stavebniStrojeMachineDao"/>
+    </bean>
+    
+    
+    <bean id="stavebniStrojeCustomerDao" class="cz.muni.fi.stavebniStroje.daoImpl.CustomerDaoImpl" /> 
+    
+    <bean id="customerService" class="cz.muni.fi.stavebniStroje.serviceImpl.CustomerServiceImpl">
+        <property name="EMF" ref="entityManagerFactory"/>
+        <property name="customerDao" ref="stavebniStrojeCustomerDao"/>
+    </bean>
+    
+    
+    
+    <bean id="stavebniStrojeRentDao" class="cz.muni.fi.stavebniStroje.daoImpl.RentDaoImpl" /> 
+    
+    <bean id="rentService" class="cz.muni.fi.stavebniStroje.serviceImpl.RentServiceImpl">
+        <property name="EMF" ref="entityManagerFactory"/>
+        <property name="rentDao" ref="stavebniStrojeRentDao"/>
+    </bean>
+    
+    <bean id="stavebniStrojeRevisionDao" class="cz.muni.fi.stavebniStroje.daoImpl.RevisionDaoImpl" /> 
+    
+    <bean id="revisionService" class="cz.muni.fi.stavebniStroje.serviceImpl.RevisionServiceImpl">
+        <property name="EMF" ref="entityManagerFactory"/>
+        <property name="revisionDao" ref="stavebniStrojeRevisionDao"/>
     </bean>
     
   

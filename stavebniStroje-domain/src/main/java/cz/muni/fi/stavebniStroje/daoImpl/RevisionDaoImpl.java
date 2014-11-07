@@ -21,6 +21,9 @@ public class RevisionDaoImpl implements RevisionDao {
 
     protected EntityManager entityManager;
 
+    public RevisionDaoImpl() {
+    }
+
     public RevisionDaoImpl(EntityManager em) {
         entityManager = em;
     }

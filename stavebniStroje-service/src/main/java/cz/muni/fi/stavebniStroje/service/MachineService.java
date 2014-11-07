@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface MachineService {
     List<MachineDto> getAllMachines();
-    MachineDto createNewMachine(String name, String description, BigDecimal price, String type);
+    MachineDto createNewMachine(MachineDto machineDto);
 }

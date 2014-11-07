@@ -7,6 +7,7 @@
 package cz.muni.fi.stavebniStroje.serviceImpl;
 
 import cz.muni.fi.stavebniStroje.dao.RentDao;
+import cz.muni.fi.stavebniStroje.dao.RevisionDao;
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.dto.RentDto;
@@ -19,8 +20,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 
 /**
  *
@@ -33,6 +36,15 @@ public class RentServiceImpl implements RentService {
     @Autowired
     DozerBeanMapper dozerBeanMapper;
 
+    @Required
+    public void setEMF(EntityManagerFactory entityManagerFactory) {
+        this.entityManager = entityManagerFactory.createEntityManager();
+    }
+    @Required
+    public void setRentDao(RentDao rentDao) {
+        this.rentDao = rentDao;
+    }
+    
     @Override
     public void newRent(RentDto rentDto) {
          if (rentDto == null) {

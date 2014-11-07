@@ -17,8 +17,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 
 /**
  *
@@ -31,6 +33,15 @@ public class RevisionServiceImpl implements RevisionService {
     @Autowired
     DozerBeanMapper dozerBeanMapper;
 
+    @Required
+    public void setEMF(EntityManagerFactory entityManagerFactory) {
+        this.entityManager = entityManagerFactory.createEntityManager();
+    }
+    @Required
+    public void setRevisionDao(RevisionDao revisionDao) {
+        this.revisionDao = revisionDao;
+    }
+    
     @Override
     public void newRevision(RevisionDto revisionDto) {
         if (revisionDto == null) {

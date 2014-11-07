@@ -27,6 +27,11 @@ public class RentDaoImpl implements RentDao {
         entityManager = em;
     }
 
+    public RentDaoImpl() {
+    }
+    
+    
+
     @Override
     public void persist(Rent rent) {
         if (rent == null) {
