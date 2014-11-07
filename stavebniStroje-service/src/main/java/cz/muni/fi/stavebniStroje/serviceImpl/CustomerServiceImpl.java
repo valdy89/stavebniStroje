@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +26,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class CustomerServiceImpl implements CustomerService {
 
-    Mapper mapper = new DozerBeanMapper();
     private EntityManager entityManager;
     CustomerDao customerDao;
 
+    @Autowired
+    DozerBeanMapper dozerBeanMapper;
+    
     @Required
     public void setEMF(EntityManagerFactory entityManagerFactory) {
         this.entityManager = entityManagerFactory.createEntityManager();
@@ -46,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw new NullPointerException("Argument customerDto was null");
         }
 
-        Customer customer = mapper.map(customerDto, Customer.class);
+        Customer customer = dozerBeanMapper.map(customerDto, Customer.class);
         try {
             entityManager.getTransaction();
             customerDao.persist(customer);
@@ -63,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
         Collection<CustomerDto> customers = new ArrayList<>();
         try {
             for (Customer customer : customerDao.findAll()) {
-                customers.add(mapper.map(customer, CustomerDto.class));
+                customers.add(dozerBeanMapper.map(customer, CustomerDto.class));
             }
             return customers;
         } catch (Exception ex) {
@@ -79,7 +82,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw new NullPointerException("Argument customerDto was null");
         }
         try {
-            Customer customer = mapper.map(customerDto, Customer.class);
+            Customer customer = dozerBeanMapper.map(customerDto, Customer.class);
             customerDao.update(customer);
         } catch (Exception ex) {
             throw new DataAccessException("Cannot update item due to exception", ex) {
@@ -94,7 +97,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw new NullPointerException("Argument customerDto was null");
         }
         try {
-            Customer customer = mapper.map(customerDto, Customer.class);
+            Customer customer = dozerBeanMapper.map(customerDto, Customer.class);
             customerDao.remove(customer);
         } catch (Exception ex) {
             throw new DataAccessException("Cannot remove item due to exception", ex) {
@@ -111,7 +114,7 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             Customer customer;
             customer = customerDao.findById(id);
-            return mapper.map(customer, CustomerDto.class);
+            return dozerBeanMapper.map(customer, CustomerDto.class);
         } catch (Exception ex) {
             throw new DataAccessException("Cannot read item due to exception", ex) {
             };

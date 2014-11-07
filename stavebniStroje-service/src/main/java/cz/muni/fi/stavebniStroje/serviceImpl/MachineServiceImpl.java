@@ -29,7 +29,6 @@ public class MachineServiceImpl implements MachineService {
 
     private EntityManager entityManager;
     private MachineDao machineDao;
-    Mapper mapper = new DozerBeanMapper();
 
     @Autowired
     DozerBeanMapper dozerBeanMapper;
@@ -72,7 +71,7 @@ public class MachineServiceImpl implements MachineService {
             throw new NullPointerException("Argument machineDto was null");
         }
         try {
-            Machine machine = mapper.map(machineDto, Machine.class);
+            Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
             machineDao.update(machine);
         } catch (Exception ex) {
             throw new DataAccessException("Cannot update item due to exception", ex) {
@@ -86,7 +85,7 @@ public class MachineServiceImpl implements MachineService {
             throw new NullPointerException("Argument machineDto was null");
         }
         try {
-            Machine machine = mapper.map(machineDto, Machine.class);
+            Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
             machineDao.remove(machine);
         } catch (Exception ex) {
             throw new DataAccessException("Cannot remove item due to exception", ex) {
@@ -102,7 +101,7 @@ public class MachineServiceImpl implements MachineService {
         }
         try {
             Machine machine = machineDao.findById(id);
-            return mapper.map(machine, MachineDto.class);
+            return dozerBeanMapper.map(machine, MachineDto.class);
         } catch (Exception ex) {
             throw new DataAccessException("Canno read items due to exception", ex) {
             };
@@ -115,7 +114,7 @@ public class MachineServiceImpl implements MachineService {
         Collection<MachineDto> machines = new ArrayList<>();
         try {
             for (Machine machine : machineDao.findAll()) {
-                machines.add(mapper.map(machine, MachineDto.class));
+                machines.add(dozerBeanMapper.map(machine, MachineDto.class));
             }
             return machines;
         } catch (Exception ex) {
@@ -133,7 +132,7 @@ public class MachineServiceImpl implements MachineService {
         Collection<MachineDto> machines = new ArrayList<>();
         try {
             for (Machine machine : machineDao.findByType(type)) {
-                machines.add(mapper.map(machine, MachineDto.class));
+                machines.add(dozerBeanMapper.map(machine, MachineDto.class));
             }
             return machines;
         } catch (Exception ex) {
@@ -150,7 +149,7 @@ public class MachineServiceImpl implements MachineService {
         Collection<MachineDto> machines = new ArrayList<>();
         try {
             for (Machine machine : machineDao.findByPrice(price)) {
-                machines.add(mapper.map(machine, MachineDto.class));
+                machines.add(dozerBeanMapper.map(machine, MachineDto.class));
             }
             return machines;
         } catch (Exception ex) {
