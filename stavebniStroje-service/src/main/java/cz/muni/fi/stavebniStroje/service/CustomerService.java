@@ -7,8 +7,8 @@
 package cz.muni.fi.stavebniStroje.service;
 
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
-import cz.muni.fi.stavebniStroje.util.LegalStatus;
-import java.util.List;
+import java.util.Collection;
+import org.springframework.dao.DataAccessException;
 
 /**
  * This class represent interface for Customer Service which has methods for work with the customer
@@ -17,14 +17,14 @@ import java.util.List;
  */
 public interface CustomerService {
     
-    public void createCustomer(CustomerDto customer);
+    public void createCustomer(CustomerDto customer) throws DataAccessException;
 
-    public CustomerDto getCustomer(Long id);
+    public CustomerDto getCustomer(Long id) throws DataAccessException;
 
-    public void updateCustomer(CustomerDto customer);
+    public void updateCustomer(CustomerDto customer) throws DataAccessException;
 
-    public void removeCustomer(CustomerDto customer);
+    public void removeCustomer(CustomerDto customer) throws DataAccessException;
 
-    public List<CustomerDto> findAllCustomer();
+    public Collection<CustomerDto> findAllCustomer() throws DataAccessException;
 
 }
