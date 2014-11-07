@@ -42,9 +42,6 @@ public class RevisionServiceTest extends AbstractIntegrationTest {
     private RevisionService revisionService = new RevisionServiceImpl();
 
     @Mock
-    private EntityManager em;
-
-    @Mock
     private RevisionDao revisionDao;
 
     @Mock

@@ -1,6 +1,7 @@
 package cz.muni.fi.stavebniStroje.test.serviceImpl;
 
 import cz.muni.fi.stavebniStroje.dao.MachineDao;
+import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import junit.framework.Assert;
 import org.dozer.DozerBeanMapper;
 import org.junit.After;
 import org.junit.Test;
@@ -34,9 +36,6 @@ public class MachineServiceTest extends AbstractIntegrationTest {
     private MachineService machineService = new MachineServiceImpl();
 
     @Mock
-    private EntityManager entityManager;
-
-    @Mock
     private MachineDao stavebniStrojeMachineDao;
 
     @Autowired
@@ -45,18 +44,18 @@ public class MachineServiceTest extends AbstractIntegrationTest {
     public MachineServiceTest() {
 
         MockitoAnnotations.initMocks(this);
-        ReflectionTestUtils.setField(machineService, "dozerBeanMapper", mapper);
-        ReflectionTestUtils.setField(machineService, "entityManager", entityManager);
     }
 
     @Before
     public void before() {
-
+        mapper = new DozerBeanMapper();
+        ReflectionTestUtils.setField(machineService, "dozerBeanMapper", mapper);
+        ReflectionTestUtils.setField(machineService, "machineDao", stavebniStrojeMachineDao);
     }
 
     @After
     public void after() {
-
+        mapper = null;
     }
 
     @Test
@@ -73,7 +72,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    public void updateMachine() throws DataAccessException {
+    public void updateMachine() {
         try {
             machineService.updateMachine(null);
             fail("Didn't throw exception when customer to be updated is null.");
@@ -92,7 +91,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    public void removeMachine() throws DataAccessException {
+    public void removeMachine() {
         try {
             machineService.removeMachine(null);
             fail("Didn't throw exception when machine to be removed is null.");
@@ -128,32 +127,69 @@ public class MachineServiceTest extends AbstractIntegrationTest {
 
     @Test
     public void testFindAll() {
-        
+
         Machine machine1 = new Machine();
         machine1.setId(100L);
         machine1.setName("stroj");
         Machine machine2 = new Machine();
         machine2.setId(100L);
         machine2.setName("stroj");
-        
-        List<Machine> machines = new ArrayList<>();
-        List<CustomerDto> customersDto = new ArrayList<>();
-        
-        
-        
-        
-        
-        when(customerDao.findAll()).thenReturn(customers);
-        List<CustomerDto> allCustomers = (List<CustomerDto>) customerService.findAllCustomer();
-        assertEquals(allCustomers, customersDto);
-    }    
 
-    public Collection<MachineDto> findMachinesByType(String type) throws DataAccessException {
-        return machineService.findMachinesByType(type);
+        List<Machine> machines = new ArrayList<>();
+        machines.add(machine1);
+        machines.add(machine2);
+        List<MachineDto> expected = new ArrayList<>();
+        for (Machine m : machines) {
+            expected.add(mapper.map(m, MachineDto.class));
+        }
+
+        Mockito.when(stavebniStrojeMachineDao.findAll()).thenReturn(machines);
+        Assert.assertEquals(expected, machineService.findAllMachines());
+        Mockito.verify(stavebniStrojeMachineDao, Mockito.times(1)).findAll();
     }
 
-    public Collection<MachineDto> findMachinesByPrice(BigDecimal price) throws DataAccessException {
-        return machineService.findMachinesByPrice(price);
+    @Test
+    public void testFindMachinesByType() {
+        Machine machine1 = new Machine();
+        machine1.setId(100L);
+        machine1.setName("stroj");
+        Machine machine2 = new Machine();
+        machine2.setId(100L);
+        machine2.setName("stroj");
+
+        List<Machine> machines = new ArrayList<>();
+        machines.add(machine1);
+        machines.add(machine2);
+        List<MachineDto> expected = new ArrayList<>();
+        for (Machine m : machines) {
+            expected.add(mapper.map(m, MachineDto.class));
+        }
+        
+        Mockito.when(stavebniStrojeMachineDao.findByType("type")).thenReturn(machines);
+        Assert.assertEquals(expected, machineService.findMachinesByType("type"));
+        Mockito.verify(stavebniStrojeMachineDao, Mockito.times(1)).findByType("type");
+    }
+
+    @Test
+    public void testFindMachinesByPrice() {
+        Machine machine1 = new Machine();
+        machine1.setId(100L);
+        machine1.setName("stroj");
+        Machine machine2 = new Machine();
+        machine2.setId(100L);
+        machine2.setName("stroj");
+
+        List<Machine> machines = new ArrayList<>();
+        machines.add(machine1);
+        machines.add(machine2);
+        List<MachineDto> expected = new ArrayList<>();
+        for (Machine m : machines) {
+            expected.add(mapper.map(m, MachineDto.class));
+        }
+        
+        Mockito.when(stavebniStrojeMachineDao.findByPrice(BigDecimal.ONE)).thenReturn(machines);
+        Assert.assertEquals(expected, machineService.findMachinesByPrice(BigDecimal.ONE));
+        Mockito.verify(stavebniStrojeMachineDao, Mockito.times(1)).findByPrice(BigDecimal.ONE);
     }
 
 }

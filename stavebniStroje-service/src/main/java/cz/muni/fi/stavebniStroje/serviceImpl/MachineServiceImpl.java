@@ -11,7 +11,6 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -27,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MachineServiceImpl implements MachineService {
 
-    private EntityManager entityManager;
     private MachineDao machineDao;
 
     @Autowired
@@ -38,19 +36,12 @@ public class MachineServiceImpl implements MachineService {
         this.machineDao = machineDao;
     }
 
-    @Required
-    public void setEMF(EntityManagerFactory entityManagerFactory) {
-        this.entityManager = entityManagerFactory.createEntityManager();
-    }
-
     @Transactional
     @Override
     public void newMachine(MachineDto machineDto) {
         if (machineDto == null) {
             throw new IllegalArgumentException("Argument machineDto was null");
         }
-
-        
 
         try {
             Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
@@ -103,7 +94,7 @@ public class MachineServiceImpl implements MachineService {
             Machine machine = machineDao.findById(id);
             return dozerBeanMapper.map(machine, MachineDto.class);
         } catch (Exception ex) {
-            throw new DataAccessException("Canno read items due to exception", ex) {
+            throw new DataAccessException("Cannot read items due to exception", ex) {
             };
         }
     }
