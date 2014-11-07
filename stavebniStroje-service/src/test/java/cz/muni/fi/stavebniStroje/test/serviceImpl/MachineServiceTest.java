@@ -5,10 +5,14 @@ import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 
 import cz.muni.fi.stavebniStroje.service.MachineService;
+import cz.muni.fi.stavebniStroje.serviceImpl.MachineServiceImpl;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import org.dozer.DozerBeanMapper;
 import org.junit.After;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +21,31 @@ import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
+import org.mockito.MockitoAnnotations;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class MachineServiceTest extends AbstractIntegrationTest {
 
     @InjectMocks
-    private MachineService machineService;
+    private MachineService machineService = new MachineServiceImpl();
 
     @Mock
-    private EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
 
     @Mock
     private MachineDao stavebniStrojeMachineDao;
-    
 
+    
+    public MachineServiceTest() {
+     MockitoAnnotations.initMocks(this);
+      ReflectionTestUtils.setField(machineService, "entityManager", entityManager);
+    }
 
     @Before
     public void before() {
-        
+
     }
 
     @After
@@ -45,17 +55,15 @@ public class MachineServiceTest extends AbstractIntegrationTest {
 
     @Test
     public void testCreateNewMachine() {
-         MachineDto machineDto =new MachineDto();
-         machineDto.setName("machine");
-         Machine machine = new Machine();
-         machine.setName("machine");
-         when(machineService.createNewMachine(machineDto)).getMock();
-        
-         MachineDto getMachine = machineService.createNewMachine(machineDto);
-        
-        
+        MachineDto machineDto = new MachineDto();
+        machineDto.setName("machine");
+        Machine machine = new Machine();
+        machine.setName("machine");
+        machineService.newMachine(machineDto);
+ 
+        verify(stavebniStrojeMachineDao).persist(machine);
+        assertNotNull(machine.getId());
+
     }
-
-
 
 }

@@ -51,10 +51,10 @@ public class MachineServiceImpl implements MachineService {
         if (machineDto == null) {
             throw new NullPointerException("Argument machineDto was null");
         }
-        Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
-        entityManager.getTransaction();
+        Machine machine = mapper.map(machineDto, Machine.class);
+       
         machineDao.persist(machine);
-        entityManager.close();
+       
     }
 
     @Transactional
