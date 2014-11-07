@@ -21,7 +21,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
+ *This class is used for work with customerDao objects
  * @author Milos
  */
 public class CustomerServiceImpl implements CustomerService {
