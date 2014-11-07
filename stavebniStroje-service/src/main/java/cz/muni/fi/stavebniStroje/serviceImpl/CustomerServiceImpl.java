@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author test
+ * @author Milos
  */
 public class CustomerServiceImpl implements CustomerService {
 
@@ -46,18 +46,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void createCustomer(CustomerDto customerDto) {
         if (customerDto == null) {
-            throw new NullPointerException("Argument customerDto was null");
+            throw new IllegalArgumentException("Argument customerDto was null");
         }
 
         Customer customer = dozerBeanMapper.map(customerDto, Customer.class);
-        try {
-            entityManager.getTransaction();
-            customerDao.persist(customer);
-            entityManager.close();
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot persist item due to exception.", ex) {
-            };
-        }
+        entityManager.getTransaction();
+        customerDao.persist(customer);
+        entityManager.close();
     }
 
     @Transactional
@@ -79,7 +74,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void updateCustomer(CustomerDto customerDto) {
         if (customerDto == null) {
-            throw new NullPointerException("Argument customerDto was null");
+            throw new IllegalArgumentException("Argument customerDto was null");
         }
         try {
             Customer customer = dozerBeanMapper.map(customerDto, Customer.class);
@@ -94,7 +89,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void removeCustomer(CustomerDto customerDto) {
         if (customerDto == null) {
-            throw new NullPointerException("Argument customerDto was null");
+            throw new IllegalArgumentException("Argument customerDto was null");
         }
         try {
             Customer customer = dozerBeanMapper.map(customerDto, Customer.class);
@@ -109,7 +104,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto getCustomer(Long id) {
         if (id == null) {
-            throw new NullPointerException("Argument id was null");
+            throw new IllegalArgumentException("Argument id was null");
         }
         try {
             Customer customer;
