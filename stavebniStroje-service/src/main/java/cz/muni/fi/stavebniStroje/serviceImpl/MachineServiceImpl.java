@@ -50,22 +50,19 @@ public class MachineServiceImpl implements MachineService {
         if (machineDto == null) {
             throw new NullPointerException("Argument machineDto was null");
         }
-<<<<<<< HEAD
-        Machine machine = mapper.map(machineDto, Machine.class);
-       
-        machineDao.persist(machine);
-       
-=======
+
+        
+
         try {
-            Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
-            entityManager.getTransaction();
+            Machine machine = mapper.map(machineDto, Machine.class);
+            
             machineDao.persist(machine);
-            entityManager.close();
+            
         } catch (Exception ex) {
             throw new DataAccessException("Cannot persist item due to exception", ex) {
             };
         }
->>>>>>> origin/master
+
     }
 
     @Transactional
