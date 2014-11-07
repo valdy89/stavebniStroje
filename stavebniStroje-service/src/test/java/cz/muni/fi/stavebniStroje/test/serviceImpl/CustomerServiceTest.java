@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cz.muni.fi.stavebniStroje.test.serviceImpl;
 
 import cz.muni.fi.stavebniStroje.dao.CustomerDao;
@@ -17,12 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Before;
@@ -33,11 +24,10 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
 
 /**
- *
+ * Test for CustomerServiceImp
  * @author Milos Petrovic
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -56,6 +46,14 @@ public class CustomerServiceTest {
     private EntityManager entityManager;
     private DozerBeanMapper mapper;
 
+    /**
+     * method for setting new customer
+     * @param firstName first Name  of the customer
+     * @param lastname last name  of the customer
+     * @param address address  of the customer
+     * @param legalStatus legal Status of the customer
+     * @return 
+     */
     private Customer setNewCustomer(String firstName, String lastname, String address, LegalStatus legalStatus) {
         Customer customer = new Customer();
         customer.setFirstName(firstName);
@@ -66,6 +64,10 @@ public class CustomerServiceTest {
         return customer;
     }
 
+    /**
+     * SetUp method is used for preparation
+     * @throws ParseException 
+     */
     @Before
     public void setUp() throws ParseException {
         mapper = new DozerBeanMapper();
@@ -95,7 +97,7 @@ public class CustomerServiceTest {
         } catch (IllegalArgumentException e) {
         } catch (Exception e) {
             e.printStackTrace(System.out);
-            fail("Thrown unexpected exception though customer to be created is null.");
+            fail("Customer to be created is null.");
         }
 
         Customer customer = this.setNewCustomer("Petr", "Novak", "Vinarska 5", LegalStatus.LEGAL);
@@ -142,7 +144,7 @@ public class CustomerServiceTest {
             fail("Didn't throw exception when customer to be updated is null.");
         } catch (IllegalArgumentException e) {
         } catch (Exception e) {
-            fail("Thrown unexpected exception though customer to be updated is null.");
+            fail("Customer to be updated is null.");
         }
 
         Customer customer = this.setNewCustomer("Petr", "Novak", "Vinarska 5", LegalStatus.LEGAL);
@@ -162,7 +164,7 @@ public class CustomerServiceTest {
             fail("Didn't throw exception when customer to be removed is null.");
         } catch (IllegalArgumentException e) {
         } catch (Exception e) {
-            fail("Thrown unexpected exception though customer to be removed is null.");
+            fail("ustomer to be removed is null.");
         }
 
 
