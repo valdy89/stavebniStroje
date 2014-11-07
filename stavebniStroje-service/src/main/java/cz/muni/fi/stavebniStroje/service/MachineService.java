@@ -6,6 +6,10 @@ import java.math.BigDecimal;
 import java.util.Collection;
 
 
+/**
+ *
+ * @author Jiří Weiser
+ */
 public interface MachineService {
 
     void newMachine(MachineDto machineDto);
