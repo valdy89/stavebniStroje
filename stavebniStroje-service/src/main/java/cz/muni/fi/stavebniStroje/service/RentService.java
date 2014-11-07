@@ -1,5 +1,5 @@
 
-package cz.muni.stavebniStroje.service;
+package cz.muni.fi.stavebniStroje.service;
 
 
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;

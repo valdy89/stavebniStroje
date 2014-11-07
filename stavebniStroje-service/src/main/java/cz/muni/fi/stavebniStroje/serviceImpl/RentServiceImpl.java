@@ -13,7 +13,7 @@ import cz.muni.fi.stavebniStroje.dto.RentDto;
 import cz.muni.fi.stavebniStroje.entity.Customer;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 import cz.muni.fi.stavebniStroje.entity.Rent;
-import cz.muni.stavebniStroje.service.RentService;
+import cz.muni.fi.stavebniStroje.service.RentService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;

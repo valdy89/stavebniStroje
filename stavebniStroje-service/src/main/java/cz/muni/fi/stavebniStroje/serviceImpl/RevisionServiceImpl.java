@@ -11,7 +11,7 @@ import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.dto.RevisionDto;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 import cz.muni.fi.stavebniStroje.entity.Revision;
-import cz.muni.stavebniStroje.service.RevisionService;
+import cz.muni.fi.stavebniStroje.service.RevisionService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;

@@ -8,7 +8,7 @@ package cz.muni.fi.stavebniStroje.serviceImpl;
 import cz.muni.fi.stavebniStroje.dao.CustomerDao;
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.entity.Customer;
-import cz.muni.stavebniStroje.service.CustomerService;
+import cz.muni.fi.stavebniStroje.service.CustomerService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package cz.muni.stavebniStroje.service;
+package cz.muni.fi.stavebniStroje.service;
 
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.util.LegalStatus;

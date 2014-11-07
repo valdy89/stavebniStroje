@@ -2,7 +2,7 @@ package cz.muni.fi.stavebniStroje.test.serviceImpl;
 
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 
-import cz.muni.stavebniStroje.service.MachineService;
+import cz.muni.fi.stavebniStroje.service.MachineService;
 import java.math.BigDecimal;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

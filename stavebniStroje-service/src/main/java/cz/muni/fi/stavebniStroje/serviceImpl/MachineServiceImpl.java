@@ -1,7 +1,7 @@
 package cz.muni.fi.stavebniStroje.serviceImpl;
 
 import cz.muni.fi.stavebniStroje.dao.MachineDao;
-import cz.muni.stavebniStroje.service.MachineService;
+import cz.muni.fi.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 
