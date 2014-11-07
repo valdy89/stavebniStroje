@@ -12,6 +12,7 @@ import cz.muni.fi.stavebniStroje.service.CustomerService;
 import cz.muni.fi.stavebniStroje.serviceImpl.CustomerServiceImpl;
 import cz.muni.fi.stavebniStroje.util.LegalStatus;
 import java.text.ParseException;
+import javax.persistence.EntityManager;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.junit.After;
@@ -19,25 +20,33 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  *
  * @author Milos Petrovic
  */
+@RunWith(MockitoJUnitRunner.class)
 public class CustomerServiceTest {
 
     private Customer c1;
     private Customer c2;
     private Customer c3;
 
+    
     private CustomerService customerService;
+    
     @Mock
     private CustomerDao customerDao;
-    private Mapper mapper;
+    @Mock
+    private EntityManager entityManager;
+    private DozerBeanMapper mapper;
 
     private Customer setNewCustomer(String firstName, String lastname, String address, LegalStatus legalStatus) {
         Customer customer = new Customer();
@@ -54,12 +63,11 @@ public class CustomerServiceTest {
         mapper = new DozerBeanMapper();
         customerService = new CustomerServiceImpl();
         ReflectionTestUtils.setField(customerService, "customerDao", customerDao);
-        ReflectionTestUtils.setField(customerService, "mapper", mapper);
-
+        ReflectionTestUtils.setField(customerService, "dozerBeanMapper", mapper);
+        ReflectionTestUtils.setField(customerService, "entityManager", entityManager);
         c1 = this.setNewCustomer("Petar", "Petrovic", "Tehnicka 9", LegalStatus.LEGAL);
         c2 = this.setNewCustomer("Jan", "Novak", "Ceska 9", LegalStatus.LEGAL);
         c3 = this.setNewCustomer("Nick", "Foster", "Uvoz 9", LegalStatus.LEGAL);
-
     }
 
     @After
@@ -78,6 +86,7 @@ public class CustomerServiceTest {
             fail("Didn't throw exception when customer to be created is null.");
         } catch (IllegalArgumentException e) {
         } catch (Exception e) {
+            e.printStackTrace(System.out);
             fail("Thrown unexpected exception though customer to be created is null.");
         }
 
@@ -87,6 +96,4 @@ public class CustomerServiceTest {
         verify(customerDao).persist(customer);
 
     }
-
-
 }
