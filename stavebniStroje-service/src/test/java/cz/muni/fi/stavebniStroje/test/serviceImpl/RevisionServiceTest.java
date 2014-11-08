@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.EntityManager;
 import org.dozer.DozerBeanMapper;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
@@ -143,8 +142,9 @@ public class RevisionServiceTest extends AbstractIntegrationTest {
         col.add(new Revision());
 
         Collection<RevisionDto> expected = new ArrayList<>();
-        expected.add(mapper.map(new Revision(), RevisionDto.class));
-        expected.add(mapper.map(new Revision(), RevisionDto.class));
+        for (Revision r : col) {
+            expected.add(mapper.map(r, RevisionDto.class));
+        }
 
         try {
             revisionService.findByEndOfRevision(null);
@@ -167,8 +167,9 @@ public class RevisionServiceTest extends AbstractIntegrationTest {
         col.add(new Revision());
 
         Collection<RevisionDto> expected = new ArrayList<>();
-        expected.add(mapper.map(new Revision(), RevisionDto.class));
-        expected.add(mapper.map(new Revision(), RevisionDto.class));
+        for (Revision r : col) {
+            expected.add(mapper.map(r, RevisionDto.class));
+        }
 
         try {
             revisionService.findRevisionByMachine(null);
@@ -192,8 +193,9 @@ public class RevisionServiceTest extends AbstractIntegrationTest {
         col.add(new Revision());
 
         Collection<RevisionDto> expected = new ArrayList<>();
-        expected.add(mapper.map(new Revision(), RevisionDto.class));
-        expected.add(mapper.map(new Revision(), RevisionDto.class));
+        for (Revision r : col) {
+            expected.add(mapper.map(r, RevisionDto.class));
+        }
 
         when(revisionDao.findAll()).thenReturn(col);
         assertEquals(expected, revisionService.findAllRevision());

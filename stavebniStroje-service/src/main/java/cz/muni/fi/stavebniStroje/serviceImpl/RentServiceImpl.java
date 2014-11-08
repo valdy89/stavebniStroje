@@ -48,13 +48,11 @@ public class RentServiceImpl implements RentService {
     @Override
     public void newRent(RentDto rentDto) {
         if (rentDto == null) {
-            throw new NullPointerException("Argument rentDto is null");
+            throw new IllegalArgumentException("Argument rentDto is null");
         }
         try {
             Rent rent = dozerBeanMapper.map(rentDto, Rent.class);
-            entityManager.getTransaction();
             rentDao.persist(rent);
-            entityManager.close();
         } catch (Exception ex) {
             throw new DataAccessException("Cannot persist item due to exception", ex) {
             };
@@ -64,7 +62,7 @@ public class RentServiceImpl implements RentService {
     @Override
     public void updateRent(RentDto rentDto) {
         if (rentDto == null) {
-            throw new NullPointerException("Argument rentDto is null");
+            throw new IllegalArgumentException("Argument rentDto is null");
         }
         try {
             Rent rent = dozerBeanMapper.map(rentDto, Rent.class);
@@ -78,7 +76,7 @@ public class RentServiceImpl implements RentService {
     @Override
     public void removeRent(RentDto rentDto) {
         if (rentDto == null) {
-            throw new NullPointerException("Argument rentDto is null");
+            throw new IllegalArgumentException("Argument rentDto is null");
         }
         try {
             Rent rent = dozerBeanMapper.map(rentDto, Rent.class);
@@ -92,7 +90,7 @@ public class RentServiceImpl implements RentService {
     @Override
     public RentDto findRentById(Long id) {
         if (id == null) {
-            throw new NullPointerException("Argument id was null");
+            throw new IllegalArgumentException("Argument id was null");
         }
         Rent rent;
         try {
@@ -120,6 +118,9 @@ public class RentServiceImpl implements RentService {
 
     @Override
     public Collection<RentDto> findRentByCustomer(CustomerDto customerDto) {
+        if (customerDto == null) {
+            throw new IllegalArgumentException("Argument customerDto was null.");
+        }
         Collection<RentDto> rents = new ArrayList<>();
         try {
             for (Rent rent : rentDao.findByCustomer(dozerBeanMapper.map(customerDto, Customer.class))) {
@@ -134,6 +135,9 @@ public class RentServiceImpl implements RentService {
 
     @Override
     public Collection<RentDto> findRentByMachine(MachineDto machineDto) {
+        if (machineDto == null) {
+            throw new IllegalArgumentException("Argument machineDto was null.");
+        }
         Collection<RentDto> rents = new ArrayList<>();
         try {
             for (Rent rent : rentDao.findByMachine(dozerBeanMapper.map(machineDto, Machine.class))) {
@@ -148,6 +152,9 @@ public class RentServiceImpl implements RentService {
 
     @Override
     public Collection<RentDto> findRentByDate(Date date) {
+        if (date == null) {
+            throw new IllegalArgumentException("Argument date was null.");
+        }
         Collection<RentDto> rents = new ArrayList<>();
         try{
         for (Rent rent : rentDao.findByDate(date)) {
