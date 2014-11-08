@@ -48,7 +48,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
 
     @Before
     public void before() {
-        mapper = new DozerBeanMapper();
+       
         ReflectionTestUtils.setField(machineService, "dozerBeanMapper", mapper);
         ReflectionTestUtils.setField(machineService, "machineDao", stavebniStrojeMachineDao);
     }

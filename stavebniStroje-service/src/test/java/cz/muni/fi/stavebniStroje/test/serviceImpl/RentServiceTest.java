@@ -33,15 +33,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  *
  * @author test
  */
-@RunWith(MockitoJUnitRunner.class)
-public class RentServiceTest {
+
+public class RentServiceTest extends AbstractIntegrationTest {
 
     @InjectMocks
     private RentService rentService =  new RentServiceImpl();
@@ -49,15 +51,16 @@ public class RentServiceTest {
     @Mock
     private RentDao rentDao;
 
-    @Mock
+    @Autowired
     private DozerBeanMapper mapper;
 
     public RentServiceTest() {
+          MockitoAnnotations.initMocks(this);
     }
 
     @Before
     public void before() {
-        mapper = new DozerBeanMapper();
+        
         ReflectionTestUtils.setField(rentService, "dozerBeanMapper", mapper);
         ReflectionTestUtils.setField(rentService, "rentDao", rentDao);
     }

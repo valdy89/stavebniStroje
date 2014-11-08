@@ -23,11 +23,15 @@ import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Dominik David
  */
+@Service
+@Transactional
 public class RentServiceImpl implements RentService {
 
     private RentDao rentDao;

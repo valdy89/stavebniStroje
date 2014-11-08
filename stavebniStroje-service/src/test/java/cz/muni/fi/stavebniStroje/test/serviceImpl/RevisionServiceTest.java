@@ -27,14 +27,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  *
  * @author Jiří Weiser
  */
-@RunWith(MockitoJUnitRunner.class)
+
 public class RevisionServiceTest extends AbstractIntegrationTest {
 
     @InjectMocks
@@ -43,15 +45,16 @@ public class RevisionServiceTest extends AbstractIntegrationTest {
     @Mock
     private RevisionDao revisionDao;
 
-    @Mock
+    @Autowired
     private DozerBeanMapper mapper;
 
     public RevisionServiceTest() {
+    MockitoAnnotations.initMocks(this);
     }
 
     @Before
     public void before() {
-        mapper = new DozerBeanMapper();
+       
         ReflectionTestUtils.setField(revisionService, "dozerBeanMapper", mapper);
         ReflectionTestUtils.setField(revisionService, "revisionDao", revisionDao);
     }

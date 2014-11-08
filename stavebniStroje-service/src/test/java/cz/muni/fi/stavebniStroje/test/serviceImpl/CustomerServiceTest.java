@@ -23,15 +23,17 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * Test for CustomerServiceImp
  * @author Milos Petrovic
  */
-@RunWith(MockitoJUnitRunner.class)
-public class CustomerServiceTest {
+
+public class CustomerServiceTest extends AbstractIntegrationTest {
 
     private Customer c1;
     private Customer c2;
@@ -44,7 +46,12 @@ public class CustomerServiceTest {
     private CustomerDao customerDao;
     @Mock
     private EntityManager entityManager;
+    @Autowired
     private DozerBeanMapper mapper;
+
+    public CustomerServiceTest() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     /**
      * method for setting new customer
@@ -70,7 +77,7 @@ public class CustomerServiceTest {
      */
     @Before
     public void setUp() throws ParseException {
-        mapper = new DozerBeanMapper();
+        
         customerService = new CustomerServiceImpl();
         ReflectionTestUtils.setField(customerService, "customerDao", customerDao);
         ReflectionTestUtils.setField(customerService, "dozerBeanMapper", mapper);

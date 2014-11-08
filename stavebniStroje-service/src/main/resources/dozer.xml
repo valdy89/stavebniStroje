@@ -11,7 +11,7 @@
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
         
     <tx:annotation-driven />
-    <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
+    <bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper">
         <property name="mappingFiles">
             <list>
                 <value>dozer-global-configuration.xml</value>
