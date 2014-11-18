@@ -34,7 +34,7 @@ public class CustomerDaoImplTest {
     CustomerDaoImpl instance;
     
     public CustomerDaoImplTest() {
-        emf = Persistence.createEntityManagerFactory("stroje");
+        emf = Persistence.createEntityManagerFactory("stroje-test");
     }
     
     @Before

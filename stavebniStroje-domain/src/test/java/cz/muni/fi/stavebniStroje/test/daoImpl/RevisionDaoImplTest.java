@@ -42,7 +42,7 @@ public class RevisionDaoImplTest {
     Machine machine;
 
     public RevisionDaoImplTest() {
-        emf = Persistence.createEntityManagerFactory("stroje");
+        emf = Persistence.createEntityManagerFactory("stroje-test");
     }
 
     @Before

@@ -39,7 +39,7 @@ public class MachineDaoImplTest {
     Machine machine;
 
     public MachineDaoImplTest() {
-        emf = Persistence.createEntityManagerFactory("stroje");
+        emf = Persistence.createEntityManagerFactory("stroje-test");
 
     }
 

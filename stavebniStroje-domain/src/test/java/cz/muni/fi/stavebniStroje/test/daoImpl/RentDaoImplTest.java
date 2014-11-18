@@ -45,7 +45,7 @@ public class RentDaoImplTest {
     RentDaoImpl instance;
 
     public RentDaoImplTest() {
-        emf = Persistence.createEntityManagerFactory("stroje");
+        emf = Persistence.createEntityManagerFactory("stroje-test");
     }
 
     @Before
