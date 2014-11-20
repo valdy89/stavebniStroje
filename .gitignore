@@ -46,3 +46,4 @@ Temporary Items
 derby.log
 /stavebniStroje-domain/target/
 /stavebniStroje-service/target/
+/stavebniStroje-web/target/
