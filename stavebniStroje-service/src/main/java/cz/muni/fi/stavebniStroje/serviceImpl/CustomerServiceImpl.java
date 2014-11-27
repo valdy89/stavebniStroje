@@ -18,24 +18,24 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *This class is used for work with customerDao objects
  * @author Milos
  */
+@Service
+@Transactional
 public class CustomerServiceImpl implements CustomerService {
 
-    private EntityManager entityManager;
+  
     CustomerDao customerDao;
 
     @Autowired
     DozerBeanMapper dozerBeanMapper;
     
-    @Required
-    public void setEMF(EntityManagerFactory entityManagerFactory) {
-        this.entityManager = entityManagerFactory.createEntityManager();
-    }
+    
 
     @Required
     public void setCustomerDao(CustomerDao customerDao) {
@@ -50,9 +50,9 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         Customer customer = dozerBeanMapper.map(customerDto, Customer.class);
-        entityManager.getTransaction();
+     
         customerDao.persist(customer);
-        entityManager.close();
+       
     }
 
     @Transactional

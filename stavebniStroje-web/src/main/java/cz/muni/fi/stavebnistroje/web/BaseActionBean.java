@@ -13,7 +13,7 @@ import net.sourceforge.stripes.action.ActionBeanContext;
  *
  * @author milos
  */
-public class BaseActionBean implements ActionBean  {
+public abstract class BaseActionBean implements ActionBean  {
 
     private ActionBeanContext context;
 

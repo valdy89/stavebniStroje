@@ -35,15 +35,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class RentServiceImpl implements RentService {
 
     private RentDao rentDao;
-    private EntityManager entityManager;
+    
     @Autowired
     DozerBeanMapper dozerBeanMapper;
 
-    @Required
-    public void setEMF(EntityManagerFactory entityManagerFactory) {
-        this.entityManager = entityManagerFactory.createEntityManager();
-    }
-
+   
     @Required
     public void setRentDao(RentDao rentDao) {
         this.rentDao = rentDao;

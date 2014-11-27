@@ -44,8 +44,7 @@ public class CustomerServiceTest extends AbstractIntegrationTest {
     
     @Mock
     private CustomerDao customerDao;
-    @Mock
-    private EntityManager entityManager;
+   
     @Autowired
     private DozerBeanMapper mapper;
 
@@ -81,7 +80,7 @@ public class CustomerServiceTest extends AbstractIntegrationTest {
         customerService = new CustomerServiceImpl();
         ReflectionTestUtils.setField(customerService, "customerDao", customerDao);
         ReflectionTestUtils.setField(customerService, "dozerBeanMapper", mapper);
-        ReflectionTestUtils.setField(customerService, "entityManager", entityManager);
+       
         c1 = this.setNewCustomer("Petar", "Petrovic", "Tehnicka 9", LegalStatus.LEGAL);
         c2 = this.setNewCustomer("Jan", "Novak", "Ceska 9", LegalStatus.LEGAL);
         c3 = this.setNewCustomer("Nick", "Foster", "Uvoz 9", LegalStatus.LEGAL);

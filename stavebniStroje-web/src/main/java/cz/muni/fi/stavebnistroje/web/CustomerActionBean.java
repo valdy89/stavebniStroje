@@ -8,6 +8,7 @@ package cz.muni.fi.stavebnistroje.web;
 
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.service.CustomerService;
+import java.util.Collection;
 import java.util.List;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.Before;
@@ -20,7 +21,6 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +47,18 @@ public class CustomerActionBean extends BaseActionBean  {
 
     })
     private CustomerDto customer;
-    private List<CustomerDto> result;
+    private Collection<CustomerDto> result;
     private List<String> roles;
-    @Autowired
+   
+    @DefaultHandler
+    public Resolution list() {
+        log.debug("list()");
+        result = customerService.findAllCustomer();
+        return new ForwardResolution("/customer/list.jsp");
+    }
 
-    
 
-
-    public List<CustomerDto> getResult() {
+    public Collection<CustomerDto> getResult() {
         return result;
     }
 
@@ -88,7 +92,7 @@ public class CustomerActionBean extends BaseActionBean  {
         }
     }    
     
-    @DefaultHandler
+    
         public Resolution redirect() {
         return new ForwardResolution("/index.jsp");
     }
@@ -103,7 +107,7 @@ public class CustomerActionBean extends BaseActionBean  {
             return new ForwardResolution("/fail/Fail.jsp");
         }
         result = (List<CustomerDto>) customerService.findAllCustomer();
-        return new ForwardResolution("/customer/add.jsp");
+        return new ForwardResolution("/customer/list.jsp");
     }
 
     public Resolution edit() throws Exception {
