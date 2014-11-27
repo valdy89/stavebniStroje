@@ -43,7 +43,9 @@
 <% }%>><a href="#">Zákazníci</a></li>                        
                         </ul> 
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="/about.jsp">O programu</a></li>
+                            <li <% if (active == "about" ) { %>
+                                class="active"
+<% }%>><a href="/about.jsp">O programu</a></li>
                         </ul>
                     </div>
                 </div>
