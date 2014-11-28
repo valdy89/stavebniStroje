@@ -30,29 +30,30 @@
                         <td><a href="stranka s podrobnymi informacemi">${customer.firstName}</a></td>
                         <td> ${customer.secondName}</td>
                         <td>
-                            <td>
-                     <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit" class="btn btn-default"><s:param name="customer.id" value="${customer.id}"/>edit</s:link>
-                    </td>
-                            <button type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                                Upravit zákazníka
-                            </button>
-                             <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
-                                <s:hidden name="customer.id" value=" ${customer.id} "/>
-                                <s:submit name="edit" class="btn btn-default"><f:message key="customer.list.deleteBtn"/></s:submit>
-                            </s:form>
 
-                        </td>
-                        <td>${customer.id}
-                            <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
-                                <s:hidden name="customer.id"/>
-                                <s:submit name="delete" class="btn btn-danger"><f:message key="customer.list.deleteBtn"/></s:submit>
-                            </s:form>
-                        </td>
-                    </tr>
+                <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit" class="btn btn-default"><s:param name="customer.id" value="${customer.id}"/><f:message key="customer.list.editBtn"/></s:link>
+                </td>
+                <td>
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    Upravit zákazníka
+                </button>
+                <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
+                    <s:hidden name="customer.id" value=" ${customer.id} "/>
+                    <s:submit name="edit" class="btn btn-default"><f:message key="customer.list.deleteBtn"/></s:submit>
+                </s:form>
+
+                </td>
+                <td>${customer.id}
+                <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
+                    <s:hidden name="customer.id"/>
+                    <s:submit name="delete" class="btn btn-danger"><f:message key="customer.list.deleteBtn"/></s:submit>
+                </s:form>
+                </td>
+                </tr>
 
 <!-- ${customer.id} <br /> -->
-                </c:forEach>
+            </c:forEach>
             </tbody>
         </table>
 
@@ -80,7 +81,7 @@
                     <fieldset>
                         <%@include file="form.jsp"%>
                         <s:submit name="add">Vytvořit customera</s:submit>
-                        </fieldset>
+                    </fieldset>
                 </s:form>
             </div>
         </div>
