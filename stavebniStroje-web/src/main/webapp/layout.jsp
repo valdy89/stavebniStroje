@@ -29,23 +29,18 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/index.jsp">Stavební stroje</a>
+                        <a class="navbar-brand" href="${pageContext.request.contextPath}"><f:message key="common.buildingMachines"/></a>
                     </div>
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <!-- potrebujeme dodat class="active" pokud ma byt odkaz aktivni -->
-                            <li <% if (active == "machine" ) { %>
-                                class="active"
-<% }%>><a href="#">Seznam strojů</a></li>
-                            <li <% if (active == "customer" ) { %>
-                                class="active"
-<% }%>><a href="#">Zákazníci</a></li>                        
+                            <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean"><f:message key="navigation.machineList"/></s:link></li>
+                            <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean"><f:message key="navigation.customerList"/></s:link></li>
+                                 
                         </ul> 
                         <ul class="nav navbar-nav navbar-right">
-                            <li <% if (active == "about" ) { %>
-                                class="active"
-<% }%>><a href="/about.jsp">O programu</a></li>
+                            <li><a href="/about.jsp">O programu</a></li>
                         </ul>
                     </div>
                 </div>

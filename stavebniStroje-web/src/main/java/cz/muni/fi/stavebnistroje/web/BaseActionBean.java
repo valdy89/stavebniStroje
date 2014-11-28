@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package cz.muni.fi.stavebnistroje.web;
 
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
+import org.apache.taglibs.standard.functions.Functions;
 
 /**
  *
  * @author milos
  */
-public abstract class BaseActionBean implements ActionBean  {
+public abstract class BaseActionBean implements ActionBean {
 
     private ActionBeanContext context;
 
@@ -26,5 +26,9 @@ public abstract class BaseActionBean implements ActionBean  {
     public ActionBeanContext getContext() {
         return context;
     }
-    
+
+    public static String escapeHTML(String s) {
+        return Functions.escapeXml(s);
+    }
+
 }

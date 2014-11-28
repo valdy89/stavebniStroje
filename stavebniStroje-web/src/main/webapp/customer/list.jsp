@@ -3,11 +3,8 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
-<s:layout-render name="/layout.jsp" titlekey="index.title">
+<s:layout-render name="/layout.jsp" titlekey="customer.list.title">
     <s:layout-component name="body">
-
-        <h2>Zákaznící</h2>
-        <br />
         <button type="button" class="btn btn-success">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             Přidat zákazníka
@@ -29,17 +26,28 @@
                 <c:forEach items="${actionBean.result}" var="customer">
 
                     <tr>
-                        <td><input type="checkbox" name="stroj1" /></td>
-                        <td><a href="stranka s podrobnymi informacemi">Stavebni firma a.s.</a></td>
-                        <td>Aktuálně půjčeno <b>6 strojů</b></td>
+                        <td><input type="checkbox" name="stroje[]" value="${customer.id}"/></td>
+                        <td><a href="stranka s podrobnymi informacemi">${customer.firstName}</a></td>
+                        <td> ${customer.secondName}</td>
                         <td>
+                            <td>
+                     <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit" class="btn btn-default"><s:param name="customer.id" value="${customer.id}"/>edit</s:link>
+                    </td>
                             <button type="button" class="btn btn-default">
                                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                                 Upravit zákazníka
                             </button>
-                            <button type="button" class="btn btn-danger">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </button>
+                             <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
+                                <s:hidden name="customer.id" value=" ${customer.id} "/>
+                                <s:submit name="edit" class="btn btn-default"><f:message key="customer.list.deleteBtn"/></s:submit>
+                            </s:form>
+
+                        </td>
+                        <td>${customer.id}
+                            <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
+                                <s:hidden name="customer.id"/>
+                                <s:submit name="delete" class="btn btn-danger"><f:message key="customer.list.deleteBtn"/></s:submit>
+                            </s:form>
                         </td>
                     </tr>
 
@@ -66,15 +74,15 @@
         <h2>Přidat zákazníka</h2>
         <br />
         <div class="panel panel-default">
-  <div class="panel-body">
+            <div class="panel-body">
 
-        <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
-            <fieldset>
-                <%@include file="form.jsp"%>
-                <s:submit name="add">Vytvořit customera</s:submit>
-            </fieldset>
-        </s:form>
-                 </div>
-</div>
+                <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
+                    <fieldset>
+                        <%@include file="form.jsp"%>
+                        <s:submit name="add">Vytvořit customera</s:submit>
+                        </fieldset>
+                </s:form>
+            </div>
+        </div>
     </s:layout-component>
 </s:layout-render>

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package cz.muni.fi.stavebnistroje.web;
 
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
@@ -23,7 +22,6 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
@@ -32,31 +30,28 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
  * @author milos
  */
 @UrlBinding("/customer/{$event}/")
-public class CustomerActionBean extends BaseActionBean  {
+public class CustomerActionBean extends BaseActionBean {
 
     private ActionBeanContext context;
     final static Logger log = LoggerFactory.getLogger(CustomerActionBean.class);
     @SpringBean
     protected CustomerService customerService;
-    
+
+    private Collection<CustomerDto> result;
+
     @ValidateNestedProperties({
         @Validate(on = {"add", "update", "save"}, field = "firstName", required = true),
         @Validate(on = {"add", "update", "save"}, field = "secondName", required = true),
         @Validate(on = {"add", "update", "save"}, field = "address", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "legalStatus", required = true),
-
-    })
+        @Validate(on = {"add", "update", "save"}, field = "legalStatus", required = true),})
     private CustomerDto customer;
-    private Collection<CustomerDto> result;
-    private List<String> roles;
-   
+
     @DefaultHandler
     public Resolution list() {
         log.debug("list()");
         result = customerService.findAllCustomer();
         return new ForwardResolution("/customer/list.jsp");
     }
-
 
     public Collection<CustomerDto> getResult() {
         return result;
@@ -81,31 +76,25 @@ public class CustomerActionBean extends BaseActionBean  {
     public void setCustomer(CustomerDto customer) {
         this.customer = customer;
     }
-    
-    
-    @Before(stages = LifecycleStage.BindingAndValidation, on = {"update", "save", "delete"})
+
+    @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save", "delete"})
     public void loadCustomerFromDB() {
         String id = context.getRequest().getParameter("customer.id");
-        if (id != null) {
-            customer = customerService.getCustomer(Long.parseLong(id));
-        } else {
+        if (id == null) {
+            return;
         }
-    }    
-    
-    
-        public Resolution redirect() {
+        customer = customerService.getCustomer(Long.parseLong(id));
+    }
+
+    public Resolution redirect() {
         return new ForwardResolution("/index.jsp");
     }
-        
-        
+
     public Resolution add() {
         log.debug("add() customer={}", customer);
-        try {
-            //createCustomer();
-            customerService.createCustomer(customer);
-        } catch (InvalidDataAccessApiUsageException e) {
-            return new ForwardResolution("/fail/Fail.jsp");
-        }
+
+        customerService.createCustomer(customer);
+
         result = (List<CustomerDto>) customerService.findAllCustomer();
         return new ForwardResolution("/customer/list.jsp");
     }
@@ -124,14 +113,11 @@ public class CustomerActionBean extends BaseActionBean  {
 
     public Resolution delete() {
         log.debug("delete({})", context.getRequest().getParameter("customer.id"));
-        String id = context.getRequest().getParameter("customer.id");
-        try {
-            customerService.removeCustomer(customer);
-        } catch (DataAccessException e) {
-            return new RedirectResolution("/fail/Fail.jsp");
-        }
+       
+        customerService.removeCustomer(customer);
+
         return new RedirectResolution("/customer/list.jsp");
-    }        
+    }
 
     public Resolution all() {
         log.debug("all()");
@@ -139,5 +125,4 @@ public class CustomerActionBean extends BaseActionBean  {
         return new ForwardResolution("/customer/list.jsp");
     }
 
-    
 }
