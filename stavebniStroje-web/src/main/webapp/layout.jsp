@@ -40,7 +40,7 @@
                                  
                         </ul> 
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="/about.jsp">O programu</a></li>
+                            <li><a href="/about.jsp"><f:message key="navigation.about"/></a></li>
                         </ul>
                     </div>
                 </div>
