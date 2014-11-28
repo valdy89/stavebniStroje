@@ -9,7 +9,6 @@ import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.service.CustomerService;
 import java.util.Collection;
 import java.util.List;
-import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -20,19 +19,18 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import net.sourceforge.stripes.validation.ValidationErrorHandler;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 /**
  *
  * @author milos
  */
 @UrlBinding("/customer/{$event}/")
-public class CustomerActionBean extends BaseActionBean {
+public class CustomerActionBean extends BaseActionBean implements ValidationErrorHandler {
 
-    private ActionBeanContext context;
     final static Logger log = LoggerFactory.getLogger(CustomerActionBean.class);
     @SpringBean
     protected CustomerService customerService;
@@ -40,10 +38,10 @@ public class CustomerActionBean extends BaseActionBean {
     private Collection<CustomerDto> result;
 
     @ValidateNestedProperties({
-        @Validate(on = {"add", "update", "save"}, field = "firstName", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "secondName", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "address", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "legalStatus", required = true),})
+        @Validate(on = {"add",  "save"}, field = "firstName", required = true),
+        @Validate(on = {"add",  "save"}, field = "secondName", required = true),
+        @Validate(on = {"add",  "save"}, field = "address", required = true),
+        @Validate(on = {"add",  "save"}, field = "legalStatus", required = true),})
     private CustomerDto customer;
 
     @DefaultHandler
@@ -79,24 +77,21 @@ public class CustomerActionBean extends BaseActionBean {
 
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save", "delete"})
     public void loadCustomerFromDB() {
-        String id = context.getRequest().getParameter("customer.id");
+        String id = getContext().getRequest().getParameter("customer.id");
         if (id == null) {
             return;
         }
         customer = customerService.getCustomer(Long.parseLong(id));
     }
 
-    public Resolution redirect() {
-        return new ForwardResolution("/index.jsp");
-    }
-
+    
     public Resolution add() {
         log.debug("add() customer={}", customer);
 
         customerService.createCustomer(customer);
 
         result = (List<CustomerDto>) customerService.findAllCustomer();
-        return new ForwardResolution("/customer/list.jsp");
+       return new RedirectResolution(this.getClass(),"list");
     }
 
     public Resolution edit() throws Exception {
@@ -108,21 +103,24 @@ public class CustomerActionBean extends BaseActionBean {
     public Resolution save() {
         log.debug("save() customer={}", customer);
         customerService.updateCustomer(customer);
-        return new ForwardResolution("/customer/list.jsp");
+        return new RedirectResolution(this.getClass(),"list");
     }
 
     public Resolution delete() {
-        log.debug("delete({})", context.getRequest().getParameter("customer.id"));
-       
+        log.debug("delete({})", getContext().getRequest().getParameter("customer.id"));
+
         customerService.removeCustomer(customer);
 
-        return new RedirectResolution("/customer/list.jsp");
+        return new RedirectResolution(this.getClass(),"list");
     }
 
-    public Resolution all() {
-        log.debug("all()");
-        result = (List<CustomerDto>) customerService.findAllCustomer();
-        return new ForwardResolution("/customer/list.jsp");
+
+    @Override
+    public Resolution handleValidationErrors(ValidationErrors ve) throws Exception {
+        //fill up the data for the table if validation errors occured
+        result = customerService.findAllCustomer();
+        //return null to let the event handling continue
+        return null;
     }
 
 }

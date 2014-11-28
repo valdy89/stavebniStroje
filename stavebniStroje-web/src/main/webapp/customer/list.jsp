@@ -11,13 +11,15 @@
         </button>
 
         <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" var="actionBean"/>
-
+        
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th></th>
-                    <th>Name</th>
-                    <th>Půjčeno</th>
+                    <th><f:message key="customer.list.firstName"/></th>
+                    <th><f:message key="customer.list.secondName"/></th>
+                    <th><f:message key="customer.list.address"/></th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -30,36 +32,34 @@
                         <td><a href="stranka s podrobnymi informacemi">${customer.firstName}</a></td>
                         <td> ${customer.secondName}</td>
                         <td>
+                            <td>
+                     <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit"><s:param name="customer.id" value="${customer.id}"/>edit</s:link>
+                    </td>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                Upravit zákazníka
+                            </button>
+                             <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
+                                <s:hidden name="customer.id" value=" ${customer.id} "/>
+                                <s:submit name="edit" class="btn btn-default"><f:message key="customer.list.deleteBtn"/></s:submit>
+                            </s:form>
 
-                <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit" class="btn btn-default"><s:param name="customer.id" value="${customer.id}"/><f:message key="customer.list.editBtn"/></s:link>
-                </td>
-                <td>
-                <button type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                    Upravit zákazníka
-                </button>
-                <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
-                    <s:hidden name="customer.id" value=" ${customer.id} "/>
-                    <s:submit name="edit" class="btn btn-default"><f:message key="customer.list.deleteBtn"/></s:submit>
-                </s:form>
+                        </td>
+                        <td>${customer.id}
+                            <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
+                                 <s:hidden name="customer.id" value='${customer.id}'/>
+                                <s:submit name="delete" class="btn btn-danger"><f:message key="customer.list.deleteBtn"/></s:submit>
+                            </s:form>
+                        </td>
+                    </tr>
 
-                </td>
-                <td>${customer.id}
-                <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
-                    <s:hidden name="customer.id"/>
-                    <s:submit name="delete" class="btn btn-danger"><f:message key="customer.list.deleteBtn"/></s:submit>
-                </s:form>
-                </td>
-                </tr>
-
-<!-- ${customer.id} <br /> -->
-            </c:forEach>
+                </c:forEach>
             </tbody>
         </table>
 
         <a href="#">Smazat vybrané</a>
 
-        <nav>
+<!--        <nav>
             <ul class="pagination pagination-sm navbar-right">
                 <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
                 <li><a href="#">1</a></li>
@@ -69,7 +69,7 @@
                 <li><a href="#">5</a></li>
                 <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
             </ul>
-        </nav>
+        </nav>-->
 
 
         <h2>Přidat zákazníka</h2>
@@ -81,7 +81,7 @@
                     <fieldset>
                         <%@include file="form.jsp"%>
                         <s:submit name="add">Vytvořit customera</s:submit>
-                    </fieldset>
+                        </fieldset>
                 </s:form>
             </div>
         </div>
