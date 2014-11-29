@@ -45,14 +45,9 @@ public class MachineActionBean  extends BaseActionBean  {
         @Validate(on = {"add", "update", "save"}, field = "type", required = true),
         @Validate(on = {"add", "update", "save"}, field = "description", required = true),
         @Validate(on = {"add", "update", "save"}, field = "price", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "rents", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "revisions", required = true),
-        
     })
     private MachineDto machine;
     private List<MachineDto> result;
-    //private List<MachineDto> result;
-    //private List<MachineDto> result;    
     @Autowired
    
     
@@ -82,33 +77,26 @@ public class MachineActionBean  extends BaseActionBean  {
     
     
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"update", "save", "delete"})
-    public void loadMachine() {
+    public void loadMachineFromDB() {
         String id = context.getRequest().getParameter("machine.id");
         if (id != null) {
             machine = machineService.findMachineById(Long.parseLong(id));
         } else {
         }
     }    
-    
-    @DefaultHandler
-        public Resolution redirect() {
-        return new ForwardResolution("/index.jsp");
-    }    
-        
         
     public Resolution add() {
         log.debug("add() machine={}", machine);
-        try {
-            //createMachine();
+/*        try {
             machineService.newMachine(machine);
         } catch (InvalidDataAccessApiUsageException e) {
             return new ForwardResolution("/fail/Fail.jsp");
-        }
+        }*/
         result = (List<MachineDto>) machineService.findAllMachines();
-        return new ForwardResolution("/machine/add.jsp");
+        return new RedirectResolution(this.getClass(),"list");
     }
 
-    public Resolution edit() throws Exception {
+    public Resolution edit() {
         log.debug("update() machine={}", machine);
         machineService.updateMachine(machine);
         return new ForwardResolution("/machine/edit.jsp");
@@ -117,7 +105,7 @@ public class MachineActionBean  extends BaseActionBean  {
     public Resolution save() {
         log.debug("save() machine={}", machine);
         machineService.updateMachine(machine);
-        return new ForwardResolution("/machine/list.jsp");
+        return new ForwardResolution(this.getClass(), "list");
     }
 
     public Resolution delete() {
@@ -128,11 +116,12 @@ public class MachineActionBean  extends BaseActionBean  {
         } catch (DataAccessException e) {
             return new RedirectResolution("/fail/Fail.jsp");
         }
-        return new RedirectResolution("/machine/list.jsp");
+        return new RedirectResolution(this.getClass(), "list");
     }        
 
-    public Resolution all() {
-        log.debug("all()");
+    @DefaultHandler
+    public Resolution list() {
+        log.debug("list()");
         result = (List<MachineDto>) machineService.findAllMachines();
         return new ForwardResolution("/machine/list.jsp");
     }

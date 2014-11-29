@@ -35,54 +35,73 @@
             </thead>
             <tbody>
 
-            <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" var="actionBean"/>
+                <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" var="actionBean"/>
 
-                    <c:forEach items="${actionBean.result}" var="customer">
+                <c:forEach items="${actionBean.result}" var="customer">
 
-                        <tr>
-                            <td><input type="checkbox" name="stroj1" /></td>
-                            <td><a href="stranka s podrobnymi informacemi">new Holland T5522</a></td>
-                            <td>Traktor</td>
-                            <td>Půjčen do 15. 2. 2015
-                                <button type="button" class="btn btn-info">
-                                    Rezervovat
-                                </button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                                    <f:message key="machine.list.update"/>
-                                </button>
-                                <button type="button" class="btn btn-danger">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                            </td>
-                            <td><span style="color: #ff0000; font-weight: bold;">15. 12. 2014</span> 
-                                <button type="button" class="btn btn-warning">
-                                    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                                    <f:message key="machine.list.addRevision"/>
-                                </button>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td><input type="checkbox" name="stroj1" /></td>
+                        <td><a href="stranka s podrobnymi informacemi">new Holland T5522</a></td>
+                        <td>Traktor</td>
+                        <td>Půjčen do 15. 2. 2015
+                            <button type="button" class="btn btn-info">
+                                Rezervovat
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                <f:message key="machine.list.update"/>
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                        <td><span style="color: #ff0000; font-weight: bold;">15. 12. 2014</span> 
+                            <button type="button" class="btn btn-warning">
+                                <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                                <f:message key="machine.list.addRevision"/>
+                            </button>
+                        </td>
+                    </tr>
 
 <!-- ${customer.id} <br /> -->
-                    </c:forEach>
-                </tbody>
-            </table>
+                </c:forEach>
+            </tbody>
+        </table>
 
-            <a href="#">Smazat vybrané</a>
+        <a href="#">Smazat vybrané</a>
 
-            <nav>
-                <ul class="pagination pagination-sm navbar-right">
-                    <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
-                </ul>
-            </nav>
-   
+        <h2>Přidat stroj</h2>
+        <br />
+
+                <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
+                    <div class="form-horizontal">
+                        <div class="row bottom-small-buffer">
+                            <%@include file="form.jsp"%>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <s:submit name="add" class="btn btn-success">Vytvořit stroj</s:submit>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </s:form>
+
+
+        <nav>
+            <ul class="pagination pagination-sm navbar-right">
+                <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+            </ul>
+        </nav>
+
     </s:layout-component>
 </s:layout-render>
