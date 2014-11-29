@@ -14,6 +14,7 @@ import cz.muni.fi.stavebniStroje.entity.Machine;
 import cz.muni.fi.stavebniStroje.entity.Rent;
 import cz.muni.fi.stavebniStroje.entity.Revision;
 import cz.muni.fi.stavebniStroje.util.LegalStatus;
+import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.ArrayDeque;
@@ -279,7 +280,7 @@ public class RentDaoImplTest {
         m.setPrice(BigDecimal.ZERO);
         m.setRents(new ArrayList<Rent>());
         m.setRevisions(new ArrayDeque<Revision>());
-        m.setType("Type A");
+        m.setType(MachineType.TRACTOR);
         return m;
     }
 }

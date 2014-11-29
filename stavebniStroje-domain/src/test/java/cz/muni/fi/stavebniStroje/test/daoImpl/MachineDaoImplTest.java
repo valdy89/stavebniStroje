@@ -10,6 +10,7 @@ import cz.muni.fi.stavebniStroje.entity.Customer;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 import cz.muni.fi.stavebniStroje.entity.Rent;
 import cz.muni.fi.stavebniStroje.entity.Revision;
+import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,7 +51,7 @@ public class MachineDaoImplTest {
         instance = new MachineDaoImpl(em);
         em.getTransaction().begin();
         Machine machine = new Machine();
-        machine.setType("P");
+        machine.setType(MachineType.EXCAVATOR);
         machine.setName("Persist");
         machine.setDescription("Persis");
         machine.setPrice(new BigDecimal(1000));
@@ -160,7 +161,7 @@ public class MachineDaoImplTest {
         expResult.add(machine);
         em.getTransaction().begin();
         Collection<Machine> result = instance.findByType(machine.getType());
-        Collection<Machine> notResult = instance.findByType("P123");
+        Collection<Machine> notResult = instance.findByType(MachineType.TRACTOR);
         em.getTransaction().commit();
         
          assertEquals(expResult, result);

@@ -6,6 +6,7 @@
 package cz.muni.fi.stavebniStroje.dao;
 
 import cz.muni.fi.stavebniStroje.entity.Machine;
+import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface MachineDao {
     Machine findById(Long id);
 
     //Other find methods
-    List<Machine> findByType(String type);
+    List<Machine> findByType(MachineType type);
 
     List<Machine> findAll();
 

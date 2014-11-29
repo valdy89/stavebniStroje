@@ -11,6 +11,7 @@ import cz.muni.fi.stavebniStroje.entity.Revision;
 import java.math.BigDecimal;
 import cz.muni.fi.stavebniStroje.daoImpl.RevisionDaoImpl;
 import cz.muni.fi.stavebniStroje.entity.Rent;
+import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -52,7 +53,7 @@ public class RevisionDaoImplTest {
 
         em.getTransaction().begin();
         machine = new Machine();
-        machine.setType("P");
+        machine.setType(MachineType.EXCAVATOR);
         machine.setName("Persist");
         machine.setDescription("Persis");
         machine.setPrice(new BigDecimal(1000));
@@ -96,7 +97,7 @@ public class RevisionDaoImplTest {
         em.getTransaction().begin();
 
         Machine machine = new Machine();
-        machine.setType("P");
+        machine.setType(MachineType.EXCAVATOR);
         machine.setName("Persist");
         machine.setDescription("Persis");
         machine.setPrice(new BigDecimal(1000));
@@ -199,7 +200,7 @@ public class RevisionDaoImplTest {
         //and i have one revision with machine
         
         Machine m2 = new Machine();
-        m2.setType("P5");
+        m2.setType(MachineType.EXCAVATOR);
         m2.setName("Persist5");
         m2.setDescription("Persis5");
         m2.setPrice(new BigDecimal(1000));

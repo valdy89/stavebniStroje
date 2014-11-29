@@ -4,6 +4,7 @@ import cz.muni.fi.stavebniStroje.dao.MachineDao;
 import cz.muni.fi.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.entity.Machine;
+import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
@@ -116,7 +117,7 @@ public class MachineServiceImpl implements MachineService {
 
     @Transactional(readOnly = true)
     @Override
-    public Collection<MachineDto> findMachinesByType(String type) {
+    public Collection<MachineDto> findMachinesByType(MachineType type) {
         if (type == null) {
             throw new IllegalArgumentException("Argument type was null");
         }

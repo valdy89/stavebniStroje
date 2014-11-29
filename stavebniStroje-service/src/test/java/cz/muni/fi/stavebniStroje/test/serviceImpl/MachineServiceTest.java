@@ -1,19 +1,15 @@
 package cz.muni.fi.stavebniStroje.test.serviceImpl;
 
 import cz.muni.fi.stavebniStroje.dao.MachineDao;
-import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 
 import cz.muni.fi.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.serviceImpl.MachineServiceImpl;
+import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import junit.framework.Assert;
 import org.dozer.DozerBeanMapper;
 import org.junit.After;
@@ -25,9 +21,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
-import org.springframework.dao.DataAccessException;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class MachineServiceTest extends AbstractIntegrationTest {
@@ -165,9 +159,9 @@ public class MachineServiceTest extends AbstractIntegrationTest {
             expected.add(mapper.map(m, MachineDto.class));
         }
         
-        Mockito.when(stavebniStrojeMachineDao.findByType("type")).thenReturn(machines);
-        Assert.assertEquals(expected, machineService.findMachinesByType("type"));
-        Mockito.verify(stavebniStrojeMachineDao, Mockito.times(1)).findByType("type");
+        Mockito.when(stavebniStrojeMachineDao.findByType(MachineType.EXCAVATOR)).thenReturn(machines);
+        Assert.assertEquals(expected, machineService.findMachinesByType(MachineType.EXCAVATOR));
+        Mockito.verify(stavebniStrojeMachineDao, Mockito.times(1)).findByType(MachineType.EXCAVATOR);
     }
 
     @Test

@@ -2,6 +2,7 @@ package cz.muni.fi.stavebniStroje.service;
 
 
 import cz.muni.fi.stavebniStroje.dto.MachineDto; // todo change to DTO Object
+import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.math.BigDecimal;
 import java.util.Collection;
 import org.springframework.dao.DataAccessException;
@@ -23,7 +24,7 @@ public interface MachineService {
 
     Collection<MachineDto> findAllMachines() throws DataAccessException;
     
-    Collection<MachineDto> findMachinesByType(String type) throws DataAccessException;
+    Collection<MachineDto> findMachinesByType(MachineType type) throws DataAccessException;
     
     Collection<MachineDto> findMachinesByPrice(BigDecimal price) throws DataAccessException;
     

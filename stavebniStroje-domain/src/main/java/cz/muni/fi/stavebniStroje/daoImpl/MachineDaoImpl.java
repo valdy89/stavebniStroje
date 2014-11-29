@@ -7,6 +7,7 @@ package cz.muni.fi.stavebniStroje.daoImpl;
 
 import cz.muni.fi.stavebniStroje.dao.MachineDao;
 import cz.muni.fi.stavebniStroje.entity.Machine;
+import cz.muni.fi.stavebniStroje.util.MachineType;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -76,7 +77,7 @@ public class MachineDaoImpl implements MachineDao {
     }
 
     @Override
-    public List<Machine> findByType(String type) {
+    public List<Machine> findByType(MachineType type) {
         if (type == null) {
             throw new IllegalArgumentException("Machine to be find by type cannot to be null");
         }
