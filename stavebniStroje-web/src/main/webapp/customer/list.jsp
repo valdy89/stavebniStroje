@@ -29,23 +29,14 @@
 
                     <tr>
                         <td><input type="checkbox" name="stroje[]" value="${customer.id}"/></td>
-                        <td><a href="stranka s podrobnymi informacemi">${customer.firstName}</a></td>
+                        <td>${customer.firstName}</td>
                         <td> ${customer.secondName}</td>
+                        <td> ${customer.address}</td>
                         <td>
-                            <td>
-                     <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit"><s:param name="customer.id" value="${customer.id}"/>edit</s:link>
-                    </td>
-                            <button type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                                Upravit zákazníka
-                            </button>
-                             <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
-                                <s:hidden name="customer.id" value=" ${customer.id} "/>
-                                <s:submit name="edit" class="btn btn-default"><f:message key="customer.list.deleteBtn"/></s:submit>
-                            </s:form>
-
-                        </td>
-                        <td>${customer.id}
+                            
+                     <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit"><s:param name="customer.id" value="${customer.id}"/><f:message key="customer.list.editBtn"/></s:link>
+                    
+                        <td>
                             <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
                                  <s:hidden name="customer.id" value='${customer.id}'/>
                                 <s:submit name="delete" class="btn btn-danger"><f:message key="customer.list.deleteBtn"/></s:submit>
@@ -80,7 +71,7 @@
                 <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
                     <fieldset>
                         <%@include file="form.jsp"%>
-                        <s:submit name="add">Vytvořit customera</s:submit>
+                        <s:submit name="add"><f:message key="customer.list.createBtn"/></s:submit>
                         </fieldset>
                 </s:form>
             </div>
