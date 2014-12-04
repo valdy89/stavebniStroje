@@ -28,7 +28,7 @@
                 <c:forEach items="${actionBean.result}" var="customer">
 
                     <tr>
-                        <td><input type="checkbox" name="stroje[]" value="${customer.id}"/></td>
+                        <td><input type="checkbox" name="customers[]" value="${customer.id}"/></td>
                         <td><a href="stranka s podrobnymi informacemi">${customer.firstName}</a></td>
                         <td> ${customer.secondName}</td>
                         <td>
@@ -57,7 +57,7 @@
             </tbody>
         </table>
 
-        <a href="#">Smazat vybrané</a>
+                    <a href="#"><f:message key="all.btn.deleteSelected"/></a>
 
 <!--        <nav>
             <ul class="pagination pagination-sm navbar-right">
