@@ -29,6 +29,8 @@ public class MachineDto implements Serializable {
     private MachineType type;
 
     private String description;
+    
+    private boolean available;
 
     private Collection<Rent> rents = new ArrayList<>();
    
@@ -66,6 +68,14 @@ public class MachineDto implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     public Collection<Rent> getRents() {

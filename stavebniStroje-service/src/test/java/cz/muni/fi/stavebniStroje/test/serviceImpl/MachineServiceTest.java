@@ -3,12 +3,16 @@ package cz.muni.fi.stavebniStroje.test.serviceImpl;
 import cz.muni.fi.stavebniStroje.dao.MachineDao;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.entity.Machine;
+import cz.muni.fi.stavebniStroje.entity.Rent;
 
 import cz.muni.fi.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.serviceImpl.MachineServiceImpl;
 import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import junit.framework.Assert;
 import org.dozer.DozerBeanMapper;
@@ -42,7 +46,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
 
     @Before
     public void before() {
-       
+
         ReflectionTestUtils.setField(machineService, "dozerBeanMapper", mapper);
         ReflectionTestUtils.setField(machineService, "machineDao", stavebniStrojeMachineDao);
     }
@@ -63,6 +67,30 @@ public class MachineServiceTest extends AbstractIntegrationTest {
         verify(stavebniStrojeMachineDao).persist(mapper.map(machineDto, Machine.class));
         assertNotNull(machine.getId());
 
+    }
+
+    @Test
+    public void availableMapping() {
+
+        Date now = new Date();
+        
+        Rent r = new Rent();
+        r.setStartOfRent(changeDay(now, -1));
+        r.setEndOfRent(changeDay(now, 3));
+        
+        Collection<Rent> rents = new ArrayList<>();
+        rents.add(r);
+        
+        Machine m = new Machine();
+        m.setId(0);
+        m.setName("test");
+        m.setPrice(BigDecimal.ZERO);
+        m.setRents(rents);
+        r.setMachine(m);
+        
+        Assert.assertFalse(mapper.map(m, MachineDto.class).isAvailable());
+        r.setStartOfRent(changeDay(now, 1));
+        Assert.assertTrue(mapper.map(m, MachineDto.class).isAvailable());
     }
 
     @Test
@@ -158,7 +186,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
         for (Machine m : machines) {
             expected.add(mapper.map(m, MachineDto.class));
         }
-        
+
         Mockito.when(stavebniStrojeMachineDao.findByType(MachineType.EXCAVATOR)).thenReturn(machines);
         Assert.assertEquals(expected, machineService.findMachinesByType(MachineType.EXCAVATOR));
         Mockito.verify(stavebniStrojeMachineDao, Mockito.times(1)).findByType(MachineType.EXCAVATOR);
@@ -180,10 +208,18 @@ public class MachineServiceTest extends AbstractIntegrationTest {
         for (Machine m : machines) {
             expected.add(mapper.map(m, MachineDto.class));
         }
-        
+
         Mockito.when(stavebniStrojeMachineDao.findByPrice(BigDecimal.ONE)).thenReturn(machines);
         Assert.assertEquals(expected, machineService.findMachinesByPrice(BigDecimal.ONE));
         Mockito.verify(stavebniStrojeMachineDao, Mockito.times(1)).findByPrice(BigDecimal.ONE);
+    }
+
+    private Date changeDay(Date date, int day) {
+        Calendar cal = Calendar.getInstance();
+
+        cal.setTime(date);
+        cal.add(Calendar.DATE, day);
+        return cal.getTime();
     }
 
 }
