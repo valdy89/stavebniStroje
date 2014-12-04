@@ -5,6 +5,7 @@
 package cz.muni.fi.stavebniStroje.dto;
 
 import cz.muni.fi.stavebniStroje.entity.*;
+import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class MachineDto implements Serializable {
 
     private String name;
 
-    private String type;
+    private MachineType type;
 
     private String description;
 
@@ -51,11 +52,11 @@ public class MachineDto implements Serializable {
         this.name = name;
     }
 
-    public String getType() {
+    public MachineType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(MachineType type) {
         this.type = type;
     }
 
