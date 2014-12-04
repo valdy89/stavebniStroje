@@ -9,6 +9,7 @@ import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.service.MachineService;
 import java.util.Collection;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -34,16 +35,16 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 @UrlBinding("/machine/{$event}/")
 public class MachineActionBean extends BaseActionBean {
     
-    private ActionBeanContext context;
     final static Logger log = LoggerFactory.getLogger(MachineActionBean.class);
     @SpringBean
     protected MachineService machineService;    
     
     @ValidateNestedProperties({
-        @Validate(on = {"add", "update", "save"}, field = "name", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "type", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "description", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "price", required = true),})
+        @Validate(on = {"read", "delete"}, field = "id", required = true),
+        @Validate(on = {"add", "save"}, field = "name", required = true),
+        @Validate(on = {"add", "save"}, field = "type", required = true),
+        @Validate(on = {"add", "save"}, field = "description", required = true),
+        @Validate(on = {"add", "save"}, field = "price", required = true),})
     private MachineDto machine;
     private Collection<MachineDto> result;
     
@@ -73,9 +74,9 @@ public class MachineActionBean extends BaseActionBean {
         this.machine = machine;
     }
     
-    @Before(stages = LifecycleStage.BindingAndValidation, on = {"update", "save", "delete"})
+    @Before(stages = LifecycleStage.BindingAndValidation, on = {"read", "delete"})
     public void loadMachineFromDB() {
-        String id = context.getRequest().getParameter("machine.id");
+        String id = getContext().getRequest().getParameter("machine.id");
         if (id != null) {
             machine = machineService.findMachineById(Long.parseLong(id));
         } else {
@@ -89,25 +90,23 @@ public class MachineActionBean extends BaseActionBean {
         } catch (InvalidDataAccessApiUsageException e) {
             return new ForwardResolution("/fail/Fail.jsp");
         }
-        result = (List<MachineDto>) machineService.findAllMachines();
+        result = machineService.findAllMachines();
         return new RedirectResolution(this.getClass(), "list");
     }
     
-    public Resolution edit() {
-        log.debug("update() machine={}", machine);
-        machineService.updateMachine(machine);
-        return new ForwardResolution(this.getClass(), "edit");
+    public Resolution read() {
+        log.debug("read() machine={}", machine);
+        return new ForwardResolution("/machine/read.jsp");
     }
     
     public Resolution save() {
         log.debug("save() machine={}", machine);
         machineService.updateMachine(machine);
-        return new ForwardResolution(this.getClass(), "list");
+        return new ForwardResolution(this.getClass(), "read");
     }
     
     public Resolution delete() {
-        log.debug("delete({})", context.getRequest().getParameter("machine.id"));
-        String id = context.getRequest().getParameter("machine.id");
+        log.debug("delete({})", machine.getId());
         try {
             machineService.removeMachine(machine);
         } catch (DataAccessException e) {
