@@ -7,7 +7,7 @@
     <html lang="${pageContext.request.locale}">
         <head>
             <title><f:message key="${titlekey}"/></title>
-            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css" />
+            <%--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css" />--%>
         <s:layout-component name="header"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -48,14 +48,17 @@
 
 
 
-            <h1><f:message key="${titlekey}"/></h1>
            <!-- <div id="navigation">
                 <ul>
                     <li><s:link href="/index.jsp"><f:message key="navigation.index"/></s:link></li>
 
                 </ul>
             </div>  -->
-            <div id="content">
+           <div class="container">
+                <div class="page-header">
+                    <h1><f:message key="${titlekey}"/></h1>
+                </div>
+               
                 <s:messages/>
                 <s:layout-component name="body"/>
             </div>
