@@ -5,10 +5,9 @@
 
 <s:layout-render name="/layout.jsp" titlekey="index.title">
     <s:layout-component name="body">
-
         <h2><f:message key="machine.list.header"/></h2>
         <br />
-        <button type="button" class="btn btn-success">
+        <button type="button" class="btn btn-success" data-togle="modal" data-target="#addMachineModal">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             <f:message key="machine.list.add"/>
         </button>
@@ -22,74 +21,78 @@
         </div>
 
         <br />
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th><f:message key="machine.list.machineName"/></th>
-                    <th><f:message key="machine.list.machineType"/></th>
-                    <th></th>
-                    <th></th>
-                    <th><f:message key="machine.list.revision"/></th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" var="actionBean"/>
-
-                <c:forEach items="${actionBean.result}" var="customer">
-
+        <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td><input type="checkbox" name="stroj1" /></td>
-                        <td><a href="stranka s podrobnymi informacemi">new Holland T5522</a></td>
-                        <td>Traktor</td>
-                        <td>Půjčen do 15. 2. 2015
-                            <button type="button" class="btn btn-info">
-                                Rezervovat
-                            </button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                                <f:message key="machine.list.update"/>
-                            </button>
-                            <button type="button" class="btn btn-danger">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </button>
-                        </td>
-                        <td><span style="color: #ff0000; font-weight: bold;">15. 12. 2014</span> 
-                            <button type="button" class="btn btn-warning">
-                                <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                                <f:message key="machine.list.addRevision"/>
-                            </button>
-                        </td>
+                        <th></th>
+                        <th><f:message key="machine.list.machineName"/></th>
+                        <th><f:message key="machine.list.machineType"/></th>
+                        <th><f:message key="machine.list.machineDescription"/></th>
+                        <th><f:message key="machine.list.machinePrice"/></th>
+                        <th></th>
                     </tr>
+                </thead>
+                <tbody>
 
-<!-- ${customer.id} <br /> -->
-                </c:forEach>
-            </tbody>
-        </table>
+                    <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" var="actionBean"/>
 
-        <a href="#">Smazat vybrané</a>
+                    <c:forEach items="${actionBean.result}" var="machine">
 
-        <h2>Přidat stroj</h2>
-        <br />
+                        <tr>
+                            <td><input type="checkbox" name="machines[]" value="${machine.id}" /></td>
+                            <td><a href="stranka s podrobnymi informacemi">${machine.name}</a></td>
 
-                <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
-                    <div class="form-horizontal">
-                        <div class="row bottom-small-buffer">
-                            <%@include file="form.jsp"%>
-                        </div>
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <s:submit name="add" class="btn btn-success">Vytvořit stroj</s:submit>
+                            <td>${machine.type}</td>
+                            <td>${machine.description}</td>
+                            <td>${machine.price}</td>
+                            <td>
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                    <f:message key="all.btn.edit"/>
+                                </button>
+                                <button type="button" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    <f:message key="all.btn.delete"/>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </c:forEach>
+                </tbody>
+            </table>
+            <s:submit name="delete" class="btn btn-danger"><f:message key="all.btn.deleteSelected"/></s:submit>
+        </s:form>
+
+
+        <div class="modal fade" id="addMachineModal" tabindex="-1" role="dialog" aria-labelledby="addMachineModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel"><f:message key="machine.list.add"/></h4>
+                    </div>
+                    <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
+
+                        <div class="modal-body">
+
+                            <div class="form-horizontal">
+                                <div class="row bottom-small-buffer">
+                                    <%@include file="form.jsp"%>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </s:form>
-
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
+                            <s:submit name="add" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
+                        </div>
+                    </s:form>
+                </div>
+            </div>
+        </div>
 
         <nav>
             <ul class="pagination pagination-sm navbar-right">
