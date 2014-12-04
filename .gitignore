@@ -47,3 +47,4 @@ derby.log
 /stavebniStroje-domain/target/
 /stavebniStroje-service/target/
 /stavebniStroje-web/target/
+nb-configuration.xml
