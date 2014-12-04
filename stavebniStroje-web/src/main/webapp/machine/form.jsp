@@ -28,8 +28,8 @@
             <s:label for="price" name="machine.price"></s:label>
         </div>
         <div class="col-md-10">
-            <div class="input-group form-control">
-                <s:text name="machine.price" id="price" />
+            <div class="input-group">
+                <s:text name="machine.price" id="price" class="form-control" />
                 <span class="input-group-addon">Kc</span>
             </div>
         </div>
@@ -42,15 +42,6 @@
         </div>
         <div class="col-md-10">
             <s:textarea name="machine.description" id="description" class="form-control"></s:textarea>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="control-label col-md-2">
-            <s:label for="revision" name="revision.dateOfRevision"></s:label>
-        </div>
-        <div class="col-md-10">
-            <s:text name="revision.dateOfRevision" id="revision" class="form-control" />
         </div>
     </div>
 
