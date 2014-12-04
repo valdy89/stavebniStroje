@@ -11,7 +11,7 @@
         </button>
 
         <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" var="actionBean"/>
-        
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -29,25 +29,16 @@
 
                     <tr>
                         <td><input type="checkbox" name="customers[]" value="${customer.id}"/></td>
-                        <td><a href="stranka s podrobnymi informacemi">${customer.firstName}</a></td>
+                        <td>${customer.firstName}</td>
                         <td> ${customer.secondName}</td>
+                        <td> ${customer.address}</td>
                         <td>
-                            <td>
-                     <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit"><s:param name="customer.id" value="${customer.id}"/>edit</s:link>
-                    </td>
-                            <button type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                                Upravit zákazníka
-                            </button>
-                             <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
-                                <s:hidden name="customer.id" value=" ${customer.id} "/>
-                                <s:submit name="edit" class="btn btn-default"><f:message key="customer.list.deleteBtn"/></s:submit>
-                            </s:form>
 
+                            <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit"><s:param name="customer.id" value="${customer.id}"/><f:message key="customer.list.editBtn"/></s:link>
                         </td>
-                        <td>${customer.id}
+                        <td>
                             <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
-                                 <s:hidden name="customer.id" value='${customer.id}'/>
+                                <s:hidden name="customer.id" value='${customer.id}'/>
                                 <s:submit name="delete" class="btn btn-danger"><f:message key="customer.list.deleteBtn"/></s:submit>
                             </s:form>
                         </td>
@@ -57,19 +48,19 @@
             </tbody>
         </table>
 
-                    <a href="#"><f:message key="all.btn.deleteSelected"/></a>
+        <a href="#"><f:message key="all.btn.deleteSelected"/></a>
 
-<!--        <nav>
-            <ul class="pagination pagination-sm navbar-right">
-                <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
-            </ul>
-        </nav>-->
+        <!--        <nav>
+                    <ul class="pagination pagination-sm navbar-right">
+                        <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+                    </ul>
+                </nav>-->
 
 
         <h2>Přidat zákazníka</h2>
@@ -80,7 +71,7 @@
                 <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
                     <fieldset>
                         <%@include file="form.jsp"%>
-                        <s:submit name="add">Vytvořit customera</s:submit>
+                        <s:submit name="add"><f:message key="customer.list.createBtn"/></s:submit>
                         </fieldset>
                 </s:form>
             </div>
