@@ -36,7 +36,7 @@
                             <!-- potrebujeme dodat class="active" pokud ma byt odkaz aktivni -->
                             <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean"><f:message key="navigation.machineList"/></s:link></li>
                             <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean"><f:message key="navigation.customerList"/></s:link></li>
-                                 
+                            <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean"><f:message key="navigation.rentList"/></s:link></li>                                 
                         </ul> 
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="/about.jsp"><f:message key="navigation.about"/></a></li>
