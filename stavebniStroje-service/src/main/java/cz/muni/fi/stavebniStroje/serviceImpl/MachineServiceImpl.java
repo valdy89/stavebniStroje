@@ -9,8 +9,6 @@ import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
