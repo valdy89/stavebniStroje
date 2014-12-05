@@ -3,6 +3,9 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
+<s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" var="actionBean"/>
+<c:set var="type" value="${actionBean.type}"/>
+
 <s:layout-render name="/layout.jsp" titlekey="index.title">
     <s:layout-component name="body">
         <h2><f:message key="machine.list.header"/></h2>
@@ -13,13 +16,32 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
         <f:message key="machine.list.display"/>
         <div class="btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-default active">Všechny stroje</button>
-            <button type="button" class="btn btn-default">Traktory</button>
-            <button type="button" class="btn btn-default">Bagry</button>
-            <button type="button" class="btn btn-default">Nákladní auta</button>
+            
+            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list">
+                <button type="button" class="btn btn-default${type==null?" active":""}">
+                    <f:message key="machine.types.all"/>
+                </button>
+            </s:link>
+            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list">
+                <s:param name="type" value="TRACTOR"/>
+                <button type="button" class="btn btn-default${type=='TRACTOR'?" active":""}">
+                    <f:message key="machine.types.tractor"/>
+                </button>
+            </s:link>
+            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list">
+                <s:param name="type" value="EXCAVATOR"/>
+                <button type="button" class="btn btn-default${type=='EXCAVATOR'?" active":""}">
+                    <f:message key="machine.types.excavator"/>
+                </button>
+            </s:link>
+            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list">
+                <s:param name="type" value="LORRY"/>
+                <button type="button" class="btn btn-default${type=='LORRY'?" active":""}">
+                    <f:message key="machine.types.lorry"/>
+                </button>
+            </s:link>
         </div>
-
-        <br />
+        <div class="row">
         <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
             <table class="table table-striped">
                 <thead>
@@ -29,12 +51,11 @@
                         <th><f:message key="machine.type"/></th>
                         <th><f:message key="machine.description"/></th>
                         <th><f:message key="machine.price"/></th>
-                        <th></th>
+                        <th><f:message key="machine.detail.state"/></th>
+                        <th><f:message key="all.btn.tools"/></th>
                     </tr>
                 </thead>
                 <tbody>
-
-                    <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" var="actionBean"/>
 
                     <c:forEach items="${actionBean.result}" var="machine">
 
@@ -45,6 +66,18 @@
                             <td>${machine.type}</td>
                             <td>${machine.description}</td>
                             <td>${machine.price}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${machine.available}">
+                                        <span class="glyphicon glyphicon-ok-circle"></span>
+                                        <f:message key="machine.detail.available"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="glyphicon glyphicon-remove-circle"></span>
+                                        <f:message key="machine.detail.borrowed"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
                             <td>
                                 <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="read"><s:param name="machine.id" value="${machine.id}"/>
                                     <button type="button" class="btn btn-default">
@@ -66,6 +99,7 @@
             </table>
             <s:submit name="delete" class="btn btn-danger"><f:message key="all.btn.deleteSelected"/></s:submit>
         </s:form>
+        </div>
 
 
         <%--

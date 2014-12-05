@@ -7,6 +7,8 @@ package cz.muni.fi.stavebnistroje.web;
 
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.service.MachineService;
+import cz.muni.fi.stavebniStroje.util.MachineType;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -34,11 +36,11 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
  */
 @UrlBinding("/machine/{$event}/")
 public class MachineActionBean extends BaseActionBean {
-    
+
     final static Logger log = LoggerFactory.getLogger(MachineActionBean.class);
     @SpringBean
-    protected MachineService machineService;    
-    
+    protected MachineService machineService;
+
     @ValidateNestedProperties({
         @Validate(on = {"read", "delete"}, field = "id", required = true),
         @Validate(on = {"add", "save"}, field = "name", required = true),
@@ -46,65 +48,95 @@ public class MachineActionBean extends BaseActionBean {
         @Validate(on = {"add", "save"}, field = "description", required = true),
         @Validate(on = {"add", "save"}, field = "price", required = true),})
     private MachineDto machine;
+    private MachineType type;
+
     private Collection<MachineDto> result;
-    
+
     @Autowired
-    
+
     public Collection<MachineDto> getResult() {
         return result;
     }
-    
+
     public void setResult(Collection<MachineDto> result) {
         this.result = result;
     }
-    
+
     public MachineService getMachineService() {
         return machineService;
     }
-    
+
     public void setMachineService(MachineService machineService) {
         this.machineService = machineService;
     }
-    
+
     public MachineDto getMachine() {
         return machine;
     }
-    
+
     public void setMachine(MachineDto machine) {
         this.machine = machine;
     }
+    public MachineType getType() {
+        return type;
+    }
+
+    public void setType(MachineType type) {
+        this.type = type;
+    }
+
+    private String getParameterValue(String key) {
+        return getContext().getRequest().getParameter(key);
+    }
     
-    @Before(stages = LifecycleStage.BindingAndValidation, on = {"read", "delete"})
+    @Before(stages = LifecycleStage.BindingAndValidation, on = { "list" })
+    public void parseMachineType() {
+        String t = getParameterValue("type");
+        if (t != null) {
+            try {
+                type = MachineType.valueOf(t);
+            } catch (IllegalArgumentException e) {
+                type = null;
+            }
+        }
+    }
+    
+    @Before(stages = LifecycleStage.BindingAndValidation, on = {"read", "save", "delete"})
     public void loadMachineFromDB() {
-        String id = getContext().getRequest().getParameter("machine.id");
+        String id = getParameterValue("machine.id");
         if (id != null) {
             machine = machineService.findMachineById(Long.parseLong(id));
-        } else {
         }
-    }    
-    
+    }
+
     public Resolution add() {
         log.debug("add() machine={}", machine);
         try {
             machineService.newMachine(machine);
-        } catch (InvalidDataAccessApiUsageException e) {
+        } catch (DataAccessException e) {
             return new ForwardResolution("/fail/Fail.jsp");
         }
         result = machineService.findAllMachines();
         return new RedirectResolution(this.getClass(), "list");
     }
-    
+
     public Resolution read() {
         log.debug("read() machine={}", machine);
         return new ForwardResolution("/machine/read.jsp");
     }
-    
+
     public Resolution save() {
         log.debug("save() machine={}", machine);
-        machineService.updateMachine(machine);
-        return new ForwardResolution(this.getClass(), "read");
+        try {
+            machineService.updateMachine(machine);
+        } catch (DataAccessException e) {
+            return new RedirectResolution("/fail/Fail.jsp");
+        }
+        RedirectResolution resolution = new RedirectResolution(this.getClass(), "read");
+        resolution.addParameter("machine.id", machine.getId());
+        return resolution;
     }
-    
+
     public Resolution delete() {
         log.debug("delete({})", machine.getId());
         try {
@@ -113,13 +145,24 @@ public class MachineActionBean extends BaseActionBean {
             return new RedirectResolution("/fail/Fail.jsp");
         }
         return new RedirectResolution(this.getClass(), "list");
-    }    
+    }
     
     @DefaultHandler
     public Resolution list() {
         log.debug("list()");
-        result = machineService.findAllMachines();
+        try {
+            
+            if (type == null) {
+                result = machineService.findAllMachines();
+            }
+            else {
+                result = machineService.findMachinesByType(type);
+            }
+            
+        } catch (DataAccessException e) {
+            return new RedirectResolution("/fail/Fail.jsp");
+        }
         return new ForwardResolution("/machine/list.jsp");
     }
-    
+
 }
