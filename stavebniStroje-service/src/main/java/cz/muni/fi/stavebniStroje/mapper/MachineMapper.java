@@ -26,6 +26,8 @@ public class MachineMapper implements CustomConverter{
         Machine m = new Machine();
         m.setId(source.getId());
         m.setName(source.getName());
+        m.setDescription(source.getDescription());
+        m.setType(source.getType());
         m.setPrice(source.getPrice());
         m.setRents(source.getRents());
         m.setRevisions(source.getRevisions());
@@ -36,6 +38,8 @@ public class MachineMapper implements CustomConverter{
         MachineDto m = new MachineDto();
         m.setId(source.getId());
         m.setName(source.getName());
+        m.setDescription(source.getDescription());
+        m.setType(source.getType());
         m.setPrice(source.getPrice());
         m.setRents(source.getRents());
         m.setRevisions(source.getRevisions());
