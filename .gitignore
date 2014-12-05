@@ -48,3 +48,4 @@ derby.log
 /stavebniStroje-service/target/
 /stavebniStroje-web/target/
 nb-configuration.xml
+stavebniStroje-web/nb-configuration.xml
