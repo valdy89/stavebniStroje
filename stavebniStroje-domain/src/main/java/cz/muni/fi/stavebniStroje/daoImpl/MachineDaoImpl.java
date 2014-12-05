@@ -49,19 +49,21 @@ public class MachineDaoImpl implements MachineDao {
             throw new IllegalArgumentException("Machine must exists before updating.");
         }
         entityManager.merge(machine);
-        entityManager.persist(machine);
-       
-
     }
 
+    @Override
     public void remove(Machine machine) {
         if (machine == null) {
             throw new IllegalArgumentException("Machine to be remove cannot to be null.");
         }
-        entityManager.remove(machine);
-    
+        Machine m = entityManager.find(Machine.class, machine.getId());
+        if (m == null) {
+            throw new IllegalArgumentException("Machine doesn't exist in the database.");
+        }
+        entityManager.remove(m);
     }
 
+    @Override
     public Machine findById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("ID of machine to be find by id cannot to be null or 0.");
