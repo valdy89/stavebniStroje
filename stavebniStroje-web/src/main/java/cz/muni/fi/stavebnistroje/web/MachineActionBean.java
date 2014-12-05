@@ -89,18 +89,6 @@ public class MachineActionBean extends BaseActionBean {
         return getContext().getRequest().getParameter(key);
     }
     
-    @Before(stages = LifecycleStage.BindingAndValidation, on = { "list" })
-    public void parseMachineType() {
-        String t = getParameterValue("type");
-        if (t != null) {
-            try {
-                type = MachineType.valueOf(t);
-            } catch (IllegalArgumentException e) {
-                type = null;
-            }
-        }
-    }
-    
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"read", "save", "delete"})
     public void loadMachineFromDB() {
         String id = getParameterValue("machine.id");
