@@ -6,69 +6,88 @@
 package cz.muni.fi.stavebniStroje.mapper;
 
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
+import cz.muni.fi.stavebniStroje.dto.RentDto;
+import cz.muni.fi.stavebniStroje.dto.RevisionDto;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 import cz.muni.fi.stavebniStroje.entity.Rent;
+import cz.muni.fi.stavebniStroje.entity.Revision;
+import java.util.ArrayList;
 import java.util.Date;
-import org.dozer.CustomConverter;
-import org.dozer.MappingException;
+import org.dozer.DozerBeanMapper;
+import org.dozer.DozerConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author spito
  */
-public class MachineMapper implements CustomConverter{
+public class MachineMapper extends DozerConverter<Machine, MachineDto> {
 
+    // TODO: make @Autowired working
+    //@Autowired
+    private final DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+    
+    public MachineMapper() {
+        super(Machine.class, MachineDto.class);
+    }
+    
     private boolean isWithinRange(Date date, Date begin, Date end) {
         return !(date.before(begin) || date.after(end));
     }
     
-    private Machine machine(MachineDto source) {
-        Machine m = new Machine();
-        m.setId(source.getId());
-        m.setName(source.getName());
-        m.setDescription(source.getDescription());
-        m.setType(source.getType());
-        m.setPrice(source.getPrice());
-        m.setRents(source.getRents());
-        m.setRevisions(source.getRevisions());
-        return m;
-    }
-    
-    private MachineDto machineDto(Machine source) {
+    @Override
+    public MachineDto convertTo(Machine source, MachineDto destination) {
+        if (source==null) {
+            return null;
+        }
         MachineDto m = new MachineDto();
         m.setId(source.getId());
         m.setName(source.getName());
         m.setDescription(source.getDescription());
         m.setType(source.getType());
         m.setPrice(source.getPrice());
-        m.setRents(source.getRents());
-        m.setRevisions(source.getRevisions());
         m.setAvailable(true);
+        
+        ArrayList<RevisionDto> revisions = new ArrayList<>(source.getRevisions().size());
+        for (Revision r : source.getRevisions()) {
+            revisions.add(dozerBeanMapper.map(r, RevisionDto.class));
+        }
+        m.setRevisions(revisions);
+        
         Date now = new Date();
-        for (Rent r : m.getRents()) {
-            if (isWithinRange(now, r.getStartOfRent(), r.getEndOfRent())) {
+        ArrayList<RentDto> rents = new ArrayList<>(source.getRents().size());
+        for (Rent r : source.getRents()) {
+            rents.add(dozerBeanMapper.map(r, RentDto.class));
+            if (m.isAvailable() && isWithinRange(now, r.getStartOfRent(), r.getEndOfRent())) {
                 m.setAvailable(false);
-                break;
             }
         }
+        m.setRents(rents);
         return m;
     }
-    
+
     @Override
-    public Object convert(Object destination, Object source, Class t1, Class t2) {
+    public Machine convertFrom(MachineDto source, Machine destination) {
         if (source == null) {
             return null;
         }
-        
-        if (source instanceof Machine) {
-            return machineDto((Machine)source);
+        Machine m = new Machine();
+        m.setId(source.getId());
+        m.setName(source.getName());
+        m.setDescription(source.getDescription());
+        m.setType(source.getType());
+        m.setPrice(source.getPrice());
+        ArrayList<Rent> rents = new ArrayList<>(source.getRents().size());
+        for (RentDto r : source.getRents()) {
+            rents.add(dozerBeanMapper.map(r, Rent.class));
         }
-        if (source instanceof MachineDto){
-            return machine((MachineDto)source);
+        m.setRents(rents);
+        ArrayList<Revision> revisions = new ArrayList<>(source.getRevisions().size());
+        for (RevisionDto r : source.getRevisions()) {
+            revisions.add(dozerBeanMapper.map(r, Revision.class));
         }
-        throw new MappingException("Converter TestCustomConverter "
-          + "used incorrectly. Arguments passed in were:"
-          + destination + " and " + source);
+        m.setRevisions(revisions);
+        return m;
     }
     
 }
