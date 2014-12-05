@@ -88,9 +88,12 @@ public class MachineServiceTest extends AbstractIntegrationTest {
         m.setRents(rents);
         r.setMachine(m);
         
-        Assert.assertFalse(mapper.map(m, MachineDto.class).isAvailable());
+        MachineDto mdto = mapper.map(m, MachineDto.class);
+        Assert.assertFalse(mdto.isAvailable());
         r.setStartOfRent(changeDay(now, 1));
-        Assert.assertTrue(mapper.map(m, MachineDto.class).isAvailable());
+        mdto = mapper.map(m, MachineDto.class);
+        Assert.assertTrue(mdto.isAvailable());
+        Assert.assertEquals(r, mapper.map(mdto.getRents().iterator().next(), Rent.class));
     }
 
     @Test
