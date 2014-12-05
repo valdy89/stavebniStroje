@@ -17,28 +17,20 @@
         <f:message key="machine.list.display"/>
         <div class="btn-group" role="group" aria-label="...">
             
-            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list">
-                <button type="button" class="btn btn-default${type==null?" active":""}">
-                    <f:message key="machine.types.all"/>
-                </button>
+            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type==null? ' active' : ''}">
+                <f:message key="machine.types.all"/>
             </s:link>
-            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list">
+            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type=='TRACTOR'?' active':''}">
                 <s:param name="type" value="TRACTOR"/>
-                <button type="button" class="btn btn-default${type=='TRACTOR'?" active":""}">
-                    <f:message key="machine.types.tractor"/>
-                </button>
+                <f:message key="machine.types.tractor"/>
             </s:link>
-            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list">
+            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type=='EXCAVATOR'?' active':''}">
                 <s:param name="type" value="EXCAVATOR"/>
-                <button type="button" class="btn btn-default${type=='EXCAVATOR'?" active":""}">
-                    <f:message key="machine.types.excavator"/>
-                </button>
+                <f:message key="machine.types.excavator"/>
             </s:link>
-            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list">
+            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type=='LORRY'?' active':''}">
                 <s:param name="type" value="LORRY"/>
-                <button type="button" class="btn btn-default${type=='LORRY'?" active":""}">
-                    <f:message key="machine.types.lorry"/>
-                </button>
+                <f:message key="machine.types.lorry"/>
             </s:link>
         </div>
         <div class="row">
