@@ -5,7 +5,11 @@
  */
 package cz.muni.fi.stavebnistroje.web;
 
+import cz.muni.fi.stavebniStroje.dto.CustomerDto;
+import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.dto.RentDto;
+import cz.muni.fi.stavebniStroje.service.CustomerService;
+import cz.muni.fi.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.service.RentService;
 import static cz.muni.fi.stavebnistroje.web.CustomerActionBean.log;
 import java.util.Collection;
@@ -41,23 +45,77 @@ public class RentActionBean extends BaseActionBean implements ValidationErrorHan
     final static Logger log = LoggerFactory.getLogger(RentActionBean.class);
     @SpringBean
     protected RentService rentService;
-
+    protected CustomerService customerService;
+    protected MachineService machineService;
+    
     private Collection<RentDto> result;
-
+    private Collection<CustomerDto> customers;
+    private Collection<MachineDto> machines;
+    
     @ValidateNestedProperties({
         @Validate(on = {"add", "update", "save"}, field = "machine", required = true),
         @Validate(on = {"add", "update", "save"}, field = "customer", required = true),
         @Validate(on = {"add", "update", "save"}, field = "startOfRent", required = true),
         @Validate(on = {"add", "update", "save"}, field = "endOfRent", required = true),})
     private RentDto rent;
+    
+    private CustomerDto customerDto;
+    private MachineDto machineDto;
 
+    public CustomerDto getCustomerDto() {
+        return customerDto;
+    }
+
+    public void setCustomerDto(CustomerDto customerDto) {
+        this.customerDto = customerDto;
+    }
+
+    public MachineDto getMachineDto() {
+        return machineDto;
+    }
+
+    public void setMachineDto(MachineDto machineDto) {
+        this.machineDto = machineDto;
+    }
+
+   
+
+    public Collection<CustomerDto> getCustomers() {
+        return customers;
+    }
+    
+    public Collection<MachineDto> getMachines() {
+        return machines;
+    }    
+
+    public CustomerService getCustomerService() {
+        return customerService;
+    }
+
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+    public MachineService getMachineService() {
+        return machineService;
+    }
+
+    public void setMachineService(MachineService machineService) {
+        this.machineService = machineService;
+    }
+    
+    
     @DefaultHandler
     public Resolution list() {
         log.debug("list()");
-        //result = rentService.findAllRent();
+        result = rentService.findAllRent();
+        customers = customerService.findAllCustomer();
+        machines = machineService.findAllMachines();
+                
         return new ForwardResolution("/rent/list.jsp");
     }
-
+   
+    
     public Collection<RentDto> getResult() {
         return result;
     }
