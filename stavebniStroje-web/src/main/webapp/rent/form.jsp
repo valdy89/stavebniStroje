@@ -4,13 +4,13 @@
     <tr>
         <th><s:label for="b4" ><f:message key="rent.list.customer"/></s:label></th>
 <td><s:select id="b4" name="customerId">
-        <s:options-collection collection="${actionBean.result}" value="id" label="lastName"/>
+        <s:options-collection collection="${actionBean.customers}" value="id" label="lastName"/>
     </s:select></td>
 </tr>
 <tr>
     <th><s:label for="b4" ><f:message key="rent.list.machine"/></s:label></th>
 <td><s:select id="b4" name="machineId">
-        <s:options-collection collection="${actionBean.result}" value="id" label="name"/>
+        <s:options-collection collection="${actionBean.machines}" value="id" label="name"/>
     </s:select></td>
 </tr>
 
