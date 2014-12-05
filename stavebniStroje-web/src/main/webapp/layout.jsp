@@ -7,10 +7,9 @@
     <html lang="${pageContext.request.locale}">
         <head>
             <title><f:message key="${titlekey}"/></title>
-            <%--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css" />--%>
         <s:layout-component name="header"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css" />
         <!-- Bootstrap základ start -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
