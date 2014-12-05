@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package cz.muni.fi.stavebnistroje.web;
 
 import cz.muni.fi.stavebniStroje.dto.RentDto;
 import cz.muni.fi.stavebniStroje.service.RentService;
+import static cz.muni.fi.stavebnistroje.web.CustomerActionBean.log;
+import java.util.Collection;
 import java.util.List;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.Before;
@@ -20,6 +21,8 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import net.sourceforge.stripes.validation.ValidationErrorHandler;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,29 +35,30 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
  * @author milos
  */
 @UrlBinding("/rent/{$event}/")
-public class RentActionBean   extends BaseActionBean  {
-    
-        private ActionBeanContext context;
+public class RentActionBean extends BaseActionBean implements ValidationErrorHandler {
+
+    //    private ActionBeanContext context;
     final static Logger log = LoggerFactory.getLogger(RentActionBean.class);
     @SpringBean
-    protected RentService rentService;    
-    
-    
+    protected RentService rentService;
+
+    private Collection<RentDto> result;
+
     @ValidateNestedProperties({
         @Validate(on = {"add", "update", "save"}, field = "machine", required = true),
         @Validate(on = {"add", "update", "save"}, field = "customer", required = true),
         @Validate(on = {"add", "update", "save"}, field = "startOfRent", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "endOfRent", required = true),
-
-        
-    })
+        @Validate(on = {"add", "update", "save"}, field = "endOfRent", required = true),})
     private RentDto rent;
-    private List<RentDto> result;
-  
-    @Autowired
-   
-    
-    public List<RentDto> getResult() {
+
+    @DefaultHandler
+    public Resolution list() {
+        log.debug("list()");
+        //result = rentService.findAllRent();
+        return new ForwardResolution("/rent/list.jsp");
+    }
+
+    public Collection<RentDto> getResult() {
         return result;
     }
 
@@ -70,68 +74,58 @@ public class RentActionBean   extends BaseActionBean  {
         this.rentService = rentService;
     }
 
-    public RentDto getMachine() {
+    public RentDto getRent() {
         return rent;
     }
 
     public void setRent(RentDto rent) {
         this.rent = rent;
     }
-    
-    
-    @Before(stages = LifecycleStage.BindingAndValidation, on = {"update", "save", "delete"})
-    public void loadRent() {
-        String id = context.getRequest().getParameter("rent.id");
+
+    @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save", "delete"})
+    public void loadRentFromDB() {
+        String id = getContext().getRequest().getParameter("rent.id");
         if (id != null) {
             rent = rentService.findRentById(Long.parseLong(id));
         } else {
         }
-    }    
-    
-    @DefaultHandler
-        public Resolution redirect() {
-        return new ForwardResolution("/index.jsp");
-    }    
-        
-        
+    }
+
     public Resolution add() {
         log.debug("add() rent={}", rent);
-        try {
-            rentService.newRent(rent);
-        } catch (InvalidDataAccessApiUsageException e) {
-            return new ForwardResolution("/fail/Fail.jsp");
-        }
+
+        rentService.newRent(rent);
+
         result = (List<RentDto>) rentService.findAllRent();
-        return new ForwardResolution("/rent/add.jsp");
+        return new RedirectResolution(this.getClass(), "list");
     }
 
     public Resolution edit() throws Exception {
         log.debug("update() rent={}", rent);
         rentService.updateRent(rent);
-        return new ForwardResolution("/rent/update.jsp");
+        return new ForwardResolution("/rent/edit.jsp");
     }
 
     public Resolution save() {
         log.debug("save() rent={}", rent);
         rentService.updateRent(rent);
-        return new ForwardResolution("/rent/list.jsp");
+        return new RedirectResolution(this.getClass(),"list");
     }
 
     public Resolution delete() {
-        log.debug("delete({})", context.getRequest().getParameter("rent.id"));
-        String id = context.getRequest().getParameter("rent.id");
-        try {
-            rentService.removeRent(rent);
-        } catch (DataAccessException e) {
-            return new RedirectResolution("/fail/Fail.jsp");
-        }
-        return new RedirectResolution("/rent/list.jsp");
-    }        
+        log.debug("delete({})", getContext().getRequest().getParameter("rent.id"));
+        
+        rentService.removeRent(rent);
 
-    public Resolution all() {
-        log.debug("all()");
-        result = (List<RentDto>) rentService.findAllRent();
-        return new ForwardResolution("/rent/list.jsp");
+        return new RedirectResolution(this.getClass(),"list");
     }
-    
+
+    @Override
+    public Resolution handleValidationErrors(ValidationErrors ve) throws Exception {
+        //fill up the data for the table if validation errors occured
+        result = rentService.findAllRent();
+        //return null to let the event handling continue
+        return null;
+    }
+
 }
