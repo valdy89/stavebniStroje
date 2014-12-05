@@ -6,7 +6,6 @@
 
 package cz.muni.fi.stavebniStroje.dto;
 
-import cz.muni.fi.stavebniStroje.entity.Machine;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -22,7 +21,7 @@ public class RevisionDto implements Serializable {
    
     private static final long serialVersionUID = 1L;
     private long id;
-    private Machine machine;
+    private MachineDto machine;
     private Date dateOfRevision;
 
     public long getId() {
@@ -33,11 +32,11 @@ public class RevisionDto implements Serializable {
         this.id = id;
     }
 
-    public Machine getMachine() {
+    public MachineDto getMachine() {
         return machine;
     }
 
-    public void setMachine(Machine machine) {
+    public void setMachine(MachineDto machine) {
         this.machine = machine;
     }
 

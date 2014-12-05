@@ -4,7 +4,6 @@
  */
 package cz.muni.fi.stavebniStroje.dto;
 
-import cz.muni.fi.stavebniStroje.entity.*;
 import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -32,9 +31,9 @@ public class MachineDto implements Serializable {
     
     private boolean available;
 
-    private Collection<Rent> rents = new ArrayList<>();
+    private Collection<RentDto> rents = new ArrayList<>();
    
-    private Collection<Revision> revisions = new ArrayList<>();
+    private Collection<RevisionDto> revisions = new ArrayList<>();
 
     private BigDecimal price;
     
@@ -78,19 +77,19 @@ public class MachineDto implements Serializable {
         this.available = available;
     }
 
-    public Collection<Rent> getRents() {
+    public Collection<RentDto> getRents() {
         return rents;
     }
 
-    public void setRents(Collection<Rent> rents) {
+    public void setRents(Collection<RentDto> rents) {
         this.rents = rents;
     }
 
-    public Collection<Revision> getRevisions() {
+    public Collection<RevisionDto> getRevisions() {
         return revisions;
     }
 
-    public void setRevisions(Collection<Revision> revisions) {
+    public void setRevisions(Collection<RevisionDto> revisions) {
         this.revisions = revisions;
     }
 
