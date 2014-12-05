@@ -4,10 +4,13 @@
 
 <s:layout-render name="/layout.jsp" titlekey="index.title">
     <s:layout-component name="body">
+        <div class="page-header">
+            <h1><f:message key="index.title"/></h1>
+        </div>
 
-     <ul>
-           <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">test customeru</s:link></li>
-       </ul>
+        <ul>
+            <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">test customeru</s:link></li>
+            </ul>
 
     </s:layout-component>
 </s:layout-render>

@@ -54,9 +54,6 @@
                 </ul>
             </div>  -->
            <div class="container">
-                <div class="page-header">
-                    <h1><f:message key="${titlekey}"/></h1>
-                </div>
                
                 <s:messages/>
                 <s:layout-component name="body"/>
