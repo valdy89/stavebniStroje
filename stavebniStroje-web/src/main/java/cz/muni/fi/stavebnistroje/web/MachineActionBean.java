@@ -8,11 +8,7 @@ package cz.muni.fi.stavebnistroje.web;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.util.MachineType;
-import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -23,12 +19,9 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 /**
  *
@@ -51,8 +44,6 @@ public class MachineActionBean extends BaseActionBean {
     private MachineType type;
 
     private Collection<MachineDto> result;
-
-    @Autowired
 
     public Collection<MachineDto> getResult() {
         return result;
