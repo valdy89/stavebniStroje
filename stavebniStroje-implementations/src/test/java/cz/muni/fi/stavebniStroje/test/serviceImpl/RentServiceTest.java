@@ -149,59 +149,6 @@ public class RentServiceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    public void testFindByCustomer() {
-
-        Collection<Rent> col = new ArrayList<>();
-        col.add(new Rent());
-        col.add(new Rent());
-
-        Collection<RentDto> expected = new ArrayList<>();
-        for (Rent r : col) {
-            expected.add(mapper.map(r, RentDto.class));
-        }
-
-        try {
-            rentService.findRentByCustomer(null);
-            fail("Didn't throw exception when customer is null.");
-        } catch (IllegalArgumentException e) {
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            fail("Date is null.");
-        }
-        Customer customer = new Customer();
-        CustomerDto customerDto = mapper.map(customer, CustomerDto.class);
-        
-        when(rentDao.findByCustomer(customer)).thenReturn(col);
-        assertEquals(expected, rentService.findRentByCustomer(customerDto));
-    }
-
-    @Test
-    public void testFindByMachine() {
-
-        Collection<Rent> col = new ArrayList<>();
-        col.add(new Rent());
-        col.add(new Rent());
-
-        Collection<RentDto> expected = new ArrayList<>();
-        for (Rent r : col) {
-            expected.add(mapper.map(r, RentDto.class));
-        }
-
-        try {
-            rentService.findRentByCustomer(null);
-            fail("Didn't throw exception when customer is null.");
-        } catch (IllegalArgumentException e) {
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            fail("Date is null.");
-        }
-        Machine machine = new Machine();
-        MachineDto machineDto = mapper.map(machine, MachineDto.class);
-        
-        when(rentDao.findByMachine(machine)).thenReturn(col);
-        assertEquals(expected, rentService.findRentByMachine(machineDto));
-    }
-    @Test
     public void testFindByDate() {
 
         Collection<Rent> col = new ArrayList<>();
@@ -214,7 +161,7 @@ public class RentServiceTest extends AbstractIntegrationTest {
         }
 
         try {
-            rentService.findRentByCustomer(null);
+            rentService.findRentByDate(null);
             fail("Didn't throw exception when customer is null.");
         } catch (IllegalArgumentException e) {
         } catch (Exception e) {
