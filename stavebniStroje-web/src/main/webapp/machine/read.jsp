@@ -10,7 +10,7 @@
         
         <div class="row bottom-small-buffer">
             <div class="col-sm-12 btn-toolbar">
-                <button class="btn btn-success">
+                <button class="btn btn-success" data-toggle="modal" data-target="#updateMachineModal">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                     <f:message key="all.btn.edit"/>
                 </button>
@@ -22,7 +22,7 @@
                 </s:link>
             </div>
         </div>
-        
+                
         <div class="row">
             <div class="col-sm-3">
                 <div class="panel panel-default">
@@ -84,38 +84,39 @@
                 </div>
             </div>
         </div>
+                <h3>
+                    <f:message key="machine.list.revision"/>
+                </h3>
+        <%@include file="../revision/list.jsp" %>
 
-        <%--
-<div class="modal fade" id="addMachineModal" tabindex="-1" role="dialog" aria-labelledby="addMachineModalLabel" aria-hidden="true">
-        --%>
+
+        <div class="modal fade" id="updateMachineModal" tabindex="-1" role="dialog" aria-labelledby="addMachineModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel"><f:message key="machine.list.update"/> - TODO: make it as a modal</h4>
-                    </div>
                     <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
+                        <div class="modal-header">
+                            <button type="reset" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title"><f:message key="machine.list.update"/></h4>
+                        </div>
                         <s:hidden name="machine.id"/>
 
                         <div class="modal-body">
 
                             <div class="form-horizontal">
-                                    <%@include file="form.jsp"%>
+                                <%@include file="form.jsp"%>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
                             <s:submit name="save" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
                         </div>
-                    </s:form>
-                </div>
+                    </div>
+                </s:form>
             </div>
-<%--
         </div>
---%>
 
 
     </s:layout-component>
