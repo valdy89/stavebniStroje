@@ -33,6 +33,7 @@
     <bean id="rentService" class="cz.muni.fi.stavebniStroje.serviceImpl.RentServiceImpl">
         
         <property name="rentDao" ref="stavebniStrojeRentDao"/>
+        <property name="machineDao" ref="stavebniStrojeMachineDao"/>
     </bean>
     
     <bean id="stavebniStrojeRevisionDao" class="cz.muni.fi.stavebniStroje.daoImpl.RevisionDaoImpl" /> 
