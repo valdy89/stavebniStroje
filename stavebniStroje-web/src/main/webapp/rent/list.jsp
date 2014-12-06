@@ -24,7 +24,7 @@
                 </button>
             </div>
             <div class="col-sm-9">
-                <f:message key="rent.list.display"/>
+                <f:message key="all.display"/>
                 TO BE ADDED (buttons)
             </div>
         </div>
@@ -33,10 +33,10 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th><f:message key="customer.list.secondName"/>, <f:message key="customer.list.firstName"/></th>
-                        <th><f:message key="machine.name"/></th>
-                        <th><f:message key="rent.list.from"/></th>
-                        <th><f:message key="rent.list.to"/></th>                    
+                        <th><f:message key="rent.customer"/></th>
+                        <th><f:message key="rent.machine"/></th>
+                        <th><f:message key="rent.from"/></th>
+                        <th><f:message key="rent.to"/></th>                    
                         <th></th>
                         <th></th>
                     </tr>
@@ -107,10 +107,10 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
                             <s:submit name="add" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
-                            </div>
+                            <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
                         </div>
+                    </div>
                 </s:form>
             </div>
 
