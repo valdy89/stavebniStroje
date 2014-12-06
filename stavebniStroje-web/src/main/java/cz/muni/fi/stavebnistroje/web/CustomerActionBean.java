@@ -38,6 +38,7 @@ public class CustomerActionBean extends BaseActionBean implements ValidationErro
     private Collection<CustomerDto> result;
 
     @ValidateNestedProperties({
+        @Validate(on = {"delete"}, field = "id", required = true),
         @Validate(on = {"add",  "save"}, field = "firstName", required = true),
         @Validate(on = {"add",  "save"}, field = "secondName", required = true),
         @Validate(on = {"add",  "save"}, field = "address", required = true),

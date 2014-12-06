@@ -13,7 +13,7 @@
 
 
         <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" var="actionBean"/>
-
+        <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -30,7 +30,7 @@
                 <c:forEach items="${actionBean.result}" var="customer">
 
                     <tr>
-                        <td><input type="checkbox" name="customers[]" value="${customer.id}"/></td>
+                       <td><input type="checkbox" name="customers[]" value="${machine.id}" /></td>
                         <td>${customer.firstName}</td>
                         <td> ${customer.secondName}</td>
                         <td> ${customer.address}</td>
@@ -48,7 +48,7 @@
                                   <s:param name="customer.id" value="${customer.id}"/>
                                 <button type="button" class="btn btn-danger">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                <f:message key="customer.list.editBtn"/>
+                                <f:message key="customer.list.deleteBtn"/>
                                 </button>
                             </s:link>
                             
@@ -59,8 +59,8 @@
             </tbody>
         </table>
 
-        <a href="#"><f:message key="all.btn.deleteSelected"/></a>
-
+       <s:submit name="delete" class="btn btn-danger"><f:message key="all.btn.deleteSelected"/></s:submit>
+       </s:form>
         <!--        <nav>
                     <ul class="pagination pagination-sm navbar-right">
                         <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
