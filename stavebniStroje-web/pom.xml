@@ -25,15 +25,16 @@
     <dependencies>
         <dependency>
             <groupId>cz.muni.fi</groupId>
-            <artifactId>stavebniStroje-domain</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>cz.muni.fi</groupId>
-            <artifactId>stavebniStroje-service</artifactId>
+            <artifactId>stavebniStroje-API</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!-- servlet, JSP, JSTL -->
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>5.4.0</version>
+            <type>jar</type>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
