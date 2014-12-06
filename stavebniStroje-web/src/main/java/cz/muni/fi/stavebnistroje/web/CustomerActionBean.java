@@ -44,11 +44,15 @@ public class CustomerActionBean extends BaseActionBean implements ValidationErro
         @Validate(on = {"add",  "save"}, field = "address", required = true),
         @Validate(on = {"add",  "save"}, field = "legalStatus", required = true),})
     private CustomerDto customer;
-
+    private String search;
     @DefaultHandler
     public Resolution list() {
         log.debug("list()");
-        result = customerService.findAllCustomer();
+        if(search != null)
+            result = customerService.searchCustomer(search);
+        else
+            result = customerService.findAllCustomer();
+        
         return new ForwardResolution("/customer/list.jsp");
     }
 
@@ -75,6 +79,15 @@ public class CustomerActionBean extends BaseActionBean implements ValidationErro
     public void setCustomer(CustomerDto customer) {
         this.customer = customer;
     }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
+    
 
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save", "delete"})
     public void loadCustomerFromDB() {

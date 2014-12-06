@@ -139,6 +139,19 @@ public class CustomerServiceTest extends AbstractIntegrationTest {
         assertEquals(customerDto.getId(), res.getId());
 
     }    
+     @Test
+    public void testSearchCustomer() {
+        System.out.println("findAll of customer service impl test");
+        List<Customer> customers = new ArrayList<>(Arrays.asList(new Customer[]{c1}));
+        List<CustomerDto> customersDto = new ArrayList<>(Arrays.asList(new CustomerDto[]{
+                    mapper.map(c1, CustomerDto.class),
+                   
+                }));
+        when(customerDao.findByName(c1.getFirstName())).thenReturn(customers);
+        List<CustomerDto> allCustomers = (List<CustomerDto>) customerService.searchCustomer(c1.getFirstName());
+        assertEquals(allCustomers, customersDto);
+
+    }    
     
     /**
      * Test for updateCustomer() method from CustomerServiceImpl.

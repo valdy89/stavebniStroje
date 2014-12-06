@@ -26,5 +26,6 @@ public interface CustomerService {
     public void removeCustomer(CustomerDto customer) throws DataAccessException;
 
     public Collection<CustomerDto> findAllCustomer() throws DataAccessException;
+     public Collection<CustomerDto> searchCustomer(String name) throws DataAccessException;
 
 }

@@ -22,20 +22,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *This class is used for work with customerDao objects
+ * This class is used for work with customerDao objects
+ *
  * @author Milos
  */
 @Service
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
 
-  
     CustomerDao customerDao;
 
     @Autowired
     DozerBeanMapper dozerBeanMapper;
-    
-    
 
     @Required
     public void setCustomerDao(CustomerDao customerDao) {
@@ -50,9 +48,9 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         Customer customer = dozerBeanMapper.map(customerDto, Customer.class);
-     
+
         customerDao.persist(customer);
-       
+
     }
 
     @Transactional
@@ -110,6 +108,33 @@ public class CustomerServiceImpl implements CustomerService {
             Customer customer;
             customer = customerDao.findById(id);
             return dozerBeanMapper.map(customer, CustomerDto.class);
+        } catch (Exception ex) {
+            throw new DataAccessException("Cannot read item due to exception", ex) {
+            };
+        }
+    }
+
+    /**
+     *
+     * @param name
+     * @return
+     * @throws DataAccessException
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public Collection<CustomerDto> searchCustomer(String name) throws DataAccessException {
+    if (name == null) {
+            throw new IllegalArgumentException("Argument string name was null");
+        }
+
+        Collection<CustomerDto> customers = new ArrayList<>();
+        try {
+
+            for (Customer customer : customerDao.findByName(name)) {
+                customers.add(dozerBeanMapper.map(customer, CustomerDto.class));
+            }
+            return customers;
+
         } catch (Exception ex) {
             throw new DataAccessException("Cannot read item due to exception", ex) {
             };

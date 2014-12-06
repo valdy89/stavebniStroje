@@ -30,6 +30,8 @@ public interface CustomerDao {
      * @return customer which is owner of the given id
      */
     public Customer findById(Long id);
+    
+    public List<Customer> findByName(String name);
 
     /**
      * method is used for updating customer in the DB

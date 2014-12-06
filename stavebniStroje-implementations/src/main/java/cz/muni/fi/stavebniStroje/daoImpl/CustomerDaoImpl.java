@@ -108,5 +108,16 @@ public class CustomerDaoImpl implements CustomerDao {
                 "SELECT customer FROM Customer as customer ORDER BY customer.secondName, customer.firstName", Customer.class);
         return tq.getResultList();
     }
+    
+    @Override
+    public List<Customer> findByName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Customer to be find by name cannot to be null");
+        }
+        TypedQuery<Customer> tq = entityManager.createQuery(
+                "SELECT customer FROM Customer customer WHERE firstName LIKE '%"+name+"%' OR secondName LIKE '%"+name+"%'", Customer.class);
+
+        return  tq.getResultList();
+    }
 
 }

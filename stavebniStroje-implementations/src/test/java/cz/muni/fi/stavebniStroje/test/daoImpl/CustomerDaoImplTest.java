@@ -115,6 +115,24 @@ public class CustomerDaoImplTest {
     }
     
     @Test
+    public void testFindByName() {
+        Customer customer = create();
+        insert(customer);
+        List<Customer> customers = new ArrayList();
+        for ( Integer i = 0; i < 10; ++i ) {
+            customers.add(create("Karel " + i.toString(), "blabla" ));
+        }
+        em.getTransaction().begin();
+        for ( Customer c : customers ) {
+            instance.persist(c);
+        }
+        em.getTransaction().commit();
+        
+        List<Customer> returnedList = instance.findByName("Karel ");
+         Assert.assertEquals(customers, returnedList);
+    }
+    
+    @Test
     public void testRemove() {
         Customer customer = create();
         
