@@ -149,40 +149,6 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
-    public Collection<RentDto> findRentByCustomer(CustomerDto customerDto) {
-        if (customerDto == null) {
-            throw new IllegalArgumentException("Argument customerDto was null.");
-        }
-        Collection<RentDto> rents = new ArrayList<>();
-        try {
-            for (Rent rent : rentDao.findByCustomer(dozerBeanMapper.map(customerDto, Customer.class))) {
-                rents.add(dozerBeanMapper.map(rent, RentDto.class));
-            }
-            return rents;
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot read items due to exception", ex) {
-            };
-        }
-    }
-
-    @Override
-    public Collection<RentDto> findRentByMachine(MachineDto machineDto) {
-        if (machineDto == null) {
-            throw new IllegalArgumentException("Argument machineDto was null.");
-        }
-        Collection<RentDto> rents = new ArrayList<>();
-        try {
-            for (Rent rent : rentDao.findByMachine(dozerBeanMapper.map(machineDto, Machine.class))) {
-                rents.add(dozerBeanMapper.map(rent, RentDto.class));
-            }
-            return rents;
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot read items due to exception", ex) {
-            };
-        }
-    }
-
-    @Override
     public Collection<RentDto> findRentByDate(Date date) {
         if (date == null) {
             throw new IllegalArgumentException("Argument date was null.");

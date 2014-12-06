@@ -30,9 +30,5 @@ public interface RentDao {
     // Other find methods
     Collection<Rent> findAll();
     
-    Collection<Rent> findByCustomer(Customer customer);
-
-    Collection<Rent> findByMachine(Machine machine);
-    
     Collection<Rent> findByDate(Date date);
 }

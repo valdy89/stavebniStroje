@@ -11,7 +11,6 @@ import cz.muni.fi.stavebniStroje.entity.Machine;
 import cz.muni.fi.stavebniStroje.entity.Rent;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -79,21 +78,6 @@ public class RentDaoImpl implements RentDao {
     public Collection<Rent> findAll() {
         Query q = entityManager.createQuery(
                 "SELECT rent FROM Rent rent");
-        return q.getResultList();
-    }
-
-    @Override
-    public Collection<Rent> findByCustomer(Customer customer) {
-        Query q = entityManager.createQuery(
-                "SELECT revision FROM Revision revision WHERE customer.id = :id");
-        q.setParameter("id", customer.getId());
-        return q.getResultList();
-    }
-
-    @Override
-    public Collection<Rent> findByMachine(Machine machine) {
-        Query q = entityManager.createQuery(
-                "SELECT revision FROM Revision revision");
         return q.getResultList();
     }
 

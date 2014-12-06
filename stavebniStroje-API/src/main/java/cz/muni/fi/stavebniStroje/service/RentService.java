@@ -28,10 +28,6 @@ public interface RentService {
 
     Collection<RentDto> findAllRent() throws DataAccessException;
 
-    Collection<RentDto> findRentByCustomer(CustomerDto customerDto) throws DataAccessException;
-
-    Collection<RentDto> findRentByMachine(MachineDto machineDto) throws DataAccessException;
-    
     Collection<RentDto> findRentByDate(Date date) throws DataAccessException;
 
 }
