@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -20,7 +21,7 @@ import javax.persistence.Query;
  * @author Jiri Weiser, 374154
  */
 public class RentDaoImpl implements RentDao {
-
+    @PersistenceContext
     protected EntityManager entityManager;
 
     public RentDaoImpl(EntityManager em) {

@@ -45,20 +45,22 @@ public class RentActionBean extends BaseActionBean implements ValidationErrorHan
     final static Logger log = LoggerFactory.getLogger(RentActionBean.class);
     @SpringBean
     protected RentService rentService;
+    @SpringBean
     protected CustomerService customerService;
+    @SpringBean
     protected MachineService machineService;
-    
+
     private Collection<RentDto> result;
     private Collection<CustomerDto> customers;
     private Collection<MachineDto> machines;
-    
+
     @ValidateNestedProperties({
         @Validate(on = {"add", "update", "save"}, field = "machine", required = true),
         @Validate(on = {"add", "update", "save"}, field = "customer", required = true),
         @Validate(on = {"add", "update", "save"}, field = "startOfRent", required = true),
         @Validate(on = {"add", "update", "save"}, field = "endOfRent", required = true),})
     private RentDto rent;
-    
+
     private CustomerDto customerDto;
     private MachineDto machineDto;
 
@@ -78,15 +80,13 @@ public class RentActionBean extends BaseActionBean implements ValidationErrorHan
         this.machineDto = machineDto;
     }
 
-   
-
     public Collection<CustomerDto> getCustomers() {
         return customers;
     }
-    
+
     public Collection<MachineDto> getMachines() {
         return machines;
-    }    
+    }
 
     public CustomerService getCustomerService() {
         return customerService;
@@ -103,19 +103,17 @@ public class RentActionBean extends BaseActionBean implements ValidationErrorHan
     public void setMachineService(MachineService machineService) {
         this.machineService = machineService;
     }
-    
-    
+
     @DefaultHandler
     public Resolution list() {
         log.debug("list()");
         result = rentService.findAllRent();
         customers = customerService.findAllCustomer();
         machines = machineService.findAllMachines();
-                
+
         return new ForwardResolution("/rent/list.jsp");
     }
-   
-    
+
     public Collection<RentDto> getResult() {
         return result;
     }
@@ -167,15 +165,15 @@ public class RentActionBean extends BaseActionBean implements ValidationErrorHan
     public Resolution save() {
         log.debug("save() rent={}", rent);
         rentService.updateRent(rent);
-        return new RedirectResolution(this.getClass(),"list");
+        return new RedirectResolution(this.getClass(), "list");
     }
 
     public Resolution delete() {
         log.debug("delete({})", getContext().getRequest().getParameter("rent.id"));
-        
+
         rentService.removeRent(rent);
 
-        return new RedirectResolution(this.getClass(),"list");
+        return new RedirectResolution(this.getClass(), "list");
     }
 
     @Override

@@ -4,7 +4,7 @@
     <tr>
         <th><s:label for="b4" ><f:message key="rent.list.customer"/></s:label></th>
 <td><s:select id="b4" name="customerId">
-        <s:options-collection collection="${actionBean.customers}" value="id" label="lastName"/>
+        <s:options-collection collection="${actionBean.customers}" value="id" label="secondName"/>
     </s:select></td>
 </tr>
 <tr>
