@@ -35,10 +35,10 @@ public class Machine implements Serializable {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "machine")
+    @OneToMany(mappedBy = "machine", cascade = CascadeType.REMOVE)
     private Collection<Rent> rents = new ArrayList<>();
     
-    @OneToMany(mappedBy = "machine")
+    @OneToMany(mappedBy = "machine", cascade = CascadeType.REMOVE)
     @OrderBy("dateOfRevision DESC")
     private Collection<Revision> revisions = new ArrayList<>();
 
