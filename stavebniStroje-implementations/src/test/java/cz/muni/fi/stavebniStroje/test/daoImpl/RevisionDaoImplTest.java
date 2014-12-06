@@ -5,12 +5,10 @@
  */
 package cz.muni.fi.stavebniStroje.test.daoImpl;
 
-import cz.muni.fi.stavebniStroje.entity.Customer;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 import cz.muni.fi.stavebniStroje.entity.Revision;
 import java.math.BigDecimal;
 import cz.muni.fi.stavebniStroje.daoImpl.RevisionDaoImpl;
-import cz.muni.fi.stavebniStroje.entity.Rent;
 import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.util.ArrayList;
 import java.util.Calendar;

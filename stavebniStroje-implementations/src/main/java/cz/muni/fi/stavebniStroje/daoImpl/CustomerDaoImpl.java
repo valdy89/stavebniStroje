@@ -8,9 +8,7 @@ package cz.muni.fi.stavebniStroje.daoImpl;
 import cz.muni.fi.stavebniStroje.entity.Customer;
 import cz.muni.fi.stavebniStroje.dao.CustomerDao;
 import java.util.List;
-import cz.muni.fi.stavebniStroje.util.LegalStatus;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
