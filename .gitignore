@@ -51,3 +51,5 @@ nb-configuration.xml
 stavebniStroje-web/nb-configuration.xml
 /stavebniStroje-implementations/target/
 /stavebniStroje-API/target/
+/stavebniStroje-web/nb-configuration.xml
+target
