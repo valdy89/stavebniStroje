@@ -39,6 +39,7 @@ public class Machine implements Serializable {
     private Collection<Rent> rents = new ArrayList<>();
     
     @OneToMany(mappedBy = "machine")
+    @OrderBy("dateOfRevision DESC")
     private Collection<Revision> revisions = new ArrayList<>();
 
     @Column(nullable = false)
