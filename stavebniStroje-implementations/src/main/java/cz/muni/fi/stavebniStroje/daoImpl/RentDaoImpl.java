@@ -21,6 +21,7 @@ import javax.persistence.Query;
  * @author Jiri Weiser, 374154
  */
 public class RentDaoImpl implements RentDao {
+
     @PersistenceContext
     protected EntityManager entityManager;
 
@@ -36,9 +37,14 @@ public class RentDaoImpl implements RentDao {
         if (rent == null) {
             throw new IllegalArgumentException("Rent cannot be null.");
         }
-
+        if (rent.getCustomer() != null) {
+            rent.setCustomer(entityManager.getReference(Customer.class, rent.getCustomer().getId()));
+        }
+        if (rent.getMachine() != null) {
+            rent.setMachine(entityManager.getReference(Machine.class, rent.getMachine().getId()));
+        }
         entityManager.persist(rent);
-      
+
     }
 
     @Override
@@ -90,8 +96,6 @@ public class RentDaoImpl implements RentDao {
                 "SELECT revision FROM Revision revision");
         return q.getResultList();
     }
-
-
 
     @Override
     public Collection<Rent> findByDate(Date date) {
