@@ -28,6 +28,11 @@
             <artifactId>stavebniStroje-API</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>cz.muni.fi</groupId>
+            <artifactId>stavebniStroje-implementations</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- servlet, JSP, JSTL -->
         <dependency>
             <groupId>net.sf.dozer</groupId>
