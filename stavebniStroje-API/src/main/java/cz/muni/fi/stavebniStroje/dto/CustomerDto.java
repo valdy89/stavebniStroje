@@ -7,6 +7,7 @@ package cz.muni.fi.stavebniStroje.dto;
 
 import cz.muni.fi.stavebniStroje.util.LegalStatus;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -20,8 +21,10 @@ public class CustomerDto implements Serializable {
     private long id;
     private String firstName;
     private String secondName;
+    private String fullName;
     private String address;
     private LegalStatus legalStatus;
+    private Collection<RentDto> rents;
 
     /**
      * This method returns customer's ID
@@ -57,6 +60,7 @@ public class CustomerDto implements Serializable {
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+        fullName = secondName + ", " + firstName;
     }
 
     /**
@@ -75,6 +79,11 @@ public class CustomerDto implements Serializable {
      */
     public void setSecondName(String secondName) {
         this.secondName = secondName;
+        fullName = secondName + ", " + firstName;
+    }
+    
+    public String getFullName() {
+        return fullName;
     }
 
     /**
@@ -113,6 +122,16 @@ public class CustomerDto implements Serializable {
         this.legalStatus = legalStatus;
     }
 
+    public Collection<RentDto> getRents() {
+        return rents;
+    }
+
+    public void setRents(Collection<RentDto> rents) {
+        this.rents = rents;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 5;
