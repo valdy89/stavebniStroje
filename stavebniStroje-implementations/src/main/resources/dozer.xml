@@ -11,7 +11,9 @@
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
         
     <tx:annotation-driven />
-    <bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper">
+    
+  
+    <bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper"  scope="singleton">
         <property name="mappingFiles">
             <list>
                 <value>dozer-global-configuration.xml</value>
@@ -19,6 +21,14 @@
 <!--                <value>more-dozer-bean-mappings.xml</value>-->
             </list>
         </property>
+        <property name="customConverters">
+        <list>
+            <ref bean="machineConverter"/>
+        </list>
+    </property>
+    </bean>
+    <bean id="machineConverter" class="cz.muni.fi.stavebniStroje.mapper.MachineMapper">
+        
     </bean>
     
 

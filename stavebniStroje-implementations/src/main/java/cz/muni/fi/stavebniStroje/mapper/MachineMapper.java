@@ -15,29 +15,31 @@ import java.util.ArrayList;
 import java.util.Date;
 import org.dozer.DozerBeanMapper;
 import org.dozer.DozerConverter;
+import org.dozer.Mapper;
+import org.dozer.MapperAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author spito
  */
-public class MachineMapper extends DozerConverter<Machine, MachineDto> {
+public class MachineMapper extends DozerConverter<Machine, MachineDto> implements MapperAware {
 
     // TODO: make @Autowired working
-    //@Autowired
-    private final DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
     
+    private Mapper dozerBeanMapper;
+
     public MachineMapper() {
         super(Machine.class, MachineDto.class);
     }
-    
+
     private boolean isWithinRange(Date date, Date begin, Date end) {
         return !(date.before(begin) || date.after(end));
     }
-    
+
     @Override
     public MachineDto convertTo(Machine source, MachineDto destination) {
-        if (source==null) {
+        if (source == null) {
             return null;
         }
         MachineDto m = new MachineDto();
@@ -47,13 +49,13 @@ public class MachineMapper extends DozerConverter<Machine, MachineDto> {
         m.setType(source.getType());
         m.setPrice(source.getPrice());
         m.setAvailable(true);
-        
+
         ArrayList<RevisionDto> revisions = new ArrayList<>(source.getRevisions().size());
         for (Revision r : source.getRevisions()) {
             revisions.add(dozerBeanMapper.map(r, RevisionDto.class));
         }
         m.setRevisions(revisions);
-        
+
         Date now = new Date();
         ArrayList<RentDto> rents = new ArrayList<>(source.getRents().size());
         for (Rent r : source.getRents()) {
@@ -89,5 +91,10 @@ public class MachineMapper extends DozerConverter<Machine, MachineDto> {
         m.setRevisions(revisions);
         return m;
     }
-    
+
+    @Override
+    public void setMapper(Mapper mapper) {
+        this.dozerBeanMapper = mapper;
+    }
+
 }

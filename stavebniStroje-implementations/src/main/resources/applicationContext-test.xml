@@ -9,11 +9,5 @@
     <import resource="dozer.xml"/>
     <aop:aspectj-autoproxy/>
     <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
-    
-
-
-    
   
-
-    
 </beans>
