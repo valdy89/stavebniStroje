@@ -30,8 +30,6 @@ public class RentDaoImpl implements RentDao {
 
     public RentDaoImpl() {
     }
-    
-    
 
     @Override
     public void persist(Rent rent) {
@@ -52,8 +50,6 @@ public class RentDaoImpl implements RentDao {
             throw new IllegalArgumentException("Rent must exist before updating.");
         }
         entityManager.merge(rent);
-        entityManager.persist(rent);
-       
     }
 
     @Override
@@ -61,12 +57,11 @@ public class RentDaoImpl implements RentDao {
         if (rent == null) {
             throw new IllegalArgumentException("Rent cannot be null.");
         }
-        if (findById(rent.getId()) == null) {
+        Rent r = entityManager.find(Rent.class, rent.getId());
+        if (r == null) {
             throw new IllegalArgumentException("Rent must exist before updating.");
         }
-
-        entityManager.remove(rent);
-       
+        entityManager.remove(r);
     }
 
     @Override

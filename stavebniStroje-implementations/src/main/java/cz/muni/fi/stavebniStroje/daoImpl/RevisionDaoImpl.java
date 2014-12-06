@@ -11,14 +11,18 @@ import cz.muni.fi.stavebniStroje.entity.Revision;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Dominik David
  */
 public class RevisionDaoImpl implements RevisionDao {
-
+    
+    @PersistenceContext
     protected EntityManager entityManager;
 
     public RevisionDaoImpl() {
@@ -30,10 +34,14 @@ public class RevisionDaoImpl implements RevisionDao {
 
     @Override
     public void persist(Revision revision) {
+        
         if (revision == null) {
             throw new IllegalArgumentException("Revision cannot be null.");
         }
-
+        if (revision.getMachine() != null) {
+            Machine m = entityManager.getReference(Machine.class, revision.getMachine().getId());
+            revision.setMachine(m);
+        }
         entityManager.persist(revision);
     }
 
@@ -53,10 +61,11 @@ public class RevisionDaoImpl implements RevisionDao {
         if (revision == null) {
             throw new IllegalArgumentException("Revision cannot be null.");
         }
-        if (findById(revision.getId()) == null) {
+        Revision r = entityManager.find(Revision.class, revision.getId());
+        if (r == null) {
             throw new IllegalArgumentException("Revision must exists before removing.");
         }
-        entityManager.remove(revision);
+        entityManager.remove(r);
     }
 
     @Override
