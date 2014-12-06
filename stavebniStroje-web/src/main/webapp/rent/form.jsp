@@ -2,14 +2,14 @@
 <s:errors/>
 <table>
     <tr>
-        <th><s:label for="b4" ><f:message key="rent.list.customer"/></s:label></th>
-<td><s:select id="b4" name="customerId">
+        <th><s:label for="cust" ><f:message key="rent.list.customer"/></s:label></th>
+<td><s:select id="cust" name="customer">
         <s:options-collection collection="${actionBean.customers}" value="id" label="secondName"/>
     </s:select></td>
 </tr>
 <tr>
     <th><s:label for="b4" ><f:message key="rent.list.machine"/></s:label></th>
-<td><s:select id="b4" name="machineId">
+<td><s:select id="b4" name="machine">
         <s:options-collection collection="${actionBean.machines}" value="id" label="name"/>
     </s:select></td>
 </tr>

@@ -8,8 +8,8 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>stavebniStroje-domain</module>
-    <module>stavebniStroje-service</module>
     <module>stavebniStroje-web</module>
+    <module>stavebniStroje-API</module>
+    <module>stavebniStroje-implementations</module>
   </modules>
 </project>
