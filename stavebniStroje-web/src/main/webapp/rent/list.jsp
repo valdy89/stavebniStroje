@@ -24,8 +24,33 @@
                 </button>
             </div>
             <div class="col-sm-9">
-                <f:message key="all.display"/>
-                TO BE ADDED (buttons)
+                <s:form beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" class="form-inline pull-right">
+                    <f:message key="all.display"/>
+                    <div class="form-group">
+                    <s:select name="machineId" class="form-control">
+                        <s:option value=""><f:message key="rent.search.allMachines"/></s:option>
+                        <s:options-collection collection="${actionBean.machines}" value="id" label="name" />
+                    </s:select>
+                    
+                    </div>
+                    <div class="form-group">
+                    
+                    <s:select name="customerId" class="form-control" >
+                        <s:option value=""><f:message key="rent.search.allCustomers"/></s:option>
+                        <s:options-collection collection="${actionBean.customers}" value="id" label="fullName" />
+                    </s:select>
+                    </div>
+                    <div class="form-group">
+                    
+                    <s:text name="date" id="date" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                    
+                    <s:submit name="list" class="btn btn-success">
+                        <f:message key="all.btn.search"/>
+                    </s:submit>
+                    </div>
+                </s:form>
             </div>
         </div>
         <s:form beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean">
@@ -119,7 +144,8 @@
     <s:layout-component name="header">
         <script>
             $(function () {
-                $('#startOfRent,#endOfRent').datepicker({ dateFormat: 'yy-mm-dd'});
+                $('#startOfRent,#endOfRent,#date').datepicker({ dateFormat: 'yy-mm-dd'});
+                $('#date').attr('placeholder', '<f:message key="rent.search.date"/>');
             });
         </script>
     </s:layout-component>

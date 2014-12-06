@@ -12,7 +12,10 @@ import cz.muni.fi.stavebniStroje.service.CustomerService;
 import cz.muni.fi.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.service.RentService;
 import cz.muni.fi.stavebniStroje.util.DateRangeException;
+import cz.muni.fi.stavebniStroje.util.MachineType;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -56,6 +59,11 @@ public class RentActionBean extends BaseActionBean {
         @Validate(on = {"add", "save"}, field = "startOfRent", required = true),
         @Validate(on = {"add", "save"}, field = "endOfRent", required = true),})
     private RentDto rent;
+
+    // listing restrictions
+    private Long machineId;
+    private Long customerId;
+    private Date date;
 
     public Collection<CustomerDto> getCustomers() {
         return customers;
@@ -105,6 +113,30 @@ public class RentActionBean extends BaseActionBean {
         this.rent = rent;
     }
 
+    public Long getMachineId() {
+        return machineId;
+    }
+
+    public void setMachineId(Long machineId) {
+        this.machineId = machineId;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"detail", "save", "delete"})
     public void loadRentFromDB() {
         String id = getContext().getRequest().getParameter("rent.id");
@@ -118,7 +150,32 @@ public class RentActionBean extends BaseActionBean {
     public Resolution list() {
         log.debug("list()");
         try {
-            result = rentService.findAllRent();
+            if (date == null) {
+                result = rentService.findAllRent();
+            } else {
+                result = rentService.findRentByDate(date);
+            }
+
+            if (machineId != null) {
+                Collection<RentDto> collection = new ArrayList<>(result.size());
+                for (RentDto r : result) {
+                    if (r.getMachine().getId() == machineId) {
+                        collection.add(r);
+                    }
+                }
+                result = collection;
+            }
+
+            if (customerId != null) {
+                Collection<RentDto> collection = new ArrayList<>(result.size());
+                for (RentDto r : result) {
+                    if (r.getCustomer().getId() == machineId) {
+                        collection.add(r);
+                    }
+                }
+                result = collection;
+            }
+
             customers = customerService.findAllCustomer();
             machines = machineService.findAllMachines();
         } catch (DataAccessException ex) {
