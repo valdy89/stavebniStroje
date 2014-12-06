@@ -2,11 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
+
 <s:layout-render name="/layout.jsp" titlekey="rent.detail.title">
     <s:layout-component name="body">
 
         <c:set var="rent" value="${actionBean.rent}"/>
 
+        <h2>
+            <f:message key="rent.detail.header"/>
+        </h2>
+        
         <div class="row bottom-small-buffer">
             <div class="col-sm-12 btn-toolbar">
                 <button class="btn btn-success" data-toggle="modal" data-target="#updateRentModal">

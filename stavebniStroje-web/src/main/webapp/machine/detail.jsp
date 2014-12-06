@@ -7,7 +7,10 @@
     <s:layout-component name="body">
 
         <c:set var="machine" value="${actionBean.machine}"/>
-
+        <h2>
+            <f:message key="machine.detail.header"/>
+        </h2>
+        
         <div class="row bottom-small-buffer">
             <div class="col-sm-12 btn-toolbar">
                 <button class="btn btn-success" data-toggle="modal" data-target="#updateMachineModal">

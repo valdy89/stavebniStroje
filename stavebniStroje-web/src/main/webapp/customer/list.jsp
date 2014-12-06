@@ -6,21 +6,25 @@
 <s:layout-render name="/layout.jsp" titlekey="customer.list.title">
     <s:layout-component name="body">
         
-            <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" class="form-search">
+        <h2><f:message key="customer.list.header"/></h2>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-sm-6">
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             <f:message key="customer.list.addCustomer"/>
                         </button>
                     </div>
-                    <div class="col-md-4">
-                        <s:text id="search" name="search" class="form-control"/>
+                    <div class="col-sm-6">
+                        <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" class="form-search form-inline pull-right">
+                            <div class="form-group">
+                                <s:text id="search" name="search" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <s:submit name="list" class="btn btn-default"><f:message key="all.btn.search"/></s:submit>
+                            </div>
+                        </s:form>
                     </div>
-                    <div class="col-md-2">
-                        <s:submit name="list" class="btn btn-default"><f:message key="all.btn.search"/></s:submit>
-                        </div>
-                </s:form>
+                </div>
 
                 <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" var="actionBean"/>
                 <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
@@ -103,7 +107,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <s:submit name="add" class="btn btn-success"><f:message key="customer.list.createBtn"/></s:submit>
+                                    <s:submit name="add" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                             </s:form>

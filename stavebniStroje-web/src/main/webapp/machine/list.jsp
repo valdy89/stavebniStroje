@@ -6,23 +6,8 @@
 <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" var="actionBean"/>
 <c:set var="type" value="${actionBean.type}"/>
 
-<s:layout-render name="/layout.jsp" titlekey="index.title">
+<s:layout-render name="/layout.jsp" titlekey="machine.list.title">
     <s:layout-component name="body">
-        For testing purposes:
-        [<s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="add">
-            <s:param name="machine.name" value="stroj"/>
-            <s:param name="machine.type" value="TRACTOR"/>
-            <s:param name="machine.price" value="1"/>
-            <s:param name="machine.description" value="Traktor."/>            
-            add machine
-        </s:link>]
-
-        [<s:link beanclass="cz.muni.fi.stavebnistroje.web.RevisionActionBean" event="add">
-            <s:param name="revision.machine.id" value="1"/>
-            <s:param name="revision.dateOfRevision" value="2014-01-01"/>
-            <s:param name="continueTo" value="/machine/list"/>
-            add revision to machine #1
-        </s:link>]
         
         <h2><f:message key="machine.list.header"/></h2>
         <div class="row">
