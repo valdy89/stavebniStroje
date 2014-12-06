@@ -8,6 +8,22 @@
 
 <s:layout-render name="/layout.jsp" titlekey="index.title">
     <s:layout-component name="body">
+        For testing purposes:
+        [<s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="add">
+            <s:param name="machine.name" value="stroj"/>
+            <s:param name="machine.type" value="TRACTOR"/>
+            <s:param name="machine.price" value="1"/>
+            <s:param name="machine.description" value="Traktor."/>            
+            add machine
+        </s:link>]
+
+        [<s:link beanclass="cz.muni.fi.stavebnistroje.web.RevisionActionBean" event="add">
+            <s:param name="revision.machine.id" value="1"/>
+            <s:param name="revision.dateOfRevision" value="2014-01-01"/>
+            <s:param name="continueTo" value="/machine/list"/>
+            add revision to machine #1
+        </s:link>]
+        
         <h2><f:message key="machine.list.header"/></h2>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addMachineModal">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -102,7 +118,7 @@
                         <div class="modal-header">
                             <button type="reset" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>
-                                <span class="sr-only">Close</span>
+                                <span class="sr-only"><f:message key="all.btn.close"/></span>
                             </button>
                             <h4 class="modal-title"><f:message key="machine.list.add"/></h4>
                         </div>

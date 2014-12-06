@@ -97,7 +97,7 @@
                         <div class="modal-header">
                             <button type="reset" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>
-                                <span class="sr-only">Close</span>
+                                <span class="sr-only"><f:message key="all.btn.close"/></span>
                             </button>
                             <h4 class="modal-title"><f:message key="machine.list.update"/></h4>
                         </div>
