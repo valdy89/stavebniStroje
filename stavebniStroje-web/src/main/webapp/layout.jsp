@@ -39,7 +39,7 @@
                             <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean"><f:message key="navigation.rentList"/></s:link></li>                                 
                         </ul> 
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="/about.jsp"><f:message key="navigation.about"/></a></li>
+                            <li><a href="${pageContext.request.contextPath}/about.jsp"><f:message key="navigation.about"/></a></li>
                         </ul>
                     </div>
                 </div>

@@ -5,10 +5,12 @@
 
 <s:layout-render name="/layout.jsp" titlekey="customer.list.title">
     <s:layout-component name="body">
-        <button type="button" class="btn btn-success">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            Přidat zákazníka
+            <f:message key="customer.list.addCustomer"/>
         </button>
+
+
 
         <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" var="actionBean"/>
 
@@ -35,8 +37,8 @@
                         <td>
 
                             <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit"><s:param name="customer.id" value="${customer.id}"/><f:message key="customer.list.editBtn"/></s:link>
-                        </td>
-                        <td>
+                            </td>
+                            <td>
                             <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
                                 <s:hidden name="customer.id" value='${customer.id}'/>
                                 <s:submit name="delete" class="btn btn-danger"><f:message key="customer.list.deleteBtn"/></s:submit>
@@ -63,18 +65,35 @@
                 </nav>-->
 
 
-        <h2>Přidat zákazníka</h2>
-        <br />
-        <div class="panel panel-default">
-            <div class="panel-body">
 
-                <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
-                    <fieldset>
-                        <%@include file="form.jsp"%>
-                        <s:submit name="add"><f:message key="customer.list.createBtn"/></s:submit>
-                        </fieldset>
-                </s:form>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel"><f:message key="customer.list.addCustomer"/></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <fieldset>
+                                        <%@include file="form.jsp"%>                        
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <s:submit name="add" class="btn btn-success"><f:message key="customer.list.createBtn"/></s:submit>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                    </s:form>
+                </div>
             </div>
         </div>
+
+
+
+
     </s:layout-component>
 </s:layout-render>

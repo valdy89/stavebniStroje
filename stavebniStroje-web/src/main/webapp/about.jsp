@@ -2,14 +2,14 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<s:layout-render name="/layout.jsp" titlekey="O programu" active="about">
+<s:layout-render name="/layout.jsp" titlekey="about.header" active="about">
     <s:layout-component name="body">
-        <h2>O programu</h2>
+        <h2><f:message key="about.header"/></h2>
         
         <p>
-            Program na půjčování stavebních strojů vznikl jako školní projekt do předmětu PA165
+            <f:message key="about.title"/>            
         </p>
-        <h3>Autoři</h3>
+        <h3><f:message key="about.header2"/> </h3>
         <ul>
             <li>Dominik David</li>
             <li>Miloš Petrovič</li>
