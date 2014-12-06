@@ -16,12 +16,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import org.dozer.DozerBeanMapper;
 import org.dozer.DozerConverter;
-<<<<<<< HEAD
+
 import org.dozer.Mapper;
 import org.dozer.MapperAware;
 import org.springframework.beans.factory.annotation.Autowired;
-=======
->>>>>>> origin/master
+
 
 /**
  *
@@ -36,16 +35,13 @@ public class MachineMapper extends DozerConverter<Machine, MachineDto> implement
     public MachineMapper() {
         super(Machine.class, MachineDto.class);
     }
-<<<<<<< HEAD
+
 
     private boolean isWithinRange(Date date, Date begin, Date end) {
         return !(date.before(begin) || date.after(end));
     }
 
-=======
-    
->>>>>>> origin/master
-    @Override
+
     public MachineDto convertTo(Machine source, MachineDto destination) {
         if (source == null) {
             return null;
