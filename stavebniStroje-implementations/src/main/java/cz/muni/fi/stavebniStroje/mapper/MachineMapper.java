@@ -11,11 +11,11 @@ import cz.muni.fi.stavebniStroje.dto.RevisionDto;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 import cz.muni.fi.stavebniStroje.entity.Rent;
 import cz.muni.fi.stavebniStroje.entity.Revision;
+import cz.muni.fi.stavebniStroje.util.DateRange;
 import java.util.ArrayList;
 import java.util.Date;
 import org.dozer.DozerBeanMapper;
 import org.dozer.DozerConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -29,10 +29,6 @@ public class MachineMapper extends DozerConverter<Machine, MachineDto> {
     
     public MachineMapper() {
         super(Machine.class, MachineDto.class);
-    }
-    
-    private boolean isWithinRange(Date date, Date begin, Date end) {
-        return !(date.before(begin) || date.after(end));
     }
     
     @Override
@@ -58,7 +54,9 @@ public class MachineMapper extends DozerConverter<Machine, MachineDto> {
         ArrayList<RentDto> rents = new ArrayList<>(source.getRents().size());
         for (Rent r : source.getRents()) {
             rents.add(dozerBeanMapper.map(r, RentDto.class));
-            if (m.isAvailable() && isWithinRange(now, r.getStartOfRent(), r.getEndOfRent())) {
+            DateRange range = new DateRange(r.getStartOfRent(), r.getEndOfRent());
+            
+            if (m.isAvailable() && range.inRange(now)) {
                 m.setAvailable(false);
             }
         }
