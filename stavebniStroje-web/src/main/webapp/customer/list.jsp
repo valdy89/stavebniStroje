@@ -36,13 +36,22 @@
                         <td> ${customer.address}</td>
                         <td>
 
-                            <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit"><s:param name="customer.id" value="${customer.id}"/><f:message key="customer.list.editBtn"/></s:link>
+                            <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit"><s:param name="customer.id" value="${customer.id}"/>
+                                <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                <f:message key="customer.list.editBtn"/>
+                                </button>
+                            </s:link>
                             </td>
                             <td>
-                            <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
-                                <s:hidden name="customer.id" value='${customer.id}'/>
-                                <s:submit name="delete" class="btn btn-danger"><f:message key="customer.list.deleteBtn"/></s:submit>
-                            </s:form>
+                              <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="delete">
+                                  <s:param name="customer.id" value="${customer.id}"/>
+                                <button type="button" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                <f:message key="customer.list.editBtn"/>
+                                </button>
+                            </s:link>
+                            
                         </td>
                     </tr>
 
