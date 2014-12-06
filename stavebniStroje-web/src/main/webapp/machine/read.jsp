@@ -7,7 +7,7 @@
     <s:layout-component name="body">
 
         <c:set var="machine" value="${actionBean.machine}"/>
-        
+
         <div class="row bottom-small-buffer">
             <div class="col-sm-12 btn-toolbar">
                 <button class="btn btn-success" data-toggle="modal" data-target="#updateMachineModal">
@@ -22,7 +22,7 @@
                 </s:link>
             </div>
         </div>
-                
+
         <div class="row">
             <div class="col-sm-3">
                 <div class="panel panel-default">
@@ -84,9 +84,9 @@
                 </div>
             </div>
         </div>
-                <h3>
-                    <f:message key="machine.list.revision"/>
-                </h3>
+        <h3>
+            <f:message key="machine.list.revision"/>
+        </h3>
         <%@include file="../revision/list.jsp" %>
 
 
@@ -112,12 +112,19 @@
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
                             <s:submit name="save" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
+                            </div>
                         </div>
-                    </div>
                 </s:form>
             </div>
         </div>
 
 
+    </s:layout-component>
+    <s:layout-component name="header">
+        <script>
+            $(function () {
+                $("#dateOfRevision").datepicker({ dateFormat: 'yy-mm-dd'});
+            });
+        </script>
     </s:layout-component>
 </s:layout-render>

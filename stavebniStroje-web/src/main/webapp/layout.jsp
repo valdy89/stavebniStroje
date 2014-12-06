@@ -7,15 +7,19 @@
     <html lang="${pageContext.request.locale}">
         <head>
             <title><f:message key="${titlekey}"/></title>
-        <s:layout-component name="header"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css" />
-        <!-- Bootstrap základ start -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <!-- Bootstrap základ konec -->
+
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css" />
+            <!-- Bootstrap základ start -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+            <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+            <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+ 
+            <!-- Bootstrap základ konec -->
+            <s:layout-component name="header"/>
         </head>
         <body>
 
@@ -37,9 +41,9 @@
                             <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean"><f:message key="navigation.machineList"/></s:link></li>
                             <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean"><f:message key="navigation.customerList"/></s:link></li>
                             <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean"><f:message key="navigation.rentList"/></s:link></li>                                 
-                        </ul> 
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="${pageContext.request.contextPath}/about.jsp"><f:message key="navigation.about"/></a></li>
+                            </ul> 
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="${pageContext.request.contextPath}/about.jsp"><f:message key="navigation.about"/></a></li>
                         </ul>
                     </div>
                 </div>
@@ -47,14 +51,14 @@
 
 
 
-           <!-- <div id="navigation">
-                <ul>
-                    <li><s:link href="/index.jsp"><f:message key="navigation.index"/></s:link></li>
+            <!-- <div id="navigation">
+                 <ul>
+                     <li><s:link href="/index.jsp"><f:message key="navigation.index"/></s:link></li>
+ 
+                 </ul>
+             </div>  -->
+                <div class="container">
 
-                </ul>
-            </div>  -->
-           <div class="container">
-               
                 <s:messages/>
                 <s:layout-component name="body"/>
             </div>
