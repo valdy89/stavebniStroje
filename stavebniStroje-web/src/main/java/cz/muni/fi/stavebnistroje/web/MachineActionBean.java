@@ -35,7 +35,7 @@ public class MachineActionBean extends BaseActionBean {
     protected MachineService machineService;
 
     @ValidateNestedProperties({
-        @Validate(on = {"read", "delete"}, field = "id", required = true),
+        @Validate(on = {"detail", "delete", "save"}, field = "id", required = true),
         @Validate(on = {"add", "save"}, field = "name", required = true),
         @Validate(on = {"add", "save"}, field = "type", required = true),
         @Validate(on = {"add", "save"}, field = "description", required = true),
@@ -80,7 +80,7 @@ public class MachineActionBean extends BaseActionBean {
         return getContext().getRequest().getParameter(key);
     }
     
-    @Before(stages = LifecycleStage.BindingAndValidation, on = {"read", "save", "delete"})
+    @Before(stages = LifecycleStage.BindingAndValidation, on = {"detail", "save", "delete"})
     public void loadMachineFromDB() {
         String id = getParameterValue("machine.id");
         if (id != null) {
@@ -99,19 +99,19 @@ public class MachineActionBean extends BaseActionBean {
         return new RedirectResolution(this.getClass(), "list");
     }
 
-    public Resolution read() {
-        log.debug("read() machine={}", machine);
-        return new ForwardResolution("/machine/read.jsp");
+    public Resolution detail() {
+        log.debug("detail({})", machine.getId());
+        return new ForwardResolution("/machine/detail.jsp");
     }
 
     public Resolution save() {
-        log.debug("save() machine={}", machine);
+        log.debug("save({})", machine.getId());
         try {
             machineService.updateMachine(machine);
         } catch (DataAccessException e) {
             return new RedirectResolution("/fail/Fail.jsp");
         }
-        RedirectResolution resolution = new RedirectResolution(this.getClass(), "read");
+        RedirectResolution resolution = new RedirectResolution(this.getClass(), "detail");
         resolution.addParameter("machine.id", machine.getId());
         return resolution;
     }

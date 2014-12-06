@@ -25,29 +25,34 @@
         </s:link>]
         
         <h2><f:message key="machine.list.header"/></h2>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addMachineModal">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            <f:message key="machine.list.add"/>
-        </button>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <f:message key="machine.list.display"/>
-        <div class="btn-group" role="group" aria-label="...">
-            
-            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type==null? ' active' : ''}">
-                <f:message key="machine.types.all"/>
-            </s:link>
-            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type=='TRACTOR'?' active':''}">
-                <s:param name="type" value="TRACTOR"/>
-                <f:message key="machine.types.tractor"/>
-            </s:link>
-            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type=='EXCAVATOR'?' active':''}">
-                <s:param name="type" value="EXCAVATOR"/>
-                <f:message key="machine.types.excavator"/>
-            </s:link>
-            <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type=='LORRY'?' active':''}">
-                <s:param name="type" value="LORRY"/>
-                <f:message key="machine.types.lorry"/>
-            </s:link>
+        <div class="row">
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addMachineModal">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <f:message key="machine.list.add"/>
+                </button>
+            </div>
+            <div class="col-sm-9">
+                <f:message key="machine.list.display"/>
+                <div class="btn-group" role="group" aria-label="...">
+
+                    <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type==null? ' active' : ''}">
+                        <f:message key="machine.types.all"/>
+                    </s:link>
+                    <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type=='TRACTOR'?' active':''}">
+                        <s:param name="type" value="TRACTOR"/>
+                        <f:message key="machine.types.tractor"/>
+                    </s:link>
+                    <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type=='EXCAVATOR'?' active':''}">
+                        <s:param name="type" value="EXCAVATOR"/>
+                        <f:message key="machine.types.excavator"/>
+                    </s:link>
+                    <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type=='LORRY'?' active':''}">
+                        <s:param name="type" value="LORRY"/>
+                        <f:message key="machine.types.lorry"/>
+                    </s:link>
+                </div>
+            </div>
         </div>
         <div class="row">
         <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
@@ -87,7 +92,7 @@
                                 </c:choose>
                             </td>
                             <td>
-                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="read"><s:param name="machine.id" value="${machine.id}"/>
+                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="detail"><s:param name="machine.id" value="${machine.id}"/>
                                     <button type="button" class="btn btn-default">
                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                         <f:message key="all.btn.details"/>

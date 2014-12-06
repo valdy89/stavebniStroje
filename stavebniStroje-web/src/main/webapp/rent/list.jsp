@@ -9,28 +9,32 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
+ <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" var="actionBean"/>
+
 <s:layout-render name="/layout.jsp" titlekey="rent.list.title">
     <s:layout-component name="body">
-        <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" var="actionBean"/>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addRentModal">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            <f:message key="rent.list.add"/>
-        </button>
+        
+        <h2><f:message key="rent.list.header"/></h2>
+        
+        <div class="row">
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addRentModal">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <f:message key="rent.list.add"/>
+                </button>
+            </div>
+            <div class="col-sm-9">
+                <f:message key="rent.list.display"/>
+                TO BE ADDED (buttons)
+            </div>
+        </div>
         <s:form beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean">
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th></th>
-                        <th><f:message key="rent.list.id"/></th>
                         <th><f:message key="customer.list.secondName"/>, <f:message key="customer.list.firstName"/></th>
                         <th><f:message key="machine.name"/></th>
-                            <%--
-                            <th><f:message key="customer.list.firstName"/></th>
-                            <th><f:message key="customer.list.secondName"/></th>
-                           
-                            <th><f:message key="machine.name"/></th>
-                            <th><f:message key="machine.type"/></th>
-                            --%>
                         <th><f:message key="rent.list.from"/></th>
                         <th><f:message key="rent.list.to"/></th>                    
                         <th></th>
@@ -43,25 +47,37 @@
 
                         <tr>
                             <td><input type="checkbox" name="rents[]" value="${rent.id}"/></td>
-                            <td>${rent.name}</td>
-                            <td> ${customer.secondName}, ${customer.firstName}</td> 
-                            <%--                        
-                                <td> ${customer.firstName}</td>                        
-                                <td> ${customer.secondName}</td>
-                                <td> ${machine.name}</td>
-                                <td> ${machine.type}</td>
-                            --%>
-                            <td> ${rent.startOfRent}</td>
-                            <td> ${rent.endOfRent}</td>                            
                             <td>
-
-                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" event="edit"><s:param name="rent.id" value="${rent.id}"/><f:message key="rent.list.editBtn"/></s:link>
-                                </td>
-                                <td>
-                                <s:form beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean">
-                                    <s:hidden name="rent.id" value='${rent.id}'/>
-                                    <s:submit name="delete" class="btn btn-danger"><f:message key="rent.list.deleteBtn"/></s:submit>
-                                </s:form>
+                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit">
+                                    <s:param name="customer.id" value="${rent.customer.id}"/>
+                                    ${rent.customer.secondName}, ${rent.customer.firstName}
+                                </s:link>
+                            </td>
+                            <td>
+                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="detail">
+                                    <s:param name="machine.id" value="${rent.machine.id}"/>
+                                    ${rent.machine.name}
+                                </s:link>
+                            </td>
+                            <td>${rent.startOfRent}</td>
+                            <td>${rent.endOfRent}</td>                            
+                            <td>
+                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" event="detail">
+                                    <s:param name="rent.id" value="${rent.id}"/>
+                                    <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                        <f:message key="all.btn.details"/>
+                                    </button>
+                                </s:link>
+                            </td>
+                            <td>
+                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" event="delete">
+                                    <s:param name="rent.id" value="${rent.id}"/>
+                                    <button type="button" class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        <f:message key="all.btn.delete"/>
+                                    </button>
+                                </s:link>
                             </td>
                         </tr>
 
@@ -71,22 +87,6 @@
             <s:submit name="delete" class="btn btn-danger"><f:message key="all.btn.deleteSelected"/></s:submit>
         </s:form>
 
-
-        <!--        <nav>
-                    <ul class="pagination pagination-sm navbar-right">
-                        <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
-                    </ul>
-                </nav>-->
-
-
-
-
         <div class="modal fade" id="addRentModal" tabindex="-1" role="dialog" aria-hidden="true">
 
             <div class="modal-dialog">
@@ -95,7 +95,7 @@
                         <div class="modal-header">
                             <button type="reset" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>
-                                <span class="sr-only">Close</span>
+                                <span class="sr-only"><f:message key="all.btn.close"/></span>
                             </button>
                             <h4 class="modal-title"><f:message key="rent.list.add"/></h4>
                         </div>
@@ -115,6 +115,13 @@
             </div>
 
         </div>
+    </s:layout-component>
+    <s:layout-component name="header">
+        <script>
+            $(function () {
+                $('#startOfRent,#endOfRent').datepicker({ dateFormat: 'yy-mm-dd'});
+            });
+        </script>
     </s:layout-component>
 </s:layout-render>
 

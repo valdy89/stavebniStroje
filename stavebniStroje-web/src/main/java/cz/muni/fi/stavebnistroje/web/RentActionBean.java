@@ -11,10 +11,9 @@ import cz.muni.fi.stavebniStroje.dto.RentDto;
 import cz.muni.fi.stavebniStroje.service.CustomerService;
 import cz.muni.fi.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.service.RentService;
-import static cz.muni.fi.stavebnistroje.web.CustomerActionBean.log;
+import cz.muni.fi.stavebniStroje.util.DateRangeException;
 import java.util.Collection;
 import java.util.List;
-import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -25,71 +24,47 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import net.sourceforge.stripes.validation.ValidationErrorHandler;
-import net.sourceforge.stripes.validation.ValidationErrors;
-import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 /**
  *
  * @author milos
  */
 @UrlBinding("/rent/{$event}/")
-public class RentActionBean extends BaseActionBean implements ValidationErrorHandler {
+public class RentActionBean extends BaseActionBean {
 
     //    private ActionBeanContext context;
     final static Logger log = LoggerFactory.getLogger(RentActionBean.class);
+
     @SpringBean
     protected RentService rentService;
-     @SpringBean
+    @SpringBean
     protected CustomerService customerService;
-      @SpringBean
+    @SpringBean
     protected MachineService machineService;
-    
+
     private Collection<RentDto> result;
     private Collection<CustomerDto> customers;
     private Collection<MachineDto> machines;
-    
+
     @ValidateNestedProperties({
-        @Validate(on = {"add", "update", "save"}, field = "machine", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "customer", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "startOfRent", required = true),
-        @Validate(on = {"add", "update", "save"}, field = "endOfRent", required = true),})
+        @Validate(on = {"read", "delete", "save"}, field = "id", required = true),
+        @Validate(on = {"add", "save"}, field = "machine.id", required = true),
+        @Validate(on = {"add", "save"}, field = "customer.id", required = true),
+        @Validate(on = {"add", "save"}, field = "startOfRent", required = true),
+        @Validate(on = {"add", "save"}, field = "endOfRent", required = true),})
     private RentDto rent;
-    
-    private CustomerDto customerDto;
-    
-    private MachineDto machineDto;
 
-    public CustomerDto getCustomerDto() {
-        return customerDto;
-    }
-
-    public void setCustomerDto(CustomerDto customerDto) {
-        this.customerDto = customerDto;
-    }
-
-    public MachineDto getMachineDto() {
-        return machineDto;
-    }
-
-    public void setMachineDto(MachineDto machineDto) {
-        this.machineDto = machineDto;
-    }
-
-   
 
     public Collection<CustomerDto> getCustomers() {
         return customers;
     }
-    
+
     public Collection<MachineDto> getMachines() {
         return machines;
-    }    
+    }
 
     public CustomerService getCustomerService() {
         return customerService;
@@ -106,19 +81,7 @@ public class RentActionBean extends BaseActionBean implements ValidationErrorHan
     public void setMachineService(MachineService machineService) {
         this.machineService = machineService;
     }
-    
-    
-    @DefaultHandler
-    public Resolution list() {
-        log.debug("list()");
-        result = rentService.findAllRent();
-        customers = customerService.findAllCustomer();
-        machines = machineService.findAllMachines();
-                
-        return new ForwardResolution("/rent/list.jsp");
-    }
-   
-    
+
     public Collection<RentDto> getResult() {
         return result;
     }
@@ -143,7 +106,7 @@ public class RentActionBean extends BaseActionBean implements ValidationErrorHan
         this.rent = rent;
     }
 
-    @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save", "delete"})
+    @Before(stages = LifecycleStage.BindingAndValidation, on = {"read", "save", "delete"})
     public void loadRentFromDB() {
         String id = getContext().getRequest().getParameter("rent.id");
         if (id != null) {
@@ -152,35 +115,59 @@ public class RentActionBean extends BaseActionBean implements ValidationErrorHan
         }
     }
 
+    @DefaultHandler
+    public Resolution list() {
+        log.debug("list()");
+        result = rentService.findAllRent();
+        customers = customerService.findAllCustomer();
+        machines = machineService.findAllMachines();
+
+        return new ForwardResolution("/rent/list.jsp");
+    }
+
     public Resolution add() {
         log.debug("add() rent={}", rent);
 
-        rentService.newRent(rent);
+        try {
+            rentService.newRent(rent);
+        } catch (DateRangeException ex) {
+            log.debug("cannot add rent");
+        } catch (DataAccessException ex) {
+            return new RedirectResolution("/fail/fail.jsp");
+        }
 
         result = (List<RentDto>) rentService.findAllRent();
         return new RedirectResolution(this.getClass(), "list");
     }
 
-    public Resolution edit() throws Exception {
-        log.debug("update() rent={}", rent);
-        rentService.updateRent(rent);
-        return new ForwardResolution("/rent/edit.jsp");
+    public Resolution read() {
+        log.debug("update({})", rent.getId());
+        return new ForwardResolution("/rent/read.jsp");
     }
 
     public Resolution save() {
-        log.debug("save() rent={}", rent);
-        rentService.updateRent(rent);
-        return new RedirectResolution(this.getClass(),"list");
+        log.debug("save({})", rent.getId());
+        try {
+            rentService.updateRent(rent);
+        } catch (DateRangeException ex) {
+            log.debug("cannot add rent");
+        } catch (DataAccessException ex) {
+            return new RedirectResolution("/fail/fail.jsp");
+        }
+        return new RedirectResolution(this.getClass(), "list");
     }
 
     public Resolution delete() {
-        log.debug("delete({})", getContext().getRequest().getParameter("rent.id"));
-        
-        rentService.removeRent(rent);
+        log.debug("delete({})", rent.getId());
+        try {
+            rentService.removeRent(rent);
+        } catch (DataAccessException ex) {
+            return new RedirectResolution("/fail/fail.jsp");
+        }
 
-        return new RedirectResolution(this.getClass(),"list");
+        return new RedirectResolution(this.getClass(), "list");
     }
-
+/*
     @Override
     public Resolution handleValidationErrors(ValidationErrors ve) throws Exception {
         //fill up the data for the table if validation errors occured
@@ -188,5 +175,6 @@ public class RentActionBean extends BaseActionBean implements ValidationErrorHan
         //return null to let the event handling continue
         return null;
     }
+*/
 
 }

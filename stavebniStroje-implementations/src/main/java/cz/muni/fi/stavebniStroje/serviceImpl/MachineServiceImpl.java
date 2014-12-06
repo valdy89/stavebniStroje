@@ -35,7 +35,6 @@ public class MachineServiceImpl implements MachineService {
         this.machineDao = machineDao;
     }
 
-    @Transactional
     @Override
     public void newMachine(MachineDto machineDto) {
         if (machineDto == null) {
@@ -54,7 +53,6 @@ public class MachineServiceImpl implements MachineService {
 
     }
 
-    @Transactional
     @Override
     public void updateMachine(MachineDto machineDto) {
         if (machineDto == null) {

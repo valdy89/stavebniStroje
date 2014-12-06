@@ -79,7 +79,7 @@ public class RevisionActionBean  extends BaseActionBean  {
         log.debug("add() revision={}", revision);
         try {
             revisionService.newRevision(revision);
-        } catch (InvalidDataAccessApiUsageException e) {
+        } catch (DataAccessException e) {
             return new ForwardResolution("/fail/Fail.jsp");
         }
         return redirect();

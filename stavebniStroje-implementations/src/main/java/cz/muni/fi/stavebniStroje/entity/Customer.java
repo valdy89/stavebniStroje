@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Entity;
 import cz.muni.fi.stavebniStroje.util.LegalStatus;
+import java.util.Collection;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 
 /**
  * This class represent customer which can rent a machine
@@ -36,6 +39,8 @@ public class Customer implements Serializable {
     @Column(name = "LEGALSTATUS")
     private LegalStatus legalStatus;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
+    private Collection<Rent> rents;
     /**
      * This method returns customer's ID
      */
@@ -106,6 +111,16 @@ public class Customer implements Serializable {
         this.legalStatus = legalStatus;
     }
 
+    public Collection<Rent> getRents() {
+        return rents;
+    }
+
+    public void setRents(Collection<Rent> rents) {
+        this.rents = rents;
+    }
+
+    
+    
     /**
      * This method create hash code for the customer
      */

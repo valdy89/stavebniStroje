@@ -5,6 +5,7 @@ package cz.muni.fi.stavebniStroje.service;
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.dto.RentDto;
+import cz.muni.fi.stavebniStroje.util.DateRangeException;
 import java.util.Collection;
 import java.util.Date;
 import org.springframework.dao.DataAccessException;
@@ -17,9 +18,9 @@ import org.springframework.dao.DataAccessException;
  */
 public interface RentService {
 
-    void newRent(RentDto rentDto) throws DataAccessException;
+    void newRent(RentDto rentDto) throws DataAccessException, DateRangeException;
 
-    void updateRent(RentDto rentDto) throws DataAccessException;
+    void updateRent(RentDto rentDto) throws DataAccessException, DateRangeException;
 
     void removeRent(RentDto rentDto) throws DataAccessException;
 

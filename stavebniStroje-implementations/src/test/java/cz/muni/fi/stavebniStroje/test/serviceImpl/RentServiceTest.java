@@ -5,6 +5,7 @@
  */
 package cz.muni.fi.stavebniStroje.test.serviceImpl;
 
+import cz.muni.fi.stavebniStroje.dao.MachineDao;
 import cz.muni.fi.stavebniStroje.dao.RentDao;
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
@@ -43,6 +44,9 @@ public class RentServiceTest extends AbstractIntegrationTest {
 
     @Mock
     private RentDao rentDao;
+    
+    @Mock
+    private MachineDao machineDao;
 
     @Autowired
     private DozerBeanMapper mapper;
@@ -56,6 +60,7 @@ public class RentServiceTest extends AbstractIntegrationTest {
         
         ReflectionTestUtils.setField(rentService, "dozerBeanMapper", mapper);
         ReflectionTestUtils.setField(rentService, "rentDao", rentDao);
+        ReflectionTestUtils.setField(rentService, "machineDao", machineDao);
     }
 
     @After
@@ -75,7 +80,12 @@ public class RentServiceTest extends AbstractIntegrationTest {
         }
 
         Rent rent = new Rent();
-       
+        rent.setStartOfRent(new Date());
+        rent.setEndOfRent(new Date());
+        rent.setMachine(new Machine());
+        rent.getMachine().setId(1);
+        when(machineDao.findById(new Long(1))).thenReturn(new Machine());
+
         RentDto rentDto = mapper.map(rent, RentDto.class);
         rentService.newRent(rentDto);
         verify(rentDao).persist(rent);
@@ -93,6 +103,11 @@ public class RentServiceTest extends AbstractIntegrationTest {
         }
 
         Rent rent = new Rent();
+        rent.setStartOfRent(new Date());
+        rent.setEndOfRent(new Date());
+        rent.setMachine(new Machine());
+        rent.getMachine().setId(1);
+        when(machineDao.findById(new Long(1))).thenReturn(new Machine());
 
         RentDto rentDto = mapper.map(rent, RentDto.class);
         rentService.updateRent(rentDto);

@@ -5,6 +5,7 @@
  */
 package cz.muni.fi.stavebniStroje.serviceImpl;
 
+import cz.muni.fi.stavebniStroje.dao.MachineDao;
 import cz.muni.fi.stavebniStroje.dao.RentDao;
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
@@ -13,13 +14,14 @@ import cz.muni.fi.stavebniStroje.entity.Customer;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 import cz.muni.fi.stavebniStroje.entity.Rent;
 import cz.muni.fi.stavebniStroje.service.RentService;
+import cz.muni.fi.stavebniStroje.util.DateRange;
+import cz.muni.fi.stavebniStroje.util.DateRangeException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import org.dozer.DozerBeanMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
@@ -35,14 +37,32 @@ import org.springframework.transaction.annotation.Transactional;
 public class RentServiceImpl implements RentService {
 
     private RentDao rentDao;
-    
+    private MachineDao machineDao;
+
     @Autowired
     DozerBeanMapper dozerBeanMapper;
 
-   
     @Required
     public void setRentDao(RentDao rentDao) {
         this.rentDao = rentDao;
+    }
+
+    @Required
+    public void setMachineDao(MachineDao machineDao) {
+        this.machineDao = machineDao;
+    }
+
+    @Transactional(readOnly = true)
+    private boolean isRentValid(Rent rent, Machine machine) {
+        DateRange rentRange = new DateRange(rent.getStartOfRent(), rent.getEndOfRent());
+        for (Rent r : machine.getRents()) {
+            DateRange range = new DateRange(r.getStartOfRent(), r.getEndOfRent());
+            if (range.interleave(rentRange)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -52,7 +72,14 @@ public class RentServiceImpl implements RentService {
         }
         try {
             Rent rent = dozerBeanMapper.map(rentDto, Rent.class);
+            Machine m = machineDao.findById(rent.getMachine().getId());
+            if (rent.getMachine() != null && !isRentValid(rent, m)) {
+                throw new DateRangeException();
+            }
+
             rentDao.persist(rent);
+        } catch (DateRangeException ex) {
+            throw ex;
         } catch (Exception ex) {
             throw new DataAccessException("Cannot persist item due to exception", ex) {
             };
@@ -66,7 +93,14 @@ public class RentServiceImpl implements RentService {
         }
         try {
             Rent rent = dozerBeanMapper.map(rentDto, Rent.class);
+            Machine m = machineDao.findById(rent.getMachine().getId());
+            if (rent.getMachine() != null && !isRentValid(rent, m)) {
+                throw new DateRangeException();
+            }
+
             rentDao.update(rent);
+        } catch (DateRangeException ex) {
+            throw ex;
         } catch (Exception ex) {
             throw new DataAccessException("Cannot update item due to exception", ex) {
             };
@@ -156,12 +190,12 @@ public class RentServiceImpl implements RentService {
             throw new IllegalArgumentException("Argument date was null.");
         }
         Collection<RentDto> rents = new ArrayList<>();
-        try{
-        for (Rent rent : rentDao.findByDate(date)) {
-            rents.add(dozerBeanMapper.map(rent, RentDto.class));
-        }
-        return rents;
-        }catch(Exception ex) {
+        try {
+            for (Rent rent : rentDao.findByDate(date)) {
+                rents.add(dozerBeanMapper.map(rent, RentDto.class));
+            }
+            return rents;
+        } catch (Exception ex) {
             throw new DataAccessException("Cannot read items due to exception", ex) {
             };
         }
