@@ -57,7 +57,6 @@ public class RentActionBean extends BaseActionBean {
         @Validate(on = {"add", "save"}, field = "endOfRent", required = true),})
     private RentDto rent;
 
-
     public Collection<CustomerDto> getCustomers() {
         return customers;
     }
@@ -106,7 +105,7 @@ public class RentActionBean extends BaseActionBean {
         this.rent = rent;
     }
 
-    @Before(stages = LifecycleStage.BindingAndValidation, on = {"read", "save", "delete"})
+    @Before(stages = LifecycleStage.BindingAndValidation, on = {"detail", "save", "delete"})
     public void loadRentFromDB() {
         String id = getContext().getRequest().getParameter("rent.id");
         if (id != null) {
@@ -118,10 +117,13 @@ public class RentActionBean extends BaseActionBean {
     @DefaultHandler
     public Resolution list() {
         log.debug("list()");
-        result = rentService.findAllRent();
-        customers = customerService.findAllCustomer();
-        machines = machineService.findAllMachines();
-
+        try {
+            result = rentService.findAllRent();
+            customers = customerService.findAllCustomer();
+            machines = machineService.findAllMachines();
+        } catch (DataAccessException ex) {
+            return new RedirectResolution("/fail/fail.jsp");
+        }
         return new ForwardResolution("/rent/list.jsp");
     }
 
@@ -140,9 +142,11 @@ public class RentActionBean extends BaseActionBean {
         return new RedirectResolution(this.getClass(), "list");
     }
 
-    public Resolution read() {
-        log.debug("update({})", rent.getId());
-        return new ForwardResolution("/rent/read.jsp");
+    public Resolution detail() {
+        log.debug("detail({})", rent.getId());
+        customers = customerService.findAllCustomer();
+        machines = machineService.findAllMachines();
+        return new ForwardResolution("/rent/detail.jsp");
     }
 
     public Resolution save() {
@@ -154,7 +158,9 @@ public class RentActionBean extends BaseActionBean {
         } catch (DataAccessException ex) {
             return new RedirectResolution("/fail/fail.jsp");
         }
-        return new RedirectResolution(this.getClass(), "list");
+        RedirectResolution resolution = new RedirectResolution(this.getClass(), "detail");
+        resolution.addParameter("rent.id", rent.getId());
+        return resolution;
     }
 
     public Resolution delete() {
@@ -167,14 +173,4 @@ public class RentActionBean extends BaseActionBean {
 
         return new RedirectResolution(this.getClass(), "list");
     }
-/*
-    @Override
-    public Resolution handleValidationErrors(ValidationErrors ve) throws Exception {
-        //fill up the data for the table if validation errors occured
-        result = rentService.findAllRent();
-        //return null to let the event handling continue
-        return null;
-    }
-*/
-
 }
