@@ -33,7 +33,7 @@
                 </button>
             </div>
             <div class="col-sm-9">
-                <f:message key="machine.list.display"/>
+                <f:message key="all.display"/>
                 <div class="btn-group" role="group" aria-label="...">
 
                     <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type==null? ' active' : ''}">
@@ -135,8 +135,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
                             <s:submit name="add" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
+                            <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
                         </div>
                     </div>
                 </s:form>

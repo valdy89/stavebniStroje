@@ -13,7 +13,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <s:form beanclass="cz.muni.fi.stavebnistroje.web.RevisionActionBean">
-                        <s:hidden name="continueTo" value="/machine/read/?machine.id=${machine.id}"/>
+                        <s:hidden name="continueTo" value="/machine/detail/?machine.id=${machine.id}"/>
                         <div class="modal-header">
                             <button type="reset" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>
@@ -28,8 +28,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
                             <s:submit name="add" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
+                            <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
                         </div>
                     </s:form>
                 </div>
@@ -43,7 +43,7 @@
         <li class="list-group-item">
             <span class="badge">
                 <s:form beanclass="cz.muni.fi.stavebnistroje.web.RevisionActionBean">
-                    <s:hidden name="continueTo" value="/machine/read/?machine.id=${machine.id}"/>
+                    <s:hidden name="continueTo" value="/machine/detail/?machine.id=${machine.id}"/>
                     <s:hidden name="revision.id" value="${revision.id}"/>
                     <button type="submit" name="delete">
                         <span aria-hidden="true">&times;</span>

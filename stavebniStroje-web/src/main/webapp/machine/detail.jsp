@@ -99,7 +99,7 @@
                                 <span aria-hidden="true">&times;</span>
                                 <span class="sr-only"><f:message key="all.btn.close"/></span>
                             </button>
-                            <h4 class="modal-title"><f:message key="machine.list.update"/></h4>
+                            <h4 class="modal-title"><f:message key="all.edit"/></h4>
                         </div>
                         <s:hidden name="machine.id"/>
 
@@ -110,8 +110,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
                             <s:submit name="save" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
+                            <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
                             </div>
                         </div>
                 </s:form>
