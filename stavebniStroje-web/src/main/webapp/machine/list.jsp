@@ -95,7 +95,9 @@
                     </c:forEach>
                 </tbody>
             </table>
+<%--
             <s:submit name="delete" class="btn btn-danger"><f:message key="all.btn.deleteSelected"/></s:submit>
+--%>
         </s:form>
         </div>
 

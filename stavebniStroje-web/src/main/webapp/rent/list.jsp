@@ -109,7 +109,9 @@
                     </c:forEach>
                 </tbody>
             </table>
+<%--
             <s:submit name="delete" class="btn btn-danger"><f:message key="all.btn.deleteSelected"/></s:submit>
+--%>
         </s:form>
 
         <div class="modal fade" id="addRentModal" tabindex="-1" role="dialog" aria-hidden="true">
