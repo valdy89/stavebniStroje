@@ -6,7 +6,9 @@
 package cz.muni.fi.stavebnistroje.web;
 
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
+import cz.muni.fi.stavebniStroje.dto.RevisionDto;
 import cz.muni.fi.stavebniStroje.service.MachineService;
+import cz.muni.fi.stavebniStroje.service.RevisionService;
 import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.util.Collection;
 import net.sourceforge.stripes.action.Before;
@@ -34,6 +36,9 @@ public class MachineActionBean extends BaseActionBean {
     @SpringBean
     protected MachineService machineService;
 
+    @SpringBean
+    protected RevisionService revisionService;
+    
     @ValidateNestedProperties({
         @Validate(on = {"detail", "delete", "save"}, field = "id", required = true),
         @Validate(on = {"add", "save"}, field = "name", required = true),
@@ -43,6 +48,12 @@ public class MachineActionBean extends BaseActionBean {
     private MachineDto machine;
     private MachineType type;
 
+    @ValidateNestedProperties({
+        @Validate(on = {"addRevision"}, field = "machine.id", required = true),
+        @Validate(on = {"addRevision"}, field = "dateOfRevision", required = true),
+        @Validate(on = {"deleteRevision"}, field = "id", required = true),})
+    private RevisionDto revision;
+    
     private Collection<MachineDto> result;
 
     public Collection<MachineDto> getResult() {
@@ -61,6 +72,14 @@ public class MachineActionBean extends BaseActionBean {
         this.machineService = machineService;
     }
 
+    public RevisionService getRevisionService() {
+        return revisionService;
+    }
+
+    public void setRevisionService(RevisionService revisionService) {
+        this.revisionService = revisionService;
+    }
+
     public MachineDto getMachine() {
         return machine;
     }
@@ -68,6 +87,15 @@ public class MachineActionBean extends BaseActionBean {
     public void setMachine(MachineDto machine) {
         this.machine = machine;
     }
+
+    public RevisionDto getRevision() {
+        return revision;
+    }
+
+    public void setRevision(RevisionDto revision) {
+        this.revision = revision;
+    }
+    
     public MachineType getType() {
         return type;
     }
@@ -87,6 +115,16 @@ public class MachineActionBean extends BaseActionBean {
             machine = machineService.findMachineById(Long.parseLong(id));
         }
     }
+
+    @Before(stages = LifecycleStage.BindingAndValidation, on = {"deleteRevision"})
+    public void loadRevisionFromDB() {
+        String id = getContext().getRequest().getParameter("revision.id");
+        if (id != null) {
+            revision = revisionService.findRevisionById(Long.parseLong(id));
+        } else {
+        }
+    }    
+    
 
     public Resolution add() {
         log.debug("add() machine={}", machine);
@@ -111,8 +149,32 @@ public class MachineActionBean extends BaseActionBean {
         } catch (DataAccessException e) {
             return new RedirectResolution("/fail/Fail.jsp");
         }
-        RedirectResolution resolution = new RedirectResolution(this.getClass(), "detail");
+        RedirectResolution resolution = new RedirectResolution("/machine/detail/");
         resolution.addParameter("machine.id", machine.getId());
+        return resolution;
+    }
+    
+    public Resolution addRevision() {
+        log.debug("add() revision={}", revision);
+        try {
+            revisionService.newRevision(revision);
+        } catch (DataAccessException e) {
+            return new ForwardResolution("/fail/Fail.jsp");
+        }
+        RedirectResolution resolution = new RedirectResolution("/machine/detail/");
+        resolution.addParameter("machine.id", revision.getMachine().getId());
+        return resolution;
+    }
+    
+    public Resolution deleteRevision() {
+        log.debug("delete({})", revision.getId());
+        try {
+            revisionService.removeRevision(revision);
+        } catch (DataAccessException e) {
+            return new RedirectResolution("/fail/Fail.jsp");
+        }
+        RedirectResolution resolution = new RedirectResolution("/machine/detail/");
+        resolution.addParameter("machine.id", revision.getMachine().getId());
         return resolution;
     }
 

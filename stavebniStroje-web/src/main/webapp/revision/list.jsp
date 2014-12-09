@@ -12,7 +12,7 @@
 <div class="modal fade" id="addRevisionModal" tabindex="-1" role="dialog" aria-labelledby="addRevisionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <s:form beanclass="cz.muni.fi.stavebnistroje.web.RevisionActionBean">
+            <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
                 <s:hidden name="continueTo" value="/machine/detail/?machine.id=${machine.id}"/>
                 <div class="modal-header">
                     <button type="reset" class="close" data-dismiss="modal">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <s:submit name="add" class="btn btn-success">
+                    <s:submit name="addRevision" class="btn btn-success">
                         <f:message key="all.btn.save"/>
                     </s:submit>
                     <button type="reset" class="btn btn-default" data-dismis="modal">
@@ -46,10 +46,9 @@
 
         <li class="list-group-item">
             <span class="badge">
-                <s:form beanclass="cz.muni.fi.stavebnistroje.web.RevisionActionBean">
-                    <s:hidden name="continueTo" value="/machine/detail/?machine.id=${machine.id}"/>
+                <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
                     <s:hidden name="revision.id" value="${revision.id}"/>
-                    <button type="submit" name="delete">
+                    <button type="submit" name="deleteRevision">
                         <span aria-hidden="true">&times;</span>
                         <span class="sr-only"><f:message key="all.btn.close"/></span>
                     </button>
