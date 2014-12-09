@@ -12,8 +12,6 @@ import cz.muni.fi.stavebniStroje.service.CustomerService;
 import cz.muni.fi.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.service.RentService;
 import cz.muni.fi.stavebniStroje.util.DateRangeException;
-import cz.muni.fi.stavebniStroje.util.MachineType;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -157,23 +155,10 @@ public class RentActionBean extends BaseActionBean {
             }
 
             if (machineId != null) {
-                Collection<RentDto> collection = new ArrayList<>(result.size());
-                for (RentDto r : result) {
-                    if (r.getMachine().getId() == machineId) {
-                        collection.add(r);
-                    }
-                }
-                result = collection;
+                result.retainAll(machineService.findMachineById(machineId).getRents());
             }
-
             if (customerId != null) {
-                Collection<RentDto> collection = new ArrayList<>(result.size());
-                for (RentDto r : result) {
-                    if (r.getCustomer().getId() == machineId) {
-                        collection.add(r);
-                    }
-                }
-                result = collection;
+                result.retainAll(customerService.getCustomer(customerId).getRents());
             }
 
             customers = customerService.findAllCustomer();
