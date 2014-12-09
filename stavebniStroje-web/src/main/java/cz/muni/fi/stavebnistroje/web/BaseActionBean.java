@@ -20,18 +20,6 @@ public abstract class BaseActionBean implements ActionBean {
 
     private ActionBeanContext context;
 
-    private String continueTo;
-    final private String defaultContinueTo;
-
-    public BaseActionBean(String defaultContinueTo) {
-        this.defaultContinueTo = defaultContinueTo;
-    }
-    public BaseActionBean() {
-        this.defaultContinueTo = "";
-    }
-    
-    
-
     @Override
     public void setContext(ActionBeanContext context) {
         this.context = context;
@@ -44,29 +32,6 @@ public abstract class BaseActionBean implements ActionBean {
 
     public static String escapeHTML(String s) {
         return Functions.escapeXml(s);
-    }
-
-    public String getContinueTo() {
-        return continueTo;
-    }
-
-    public void setContinueTo(String continueTo) {
-        this.continueTo = continueTo;
-    }
-
-    protected Resolution redirect() {
-        return redirect("");
-    }
-    
-    protected Resolution redirect(String path) {
-        if (path.isEmpty()) {
-            path = defaultContinueTo;
-        }
-        if (continueTo != null && !continueTo.isEmpty()) {
-            path = continueTo;
-        }
-
-        return new RedirectResolution(path);
     }
 
 }
