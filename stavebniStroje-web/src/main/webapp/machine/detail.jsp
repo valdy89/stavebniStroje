@@ -10,7 +10,7 @@
         <h2>
             <f:message key="machine.detail.header"/>
         </h2>
-        
+
         <div class="row bottom-small-buffer">
             <div class="col-sm-12 btn-toolbar">
                 <button class="btn btn-success" data-toggle="modal" data-target="#updateMachineModal">
@@ -113,10 +113,12 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <s:submit name="save" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
+                            <s:submit name="save" class="btn btn-success">
+                                <f:message key="all.btn.save"/>
+                            </s:submit>
                             <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
-                            </div>
                         </div>
+                    </div>
                 </s:form>
             </div>
         </div>
@@ -126,7 +128,7 @@
     <s:layout-component name="header">
         <script>
             $(function () {
-                $("#dateOfRevision").datepicker({ dateFormat: 'yy-mm-dd'});
+                $("#dateOfRevision").datepicker({dateFormat: 'yy-mm-dd'});
             });
         </script>
     </s:layout-component>

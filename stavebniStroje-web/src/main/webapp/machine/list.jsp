@@ -8,7 +8,7 @@
 
 <s:layout-render name="/layout.jsp" titlekey="machine.list.title">
     <s:layout-component name="body">
-        
+
         <h2><f:message key="machine.list.header"/></h2>
         <div class="row">
             <div class="col-sm-3">
@@ -40,70 +40,70 @@
             </div>
         </div>
         <div class="row">
-        <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th><f:message key="machine.name"/></th>
-                        <th><f:message key="machine.type"/></th>
-                        <th><f:message key="machine.description"/></th>
-                        <th><f:message key="machine.price"/></th>
-                        <th><f:message key="machine.detail.state"/></th>
-                        <th><f:message key="all.btn.tools"/></th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <c:forEach items="${actionBean.result}" var="machine">
-
+            <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td><input type="checkbox" name="machines[]" value="${machine.id}" /></td>
-                            <td>${machine.name}</td>
-
-                            <td>${machine.type}</td>
-                            <td>${machine.description}</td>
-                            <td>${machine.price}</td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${machine.available}">
-                                        <span class="glyphicon glyphicon-ok-circle"></span>
-                                        <f:message key="machine.detail.available"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="glyphicon glyphicon-remove-circle"></span>
-                                        <f:message key="machine.detail.borrowed"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td>
-                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="detail"><s:param name="machine.id" value="${machine.id}"/>
-                                    <button type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                        <f:message key="all.btn.details"/>
-                                    </button>
-                                </s:link>
-                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="delete"><s:param name="machine.id" value="${machine.id}"/>
-                                    <button type="button" class="btn btn-danger">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        <f:message key="all.btn.delete"/>
-                                    </button>
-                                </s:link>
-                            </td>
+                            <th></th>
+                            <th><f:message key="machine.name"/></th>
+                            <th><f:message key="machine.type"/></th>
+                            <th><f:message key="machine.description"/></th>
+                            <th><f:message key="machine.price"/></th>
+                            <th><f:message key="machine.detail.state"/></th>
+                            <th><f:message key="all.btn.tools"/></th>
                         </tr>
+                    </thead>
+                    <tbody>
 
-                    </c:forEach>
-                </tbody>
-            </table>
-<%--
-            <s:submit name="delete" class="btn btn-danger"><f:message key="all.btn.deleteSelected"/></s:submit>
---%>
-        </s:form>
+                        <c:forEach items="${actionBean.result}" var="machine">
+
+                            <tr>
+                                <td><input type="checkbox" name="machines[]" value="${machine.id}" /></td>
+                                <td>${machine.name}</td>
+
+                                <td>${machine.type}</td>
+                                <td>${machine.description}</td>
+                                <td>${machine.price}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${machine.available}">
+                                            <span class="glyphicon glyphicon-ok-circle"></span>
+                                            <f:message key="machine.detail.available"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="glyphicon glyphicon-remove-circle"></span>
+                                            <f:message key="machine.detail.borrowed"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td>
+                                    <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="detail"><s:param name="machine.id" value="${machine.id}"/>
+                                        <button type="button" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                            <f:message key="all.btn.details"/>
+                                        </button>
+                                    </s:link>
+                                    <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="delete"><s:param name="machine.id" value="${machine.id}"/>
+                                        <button type="button" class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            <f:message key="all.btn.delete"/>
+                                        </button>
+                                    </s:link>
+                                </td>
+                            </tr>
+
+                        </c:forEach>
+                    </tbody>
+                </table>
+                <%--
+                            <s:submit name="delete" class="btn btn-danger"><f:message key="all.btn.deleteSelected"/></s:submit>
+                --%>
+            </s:form>
         </div>
 
-        
+
         <div class="modal fade" id="addMachineModal" tabindex="-1" role="dialog" aria-hidden="true">
-        
+
             <div class="modal-dialog">
                 <div class="modal-content">
                     <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
@@ -118,12 +118,16 @@
                         <div class="modal-body">
 
                             <div class="form-horizontal">
-                              <%@include file="form.jsp"%>
+                                <%@include file="form.jsp"%>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <s:submit name="add" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
-                            <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
+                            <s:submit name="add" class="btn btn-success">
+                                <f:message key="all.btn.save"/>
+                            </s:submit>
+                            <button type="reset" class="btn btn-default" data-dismis="modal">
+                                <f:message key="all.btn.cancel"/>
+                            </button>
                         </div>
                     </div>
                 </s:form>

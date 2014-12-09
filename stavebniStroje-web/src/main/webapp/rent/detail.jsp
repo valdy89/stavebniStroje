@@ -11,7 +11,7 @@
         <h2>
             <f:message key="rent.detail.header"/>
         </h2>
-        
+
         <div class="row bottom-small-buffer">
             <div class="col-sm-12 btn-toolbar">
                 <button class="btn btn-success" data-toggle="modal" data-target="#updateRentModal">
@@ -27,7 +27,7 @@
                 </s:link>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-sm-3">
                 <div class="panel panel-default">
@@ -39,7 +39,7 @@
                             <s:param name="customer.id" value="${rent.customer.id}"/>
                             ${rent.customer.secondName}, ${rent.customer.firstName}
                         </s:link>
-                </div>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-3">
@@ -76,8 +76,8 @@
                 </div>
             </div>
         </div>
-        
-                    
+
+
         <div class="modal fade" id="updateRentModal" tabindex="-1" role="dialog" aria-labelledby="addRentModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -98,8 +98,12 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <s:submit name="save" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
-                            <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
+                            <s:submit name="save" class="btn btn-success">
+                                <f:message key="all.btn.save"/>
+                            </s:submit>
+                            <button type="reset" class="btn btn-default" data-dismis="modal">
+                                <f:message key="all.btn.cancel"/>
+                            </button>
                         </div>
                     </div>
                 </s:form>

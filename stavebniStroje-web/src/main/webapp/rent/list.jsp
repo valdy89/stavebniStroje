@@ -9,13 +9,13 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
- <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" var="actionBean"/>
+<s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" var="actionBean"/>
 
 <s:layout-render name="/layout.jsp" titlekey="rent.list.title">
     <s:layout-component name="body">
-        
+
         <h2><f:message key="rent.list.header"/></h2>
-        
+
         <div class="row">
             <div class="col-sm-3">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addRentModal">
@@ -27,28 +27,32 @@
                 <s:form beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" class="form-inline pull-right">
                     <f:message key="all.display"/>
                     <div class="form-group">
-                    <s:select name="machineId" class="form-control">
-                        <s:option value=""><f:message key="rent.search.allMachines"/></s:option>
-                        <s:options-collection collection="${actionBean.machines}" value="id" label="name" />
-                    </s:select>
-                    
+                        <s:select name="machineId" class="form-control">
+                            <s:option value="">
+                                <f:message key="rent.search.allMachines"/>
+                            </s:option>
+                            <s:options-collection collection="${actionBean.machines}" value="id" label="name" />
+                        </s:select>
+
                     </div>
                     <div class="form-group">
-                    
-                    <s:select name="customerId" class="form-control" >
-                        <s:option value=""><f:message key="rent.search.allCustomers"/></s:option>
-                        <s:options-collection collection="${actionBean.customers}" value="id" label="fullName" />
-                    </s:select>
+
+                        <s:select name="customerId" class="form-control" >
+                            <s:option value="">
+                                <f:message key="rent.search.allCustomers"/>
+                            </s:option>
+                            <s:options-collection collection="${actionBean.customers}" value="id" label="fullName" />
+                        </s:select>
                     </div>
                     <div class="form-group">
-                    
-                    <s:text name="date" id="date" class="form-control"/>
+
+                        <s:text name="date" id="date" class="form-control"/>
                     </div>
                     <div class="form-group">
-                    
-                    <s:submit name="list" class="btn btn-success">
-                        <f:message key="all.btn.search"/>
-                    </s:submit>
+
+                        <s:submit name="list" class="btn btn-success">
+                            <f:message key="all.btn.search"/>
+                        </s:submit>
                     </div>
                 </s:form>
             </div>
@@ -109,9 +113,9 @@
                     </c:forEach>
                 </tbody>
             </table>
-<%--
-            <s:submit name="delete" class="btn btn-danger"><f:message key="all.btn.deleteSelected"/></s:submit>
---%>
+            <%--
+                        <s:submit name="delete" class="btn btn-danger"><f:message key="all.btn.deleteSelected"/></s:submit>
+            --%>
         </s:form>
 
         <div class="modal fade" id="addRentModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -134,8 +138,12 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <s:submit name="add" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
-                            <button type="reset" class="btn btn-default" data-dismis="modal"><f:message key="all.btn.cancel"/></button>
+                            <s:submit name="add" class="btn btn-success">
+                                <f:message key="all.btn.save"/>
+                            </s:submit>
+                            <button type="reset" class="btn btn-default" data-dismis="modal">
+                                <f:message key="all.btn.cancel"/>
+                            </button>
                         </div>
                     </div>
                 </s:form>
@@ -146,7 +154,7 @@
     <s:layout-component name="header">
         <script>
             $(function () {
-                $('#startOfRent,#endOfRent,#date').datepicker({ dateFormat: 'yy-mm-dd'});
+                $('#startOfRent,#endOfRent,#date').datepicker({dateFormat: 'yy-mm-dd'});
                 $('#date').attr('placeholder', '<f:message key="rent.search.date"/>');
             });
         </script>
