@@ -6,6 +6,7 @@
 package cz.muni.fi.stavebniStroje.dto;
 
 import cz.muni.fi.stavebniStroje.util.LegalStatus;
+import cz.muni.fi.stavebniStroje.util.Role;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
@@ -25,7 +26,10 @@ public class CustomerDto implements Serializable {
     private String address;
     private LegalStatus legalStatus;
     private Collection<RentDto> rents;
-
+    private String username;
+    private String password;
+    private Role role;
+    private boolean enabled;
     /**
      * This method returns customer's ID
      *
@@ -128,6 +132,38 @@ public class CustomerDto implements Serializable {
 
     public void setRents(Collection<RentDto> rents) {
         this.rents = rents;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     
