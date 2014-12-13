@@ -53,5 +53,8 @@ public interface CustomerDao {
      * @return list of customers from the DB
      */
     public List<Customer> findAll();
+    
+    
+        public Customer findByUsername(String username);
 
 }

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Entity;
 import cz.muni.fi.stavebniStroje.util.LegalStatus;
+import cz.muni.fi.stavebniStroje.util.Role;
 import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
@@ -38,11 +39,21 @@ public class Customer implements Serializable {
     private String address;
     @Column(name = "LEGALSTATUS")
     private LegalStatus legalStatus;
-
+    @Column(name = "USERNAME", length = 20)
+    private String username;
+    @Column(name = "PASSWORD", length = 20)
+    private String password;
+    @Column(name = "ROLE")
+    private Role role;
+    @Column(name = "ENABLED")
+    private boolean enabled;
+    
+    
     @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
     private Collection<Rent> rents;
     /**
      * This method returns customer's ID
+     * @return 
      */
     public long getId() {
         return id;
@@ -50,6 +61,7 @@ public class Customer implements Serializable {
 
     /**
      * This method sets customer's ID
+     * @param id
      */
     public void setId(long id) {
         this.id = id;
@@ -57,6 +69,7 @@ public class Customer implements Serializable {
 
     /**
      * This method returns customer's first name
+     * @return 
      */
     public String getFirstName() {
         return firstName;
@@ -64,6 +77,7 @@ public class Customer implements Serializable {
 
     /**
      * This method set customer's first name
+     * @param firstName
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -71,6 +85,7 @@ public class Customer implements Serializable {
 
     /**
      * This method returns customer's second/last name
+     * @return 
      */
     public String getSecondName() {
         return secondName;
@@ -78,6 +93,7 @@ public class Customer implements Serializable {
 
     /**
      * This method sets customer's second/last name
+     * @param secondName
      */
     public void setSecondName(String secondName) {
         this.secondName = secondName;
@@ -85,6 +101,7 @@ public class Customer implements Serializable {
 
     /**
      * This method returns customer's address
+     * @return 
      */
     public String getAddress() {
         return address;
@@ -92,6 +109,7 @@ public class Customer implements Serializable {
 
     /**
      * This method sets customer's address
+     * @param address
      */
     public void setAddress(String address) {
         this.address = address;
@@ -99,6 +117,7 @@ public class Customer implements Serializable {
 
     /**
      * This method returns customer's legal status. if he is a natural or legal
+     * @return 
      */
     public LegalStatus getLegalStatus() {
         return legalStatus;
@@ -106,11 +125,44 @@ public class Customer implements Serializable {
 
     /**
      * This method sets customer's legal status
+     * @param legalStatus
      */
     public void setLegalStatus(LegalStatus legalStatus) {
         this.legalStatus = legalStatus;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+    
     public Collection<Rent> getRents() {
         return rents;
     }
@@ -133,6 +185,9 @@ public class Customer implements Serializable {
         return hash;
     }
 
+
+
+    
     /**
      * This method compare two instances
      */

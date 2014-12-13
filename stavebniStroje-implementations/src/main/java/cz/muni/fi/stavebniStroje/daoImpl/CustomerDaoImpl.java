@@ -120,4 +120,18 @@ public class CustomerDaoImpl implements CustomerDao {
         return  tq.getResultList();
     }
 
+    @Override
+    //public List<Customer> findByUsername(String username) {
+    public Customer findByUsername(String username) {
+        if (username == null) {
+            throw new IllegalArgumentException("Customer's username cannot to be null");
+        }
+        TypedQuery<Customer> tq = entityManager.createQuery(
+                "SELECT customer FROM Customer customer WHERE username='"+username+"'", Customer.class);
+
+        //mislim ze veliky rozdil nebude i pokud nechame aby vystup byl list, protoze bude obsahovat jenom jeden element
+        //return  tq.getResultList();
+        return  tq.getSingleResult();
+    }
+    
 }

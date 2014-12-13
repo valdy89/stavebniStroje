@@ -123,7 +123,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional(readOnly = true)
     @Override
     public Collection<CustomerDto> searchCustomer(String name) throws DataAccessException {
-    if (name == null) {
+        if (name == null) {
             throw new IllegalArgumentException("Argument string name was null");
         }
 
@@ -141,4 +141,13 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public CustomerDto findByUsername(String username) {
+        Customer customer = customerDao.findByUsername(username);
+        if (customer == null) {
+            return null;
+        }
+        return dozerBeanMapper.map(customer, CustomerDto.class);
+    }
 }
