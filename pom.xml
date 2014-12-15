@@ -11,5 +11,6 @@
     <module>stavebniStroje-web</module>
     <module>stavebniStroje-API</module>
     <module>stavebniStroje-implementations</module>
+    <module>stavebniStroje-testWebServicesModule</module>
   </modules>
 </project>
