@@ -112,9 +112,13 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <s:submit name="add" class="btn btn-success"><f:message key="all.btn.save"/></s:submit>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
+                            <s:submit name="add" class="btn btn-success">
+                                <f:message key="all.btn.save"/>
+                            </s:submit>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                <f:message key="all.btn.close"/>
+                            </button>
+                        </div>
                     </s:form>
                 </div>
             </div>

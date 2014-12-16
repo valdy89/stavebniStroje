@@ -110,7 +110,9 @@
                         <div class="modal-header">
                             <button type="reset" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>
-                                <span class="sr-only"><f:message key="all.btn.close"/></span>
+                                <span class="sr-only">
+                                    <f:message key="all.btn.close"/>
+                                </span>
                             </button>
                             <h4 class="modal-title"><f:message key="machine.list.add"/></h4>
                         </div>
@@ -125,8 +127,9 @@
                             <s:submit name="add" class="btn btn-success">
                                 <f:message key="all.btn.save"/>
                             </s:submit>
-                            <button type="reset" class="btn btn-default" data-dismis="modal">
-                                <f:message key="all.btn.cancel"/>
+
+                            <button type="reset" class="btn btn-default" data-dismiss="modal">                               
+                                <f:message key="all.btn.close"/>                                
                             </button>
                         </div>
                     </div>
@@ -135,5 +138,18 @@
 
         </div>
 
+    </s:layout-component>
+    <s:layout-component name="header">
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+
+                if ($("#displayModalErrors").length) {
+                    $('#addMachineModal').modal('show');
+                }
+
+
+            })
+        </script>
     </s:layout-component>
 </s:layout-render>
