@@ -1,36 +1,31 @@
-package cz.muni.fi.stavebnistroje.rest;
+package cz.muni.fi.stavebnistroje.rest.controllers;
 
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.service.CustomerService;
-import java.net.URI;
+import cz.muni.fi.stavebnistroje.resources.CustomerResource;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import javax.ejb.Singleton;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author milos
  */
-@Path("/customers")
-@Singleton
-public class CustomersResource {
+@RestController
+@RequestMapping("/service/customer")
+public class CustomersController {
 
-    final static Logger log = LoggerFactory.getLogger(CustomersResource.class);
+    final static Logger log = LoggerFactory.getLogger(CustomersController.class);
+    
+    @Autowired
     private CustomerService customerService;
+    /*
     @Context
     private UriInfo context;
 
@@ -38,7 +33,7 @@ public class CustomersResource {
         this.customerService = customerService;
     }
 
-    @Path("{id}")
+    @Path("get/{id}")
     public CustomerResource getCustomerResource(@PathParam("id") Integer id) {
         CustomerDto customerDto = null;
         CustomerResource crs = null;
@@ -56,7 +51,7 @@ public class CustomersResource {
     }
 
     @GET
-    @Path("json/{id}")
+    @Path("/json/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public CustomerResource getCustomer(@PathParam("id") Integer id) {
         CustomerDto customerDto = customerService.getCustomer(new Long(id));
@@ -72,22 +67,22 @@ public class CustomersResource {
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("delete/{id}")
     public Response deleteCustomer(@PathParam("id") Integer id) {
         CustomerDto customerDto = new CustomerDto();
         customerDto.setId(new Long(id));
         customerService.removeCustomer(customerDto);
         return Response.status(Response.Status.OK).build();
     }
-
-    @GET
-    @Path("{json}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<CustomerResource> getAllCustomers() {
+*/
+    @RequestMapping( method = RequestMethod.GET,headers="Accept=application/json")
+    public  List<CustomerResource> getAllCustomers() {
         List<CustomerResource> list = new ArrayList<>();
-        for (CustomerDto customerDto : customerService.findAllCustomer()) {
-            list.add(new CustomerResource(customerDto));
+        Collection<CustomerDto> customers = customerService.findAllCustomer();
+        for (CustomerDto customerDto : customers) {
+           list.add(new CustomerResource(customerDto));
         }
-        return list;
+        
+         return list;
     }
 }

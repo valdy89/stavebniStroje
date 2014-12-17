@@ -1,34 +1,14 @@
-package cz.muni.fi.stavebnistroje.rest;
+package cz.muni.fi.stavebnistroje.rest.controllers;
 
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
-import cz.muni.fi.stavebniStroje.service.MachineService;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import javax.ejb.Singleton;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 /**
  *
  * @author milos
  */
-@Path("/machines")
-@Singleton
-public class MachinesResource {
 
+public class MachinesResource {
+/*
     final static Logger log = LoggerFactory.getLogger(MachinesResource.class);
     private MachineService machineService;
     @Context
@@ -89,5 +69,5 @@ public class MachinesResource {
             list.add(new MachineResource(machineDto));
         }
         return list;
-    }    
+    }    */
 }
