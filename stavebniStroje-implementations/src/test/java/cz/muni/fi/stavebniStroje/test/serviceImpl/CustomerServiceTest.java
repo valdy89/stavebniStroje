@@ -18,13 +18,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -32,19 +30,18 @@ import org.springframework.test.util.ReflectionTestUtils;
  * Test for CustomerServiceImp
  * @author Milos Petrovic
  */
-
 public class CustomerServiceTest extends AbstractIntegrationTest {
 
     private Customer c1;
     private Customer c2;
     private Customer c3;
 
-    
+
     private CustomerService customerService;
-    
+
     @Mock
     private CustomerDao customerDao;
-   
+
     @Autowired
     private DozerBeanMapper mapper;
 
@@ -58,7 +55,7 @@ public class CustomerServiceTest extends AbstractIntegrationTest {
      * @param lastname last name  of the customer
      * @param address address  of the customer
      * @param legalStatus legal Status of the customer
-     * @return 
+     * @return
      */
     private Customer setNewCustomer(String firstName, String lastname, String address, LegalStatus legalStatus) {
         Customer customer = new Customer();
@@ -72,15 +69,15 @@ public class CustomerServiceTest extends AbstractIntegrationTest {
 
     /**
      * SetUp method is used for preparation
-     * @throws ParseException 
+     * @throws ParseException
      */
     @Before
     public void setUp() throws ParseException {
-        
+
         customerService = new CustomerServiceImpl();
         ReflectionTestUtils.setField(customerService, "customerDao", customerDao);
         ReflectionTestUtils.setField(customerService, "dozerBeanMapper", mapper);
-       
+
         c1 = this.setNewCustomer("Petar", "Petrovic", "Tehnicka 9", LegalStatus.LEGAL);
         c2 = this.setNewCustomer("Jan", "Novak", "Ceska 9", LegalStatus.LEGAL);
         c3 = this.setNewCustomer("Nick", "Foster", "Uvoz 9", LegalStatus.LEGAL);
@@ -112,7 +109,7 @@ public class CustomerServiceTest extends AbstractIntegrationTest {
         verify(customerDao).persist(customer);
 
     }
-   
+
     /**
      * Test of getCustomer() method from CustomerServiceImpl.
      */
@@ -138,24 +135,24 @@ public class CustomerServiceTest extends AbstractIntegrationTest {
         Mockito.verify(customerDao, Mockito.times(1)).findById(id);
         assertEquals(customerDto.getId(), res.getId());
 
-    }    
+    }
      @Test
     public void testSearchCustomer() {
         System.out.println("findAll of customer service impl test");
         List<Customer> customers = new ArrayList<>(Arrays.asList(new Customer[]{c1}));
         List<CustomerDto> customersDto = new ArrayList<>(Arrays.asList(new CustomerDto[]{
                     mapper.map(c1, CustomerDto.class),
-                   
+
                 }));
         when(customerDao.findByName(c1.getFirstName())).thenReturn(customers);
         List<CustomerDto> allCustomers = (List<CustomerDto>) customerService.searchCustomer(c1.getFirstName());
         assertEquals(allCustomers, customersDto);
 
-    }    
-    
+    }
+
     /**
      * Test for updateCustomer() method from CustomerServiceImpl.
-     */      
+     */
     @Test
     public void testUpdateCustomer() {
         try {
@@ -175,7 +172,7 @@ public class CustomerServiceTest extends AbstractIntegrationTest {
 
     /**
      * Test for removeCustomer() method from CustomerServiceImpl.
-     */    
+     */
     @Test
     public void testRemove() {
         try {
@@ -192,9 +189,9 @@ public class CustomerServiceTest extends AbstractIntegrationTest {
         CustomerDto remove = mapper.map(customer, CustomerDto.class);
         customerService.removeCustomer(remove);
         verify(customerDao).remove(customer);
-    }  
-    
-    
+    }
+
+
     /**
      * Test for findAllCustomer() method from CustomerServiceImpl.
      */
@@ -210,5 +207,5 @@ public class CustomerServiceTest extends AbstractIntegrationTest {
         when(customerDao.findAll()).thenReturn(customers);
         List<CustomerDto> allCustomers = (List<CustomerDto>) customerService.findAllCustomer();
         assertEquals(allCustomers, customersDto);
-    }    
+    }
 }
