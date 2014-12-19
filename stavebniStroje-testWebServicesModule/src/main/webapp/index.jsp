@@ -10,74 +10,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
-        <script language="javascript">
-
-            function getUser() {
-                var id = 1;
-                $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer/get/' + id, // ukazujeme URL a
-                    type: 'GET',
-                    success: function (data, textStatus) { // funkce success zpracovává data
-                        console.log(data);
-                    }
-                });
-            }
-            function createUser() {
-
-                $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer/create', // ukazujeme URL a
-                    type: 'PUT',
-                    contentType: "application/json",
-                    data: JSON.stringify({"firstName": "tert", "secondName": "test", "address": "test", "legalStatus": "NATURAL"}),
-                    success: function (data, textStatus) { // funkce success zpracovává data
-                        console.log(data);
-                    }
-                });
-            }
-            function updateUser() {
-                var id = 1;
-                $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer/delete' + id, // ukazujeme URL a
-                    type: 'PUT',
-                    success: function (data, textStatus) { // funkce success zpracovává data
-                        console.log(data);
-                    }
-                });
-            }
-
-
-            function getAllCustomers() {
-                $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer', // ukazujeme URL a
-                    type: 'GET',
-                    success: function (data, textStatus) { // funkce success zpracovává data
-                        console.log(data);
-                    }
-                });
-            }
-
-            function deleteUser() {
-                var id = 1;
-                $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer/delete/' + id, // ukazujeme URL a
-                    type: 'DELETE',
-                    success: function (data, textStatus) { // funkce success zpracovává data
-                        console.log(data);
-                    }
-                });
-            }
-            function searchUser() {
-                var search = 1;
-                $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer/delete/' + search, // ukazujeme URL a
-                    type: 'DELETE',
-                    success: function (data, textStatus) { // funkce success zpracovává data
-                        console.log(data);
-                    }
-                });
-            }
-
-        </script>
+       
     </head>
     <body>
 
@@ -100,17 +33,12 @@
                             <li><a href="customers.jsp">Customer tests</a></li>
                             <li><a href="machines.jsp">Machines tests</a></li>
                         </ul> 
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="${pageContext.request.contextPath}/about.jsp"><f:message key="navigation.about"/></a></li>
-                        </ul>
+                            
                     </div>
                 </div>
             </nav>
         <h1>Hello World!</h1>
 
-        <button onClick="createUser()">Create customer</button>
-        <button onClick="getUser()">Get customer</button>
-        <button onClick="deleteUser()">Delete customer</button>
-        <button onClick="getAllCustomers()">Get ALL customers</button>
+       
     </body>
 </html>
