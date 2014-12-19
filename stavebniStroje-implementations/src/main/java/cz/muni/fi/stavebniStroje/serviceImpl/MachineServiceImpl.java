@@ -129,21 +129,5 @@ public class MachineServiceImpl implements MachineService {
         }
     }
 
-    @Override
-    public Collection<MachineDto> findMachinesByPrice(BigDecimal price) {
-        if (price == null) {
-            throw new IllegalArgumentException("Argument price was null");
-        }
-        Collection<MachineDto> machines = new ArrayList<>();
-        try {
-            for (Machine machine : machineDao.findByPrice(price)) {
-                machines.add(dozerBeanMapper.map(machine, MachineDto.class));
-            }
-            return machines;
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot read items due to exception", ex) {
-            };
-        }
-    }
 
 }

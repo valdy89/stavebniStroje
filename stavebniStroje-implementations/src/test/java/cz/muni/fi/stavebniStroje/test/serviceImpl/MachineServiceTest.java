@@ -31,7 +31,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class MachineServiceTest extends AbstractIntegrationTest {
 
     @InjectMocks
-    private MachineService machineService = new MachineServiceImpl();
+    private MachineService machineService;
 
     @Mock
     private MachineDao stavebniStrojeMachineDao;
@@ -40,7 +40,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
     private DozerBeanMapper mapper;
 
     public MachineServiceTest() {
-
+        this.machineService = new MachineServiceImpl();
         MockitoAnnotations.initMocks(this);
     }
 
@@ -195,27 +195,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
         Mockito.verify(stavebniStrojeMachineDao, Mockito.times(1)).findByType(MachineType.EXCAVATOR);
     }
 
-    @Test
-    public void testFindMachinesByPrice() {
-        Machine machine1 = new Machine();
-        machine1.setId(100L);
-        machine1.setName("stroj");
-        Machine machine2 = new Machine();
-        machine2.setId(100L);
-        machine2.setName("stroj");
-
-        List<Machine> machines = new ArrayList<>();
-        machines.add(machine1);
-        machines.add(machine2);
-        List<MachineDto> expected = new ArrayList<>();
-        for (Machine m : machines) {
-            expected.add(mapper.map(m, MachineDto.class));
-        }
-
-        Mockito.when(stavebniStrojeMachineDao.findByPrice(BigDecimal.ONE)).thenReturn(machines);
-        Assert.assertEquals(expected, machineService.findMachinesByPrice(BigDecimal.ONE));
-        Mockito.verify(stavebniStrojeMachineDao, Mockito.times(1)).findByPrice(BigDecimal.ONE);
-    }
+    
 
     private Date changeDay(Date date, int day) {
         Calendar cal = Calendar.getInstance();

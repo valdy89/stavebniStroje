@@ -26,6 +26,5 @@ public interface MachineService {
     
     Collection<MachineDto> findMachinesByType(MachineType type) throws DataAccessException;
     
-    Collection<MachineDto> findMachinesByPrice(BigDecimal price) throws DataAccessException;
-    
+     
 }
