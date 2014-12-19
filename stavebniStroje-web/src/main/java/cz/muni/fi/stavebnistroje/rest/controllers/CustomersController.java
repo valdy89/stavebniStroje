@@ -36,9 +36,9 @@ public class CustomersController {
 
     @RequestMapping(value = "create", method = RequestMethod.PUT)
     public @ResponseBody
-    CustomerDto createCustomer(CustomerDto customerDto) {
-        customerService.createCustomer(customerDto);
-        return customerDto;
+    CustomerResource createCustomer(CustomerResource customerResource) {
+        customerService.createCustomer(customerResource);
+        return customerResource;
     }
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)

@@ -6,6 +6,7 @@
 package cz.muni.fi.stavebnistroje.resources;
 
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
+import cz.muni.fi.stavebniStroje.util.LegalStatus;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -17,7 +18,11 @@ import javax.ws.rs.core.MediaType;
  */
 public class CustomerResource extends CustomerDto {
 
-    public CustomerResource(){
+    public CustomerResource(String firstName, String secondName, LegalStatus status, String address){
+        setFirstName(firstName);
+        setSecondName(secondName);
+        setAddress(address);
+        setLegalStatus(status);
     }
     /**
      * Constructor for CustomerResouce class

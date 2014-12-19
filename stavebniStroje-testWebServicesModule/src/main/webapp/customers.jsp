@@ -106,7 +106,7 @@
                     </div>
                 </div>
             </nav>
-        <h1>Hello World!</h1>
+        <h1>Customers tests</h1>
 
         <button onClick="createUser()">Create customer</button>
         <button onClick="getUser()">Get customer</button>
