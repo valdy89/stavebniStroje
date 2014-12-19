@@ -36,14 +36,14 @@ public class CustomersController {
 
     @RequestMapping(value = "create", method = RequestMethod.PUT)
     public @ResponseBody
-    CustomerResource createCustomer(CustomerResource customerResource) {
-        customerService.createCustomer(customerResource);
-        return customerResource;
+    CustomerDto createCustomer(CustomerDto customerDto) {
+        customerService.createCustomer(customerDto);
+        return customerDto;
     }
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    CustomerResource getCustomer(@PathVariable("id") int id) {
+    CustomerResource getCustomer(@PathVariable("id") Integer id) {
         CustomerDto customerDto = customerService.getCustomer(new Long(id));
         CustomerResource crs = new CustomerResource(customerDto);
         return crs;

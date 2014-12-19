@@ -17,7 +17,8 @@ import javax.ws.rs.core.MediaType;
  */
 public class CustomerResource extends CustomerDto {
 
-
+    public CustomerResource(){
+    }
     /**
      * Constructor for CustomerResouce class
      * @param customerDto customer which will be used

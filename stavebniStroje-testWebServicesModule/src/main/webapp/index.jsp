@@ -8,46 +8,60 @@
         <title>JSP Page</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script language="javascript">
-
-                    function getUser(){
-                    var id = 1;
-                            $.ajax({
-                            url: 'http://localhost/pa165/rest/service/customer/get/' + id, // ukazujeme URL a
-                                    type : 'GET',
-                                    success: function (data, textStatus) { // funkce success zpracovává data
-                                    console.log(data);
-                                    }
-                            });
-                    }
-            function updateUser(){
-            var id = 1;
-                    $.ajax({
-                    url: 'http://localhost/pa165/rest/service/customer/delete' + id, // ukazujeme URL a
-                            type : 'PUT',
-                            success: function (data, textStatus) { // funkce success zpracovává data
-                            console.log(data);
-                            }
-                    });
-            }
-
-            function getAllCustomers(){
-            $.ajax({
-            url: 'http://localhost/pa165/rest/service/customer', // ukazujeme URL a
-                    type : 'GET',
+           
+            function getUser() {
+                var id = 1;
+                $.ajax({
+                    url: 'http://localhost:8080/pa165/rest/service/customer/get/' + id, // ukazujeme URL a
+                    type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
-                    console.log(data);
+                        console.log(data);
                     }
-            });
+                });
             }
-            function deleteUser(){
-            var id = 1;
-                    $.ajax({
-                    url: 'http://localhost/pa165/rest/service/customer/delete' + id, // ukazujeme URL a
-                            type : 'DELETE',
-                            success: function (data, textStatus) { // funkce success zpracovává data
-                            console.log(data);
-                            }
-                    });
+            function createUser() {
+
+                $.ajax({
+                    url: 'http://localhost:8080/pa165/rest/service/customer/create', // ukazujeme URL a
+                    type: 'PUT',
+                    contentType: "application/json",
+                    data: JSON.stringify({"firstName": "tert", "secondName": "test", "fullName": "test, tert", "address": "test", "legalStatus": "NATURAL", "rents": "[]"}),
+                    success: function (data, textStatus) { // funkce success zpracovává data
+                        console.log(data);
+                    }
+                });
+            }
+            function updateUser() {
+                var id = 1;
+                $.ajax({
+                    url: 'http://localhost:8080/pa165/rest/service/customer/delete' + id, // ukazujeme URL a
+                    type: 'PUT',
+                    success: function (data, textStatus) { // funkce success zpracovává data
+                        console.log(data);
+                    }
+                });
+            }
+
+
+            function getAllCustomers() {
+                $.ajax({
+                    url: 'http://localhost:8080/pa165/rest/service/customer', // ukazujeme URL a
+                    type: 'GET',
+                    success: function (data, textStatus) { // funkce success zpracovává data
+                        console.log(data);
+                    }
+                });
+            }
+
+            function deleteUser() {
+                var id = 1;
+                $.ajax({
+                    url: 'http://localhost:8080/pa165/rest/service/customer/delete/' + id, // ukazujeme URL a
+                    type: 'DELETE',
+                    success: function (data, textStatus) { // funkce success zpracovává data
+                        console.log(data);
+                    }
+                });
             }
 
         </script>
@@ -55,6 +69,10 @@
     <body>
 
         <h1>Hello World!</h1>
-        <button text="create customer" onClick="getUser()">Create customer</button>
+
+        <button onClick="createUser()">Create customer</button>
+        <button onClick="getUser()">Get customer</button>
+        <button onClick="deleteUser()">Delete customer</button>
+        <button onClick="getAllCustomers()">Get ALL customers</button>
     </body>
 </html>
