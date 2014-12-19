@@ -8,16 +8,53 @@
         <title>JSP Page</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script language="javascript">
+
+                    function getUser(){
+                    var id = 1;
+                            $.ajax({
+                            url: 'http://localhost/pa165/rest/service/customer/get/' + id, // ukazujeme URL a
+                                    type : 'GET',
+                                    success: function (data, textStatus) { // funkce success zpracovává data
+                                    console.log(data);
+                                    }
+                            });
+                    }
+            function updateUser(){
+            var id = 1;
+                    $.ajax({
+                    url: 'http://localhost/pa165/rest/service/customer/delete' + id, // ukazujeme URL a
+                            type : 'PUT',
+                            success: function (data, textStatus) { // funkce success zpracovává data
+                            console.log(data);
+                            }
+                    });
+            }
+
+            function getAllCustomers(){
             $.ajax({
-                url: 'http://localhost/pa165/webresources/customers', // ukazujeme URL a
-                dataType: "json", // typ odesílaných dat
-                success: function (data, textStatus) { // funkce success zpracovává data
+            url: 'http://localhost/pa165/rest/service/customer', // ukazujeme URL a
+                    type : 'GET',
+                    success: function (data, textStatus) { // funkce success zpracovává data
                     console.log(data);
-                }
+                    }
             });
+            }
+            function deleteUser(){
+            var id = 1;
+                    $.ajax({
+                    url: 'http://localhost/pa165/rest/service/customer/delete' + id, // ukazujeme URL a
+                            type : 'DELETE',
+                            success: function (data, textStatus) { // funkce success zpracovává data
+                            console.log(data);
+                            }
+                    });
+            }
+
         </script>
     </head>
     <body>
+
         <h1>Hello World!</h1>
+        <button text="create customer" onClick="getUser()">Create customer</button>
     </body>
 </html>

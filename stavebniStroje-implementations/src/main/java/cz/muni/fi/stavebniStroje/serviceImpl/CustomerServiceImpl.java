@@ -11,10 +11,7 @@ import cz.muni.fi.stavebniStroje.entity.Customer;
 import cz.muni.fi.stavebniStroje.service.CustomerService;
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
@@ -40,7 +37,8 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerDao = customerDao;
     }
 
-    @Transactional
+    
+    @Override
     public void createCustomer(CustomerDto customerDto) {
         if (customerDto == null) {
             throw new IllegalArgumentException("Argument customerDto was null");
@@ -52,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
-    @Transactional
+    
     @Override
     public Collection<CustomerDto> findAllCustomer() {
         Collection<CustomerDto> customers = new ArrayList<>();
@@ -67,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    @Transactional
+    
     @Override
     public void updateCustomer(CustomerDto customerDto) {
         if (customerDto == null) {
@@ -82,7 +80,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    @Transactional
+    
     @Override
     public void removeCustomer(CustomerDto customerDto) {
         if (customerDto == null) {
