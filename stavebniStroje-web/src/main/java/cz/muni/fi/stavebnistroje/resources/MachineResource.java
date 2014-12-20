@@ -5,7 +5,11 @@
  */
 package cz.muni.fi.stavebniStroje.resources;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
+import cz.muni.fi.stavebniStroje.util.MachineType;
+import java.math.BigDecimal;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -17,6 +21,18 @@ import javax.ws.rs.core.MediaType;
  */
 public class MachineResource extends MachineDto {
 
+    @JsonCreator
+    public MachineResource(
+            @JsonProperty("name") String name,
+            @JsonProperty("type") MachineType type,
+            @JsonProperty("description") String description,
+            @JsonProperty("price") BigDecimal price){
+        setName(name);
+        setType(type);
+        setDescription(description);
+        setPrice(price);
+    }
+    
     /**
      * 
      * @param machineDto 

@@ -5,23 +5,28 @@
  */
 package cz.muni.fi.stavebniStroje.resources;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.util.LegalStatus;
-import org.springframework.stereotype.Component;
 
 /**
  * More on:
- * https://kore.fi.muni.cz/wiki/index.php/PA165/Lab_session_Webservices_REST
- * @author milos
+ * https://kore.fi.muni.cz/wiki/index.php/PA165/Lab_session_Webservices_REST 
+* @author milos
  */
-@Component
 public class CustomerResource extends CustomerDto {
 
-    public CustomerResource(String firstName, String secondName, LegalStatus status, String address){
+    @JsonCreator
+    public CustomerResource(
+            @JsonProperty("firstName") String firstName,
+            @JsonProperty("secondName") String secondName,
+            @JsonProperty("legalStatus") LegalStatus legalStatus,
+            @JsonProperty("address") String address){
         setFirstName(firstName);
         setSecondName(secondName);
         setAddress(address);
-        setLegalStatus(status);
+        setLegalStatus(legalStatus);
     }
     /**
      * Constructor for CustomerResouce class

@@ -25,8 +25,8 @@
             function createUser() {
 
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer/create', // ukazujeme URL a
-                    type: 'PUT',
+                    url: 'http://localhost:8080/pa165/rest/service/customer', // ukazujeme URL a
+                    type: 'POST',
                     contentType: "application/json",
                     data: JSON.stringify({"firstName": "tert", "secondName": "test", "address": "test", "legalStatus": "NATURAL"}),
                     success: function (data, textStatus) { // funkce success zpracovává data
