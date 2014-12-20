@@ -1,8 +1,8 @@
 package cz.muni.fi.stavebniStroje.rest.controllers;
 
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
-import cz.muni.fi.stavebniStroje.service.CustomerService;
 import cz.muni.fi.stavebniStroje.resources.CustomerResource;
+import cz.muni.fi.stavebniStroje.service.CustomerService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
