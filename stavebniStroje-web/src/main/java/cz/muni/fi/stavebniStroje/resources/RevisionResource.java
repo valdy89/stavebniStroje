@@ -9,9 +9,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.muni.fi.stavebniStroje.dto.RevisionDto;
 import java.util.Date;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -37,16 +34,6 @@ public class RevisionResource extends RevisionDto {
         setId(revisionDto.getId());
         setDateOfRevision(revisionDto.getDateOfRevision());
         setMachine(revisionDto.getMachine());
-    }
-
-    /**
-     *  Method returns information about machine
-     * @return plain text of machine description
-     */
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getPlain() {
-        return this.toString();
     }
 
 }

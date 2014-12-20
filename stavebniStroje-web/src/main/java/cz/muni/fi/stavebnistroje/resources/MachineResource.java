@@ -10,9 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.math.BigDecimal;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 /**
  *More on:
@@ -44,16 +41,6 @@ public class MachineResource extends MachineDto {
         setDescription(machineDto.getDescription());
         setAvailable(machineDto.isAvailable());
         setPrice(machineDto.getPrice());
-    }
-
-    /**
-     *  Method returns information about machine
-     * @return plain text of machine description
-     */
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getPlain() {
-        return this.toString();
     }
 
 }
