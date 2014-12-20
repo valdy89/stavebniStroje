@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author milos
+ * @author milan
  */
 @RestController
 @RequestMapping("/service/customer")

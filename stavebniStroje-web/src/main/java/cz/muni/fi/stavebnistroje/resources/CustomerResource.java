@@ -7,15 +7,14 @@ package cz.muni.fi.stavebniStroje.resources;
 
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.util.LegalStatus;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import org.springframework.stereotype.Component;
 
 /**
  * More on:
  * https://kore.fi.muni.cz/wiki/index.php/PA165/Lab_session_Webservices_REST
  * @author milos
  */
+@Component
 public class CustomerResource extends CustomerDto {
 
     public CustomerResource(String firstName, String secondName, LegalStatus status, String address){
@@ -37,9 +36,5 @@ public class CustomerResource extends CustomerDto {
         setRents(customerDto.getRents());
     }
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getPlain() {
-        return this.toString();
-    }    
+    
 }
