@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebnistroje.resources;
+package cz.muni.fi.stavebniStroje.resources;
 
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.util.LegalStatus;
@@ -12,7 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- *More on:
+ * More on:
  * https://kore.fi.muni.cz/wiki/index.php/PA165/Lab_session_Webservices_REST
  * @author milos
  */

@@ -1,8 +1,8 @@
-package cz.muni.fi.stavebnistroje.rest.controllers;
+package cz.muni.fi.stavebniStroje.rest.controllers;
 
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.service.CustomerService;
-import cz.muni.fi.stavebnistroje.resources.CustomerResource;
+import cz.muni.fi.stavebniStroje.resources.CustomerResource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -34,7 +34,7 @@ public class CustomersController {
         this.customerService = customerService;
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody
     CustomerResource createCustomer(CustomerResource customerResource) {
         customerService.createCustomer(customerResource);
@@ -77,7 +77,7 @@ public class CustomersController {
         return customerResource;
     }
 
-    @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(method = RequestMethod.GET/*, headers = "Accept=application/json"*/)
     public List<CustomerResource> getAllCustomers() {
         List<CustomerResource> list = new ArrayList<>();
         Collection<CustomerDto> customers = customerService.findAllCustomer();

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebnistroje.web;
+package cz.muni.fi.stavebniStroje.web;
 
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;

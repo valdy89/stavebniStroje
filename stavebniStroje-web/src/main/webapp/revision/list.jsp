@@ -12,7 +12,7 @@
 <div class="modal fade" id="addRevisionModal" tabindex="-1" role="dialog" aria-labelledby="addRevisionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
+            <s:form beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean">
                 <s:hidden name="continueTo" value="/machine/detail/?machine.id=${machine.id}"/>
                 <div class="modal-header">
                     <button type="reset" class="close" data-dismiss="modal">
@@ -46,7 +46,7 @@
 
         <li class="list-group-item">
             <span class="badge">
-                <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
+                <s:form beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean">
                     <s:hidden name="revision.id" value="${revision.id}"/>
                     <button type="submit" name="deleteRevision">
                         <span aria-hidden="true">&times;</span>

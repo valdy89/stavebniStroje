@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebnistroje.resources;
+package cz.muni.fi.stavebniStroje.resources;
 
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import javax.ws.rs.GET;

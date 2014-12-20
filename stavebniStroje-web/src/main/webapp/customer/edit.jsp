@@ -4,9 +4,9 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <s:layout-render name="/layout.jsp" titlekey="customer.edit.title">
     <s:layout-component name="body">
-        <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" var="actionBean"/>
+        <s:useActionBean beanclass="cz.muni.fi.stavebniStroje.web.CustomerActionBean" var="actionBean"/>
 
-        <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
+        <s:form beanclass="cz.muni.fi.stavebniStroje.web.CustomerActionBean">
             <s:hidden name="customer.id"/>
             <fieldset><legend><f:message key="customer.edit.edit"/></legend>
                 <%@include file="form.jsp"%>

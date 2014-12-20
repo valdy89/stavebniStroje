@@ -18,7 +18,7 @@
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                     <f:message key="all.btn.edit"/>
                 </button>
-                <s:link beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" event="delete">
+                <s:link beanclass="cz.muni.fi.stavebniStroje.web.RentActionBean" event="delete">
                     <s:param name="rent.id" value="${rent.id}"/>
                     <button type="button" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -35,7 +35,7 @@
                         <h3 class="panel-title"><f:message key="customer.list.secondName"/>, <f:message key="customer.list.firstName"/></h3>
                     </div>
                     <div class="panel-body">
-                        <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit">
+                        <s:link beanclass="cz.muni.fi.stavebniStroje.web.CustomerActionBean" event="edit">
                             <s:param name="customer.id" value="${rent.customer.id}"/>
                             ${rent.customer.secondName}, ${rent.customer.firstName}
                         </s:link>
@@ -48,7 +48,7 @@
                         <h3 class="panel-title"><f:message key="machine.name"/></h3>
                     </div>
                     <div class="panel-body">
-                        <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="detail">
+                        <s:link beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean" event="detail">
                             <s:param name="machine.id" value="${rent.machine.id}"/>
                             ${rent.machine.name}
                         </s:link>
@@ -81,7 +81,7 @@
         <div class="modal fade" id="updateRentModal" tabindex="-1" role="dialog" aria-labelledby="addRentModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <s:form beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean">
+                    <s:form beanclass="cz.muni.fi.stavebniStroje.web.RentActionBean">
                         <div class="modal-header">
                             <button type="reset" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>

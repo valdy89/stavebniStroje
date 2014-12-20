@@ -1,4 +1,4 @@
-package cz.muni.fi.stavebnistroje.rest.controllers;
+package cz.muni.fi.stavebniStroje.rest.controllers;
 
 
 

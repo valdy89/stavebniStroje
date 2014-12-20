@@ -3,7 +3,7 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
-<s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" var="actionBean"/>
+<s:useActionBean beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean" var="actionBean"/>
 <c:set var="type" value="${actionBean.type}"/>
 
 <s:layout-render name="/layout.jsp" titlekey="machine.list.title">
@@ -21,18 +21,18 @@
                 <f:message key="all.display"/>
                 <div class="btn-group" role="group" aria-label="...">
 
-                    <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type==null? ' active' : ''}">
+                    <s:link beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean" event="list" class="btn btn-default${type==null? ' active' : ''}">
                         <f:message key="machine.types.all"/>
                     </s:link>
-                    <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type=='TRACTOR'?' active':''}">
+                    <s:link beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean" event="list" class="btn btn-default${type=='TRACTOR'?' active':''}">
                         <s:param name="type" value="TRACTOR"/>
                         <f:message key="machine.types.tractor"/>
                     </s:link>
-                    <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type=='EXCAVATOR'?' active':''}">
+                    <s:link beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean" event="list" class="btn btn-default${type=='EXCAVATOR'?' active':''}">
                         <s:param name="type" value="EXCAVATOR"/>
                         <f:message key="machine.types.excavator"/>
                     </s:link>
-                    <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="list" class="btn btn-default${type=='LORRY'?' active':''}">
+                    <s:link beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean" event="list" class="btn btn-default${type=='LORRY'?' active':''}">
                         <s:param name="type" value="LORRY"/>
                         <f:message key="machine.types.lorry"/>
                     </s:link>
@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="row">
-            <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
+            <s:form beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -77,13 +77,13 @@
                                     </c:choose>
                                 </td>
                                 <td>
-                                    <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="detail"><s:param name="machine.id" value="${machine.id}"/>
+                                    <s:link beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean" event="detail"><s:param name="machine.id" value="${machine.id}"/>
                                         <button type="button" class="btn btn-default">
                                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                             <f:message key="all.btn.details"/>
                                         </button>
                                     </s:link>
-                                    <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="delete"><s:param name="machine.id" value="${machine.id}"/>
+                                    <s:link beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean" event="delete"><s:param name="machine.id" value="${machine.id}"/>
                                         <button type="button" class="btn btn-danger">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                             <f:message key="all.btn.delete"/>
@@ -106,7 +106,7 @@
 
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
+                    <s:form beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean">
                         <div class="modal-header">
                             <button type="reset" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>

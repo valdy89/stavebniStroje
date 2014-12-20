@@ -9,7 +9,7 @@
         </div>
 
         <ul>
-            <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">test customeru</s:link></li>
+            <li><s:link beanclass="cz.muni.fi.stavebniStroje.web.CustomerActionBean">test customeru</s:link></li>
             </ul>
 
     </s:layout-component>

@@ -1,8 +1,8 @@
-package cz.muni.fi.stavebnistroje.rest.controllers;
+package cz.muni.fi.stavebniStroje.rest.controllers;
 
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.service.MachineService;
-import cz.muni.fi.stavebnistroje.resources.MachineResource;
+import cz.muni.fi.stavebniStroje.resources.MachineResource;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.PathParam;

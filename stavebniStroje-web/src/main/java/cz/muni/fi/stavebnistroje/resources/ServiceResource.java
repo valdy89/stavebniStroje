@@ -1,4 +1,4 @@
-package cz.muni.fi.stavebnistroje.resources;
+package cz.muni.fi.stavebniStroje.resources;
 
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
