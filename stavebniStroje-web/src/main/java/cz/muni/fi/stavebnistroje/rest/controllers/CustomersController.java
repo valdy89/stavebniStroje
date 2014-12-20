@@ -6,7 +6,6 @@ import cz.muni.fi.stavebniStroje.service.CustomerService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import javax.print.DocFlavor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -61,9 +59,10 @@ public class CustomersController {
         return list;
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    @RequestMapping(value = "update/{id}", method = RequestMethod.PUT)
     public @ResponseBody
-    CustomerResource updateCustomer(CustomerResource customerResource) {
+    CustomerResource updateCustomer(@PathVariable("id") Long id, @RequestBody CustomerResource customerResource) {
+        customerResource.setId(id);
         customerService.updateCustomer(customerResource);
 
         return customerResource;
@@ -78,7 +77,7 @@ public class CustomersController {
         return customerResource;
     }
 
-    @RequestMapping(method = RequestMethod.GET/*, headers = "Accept=application/json"*/)
+    @RequestMapping(method = RequestMethod.GET)
     public List<CustomerResource> getAllCustomers() {
         List<CustomerResource> list = new ArrayList<>();
         Collection<CustomerDto> customers = customerService.findAllCustomer();
@@ -87,12 +86,5 @@ public class CustomersController {
         }
 
         return list;
-    }
-    @RequestMapping(value = "find/{username}", method = RequestMethod.GET)
-    public @ResponseBody
-    CustomerResource findByUsername(@RequestParam("username") String username) {
-        CustomerDto customerDto = customerService.findByUsername(username);
-        CustomerResource crs = new CustomerResource(customerDto);
-        return crs;
     }
 }

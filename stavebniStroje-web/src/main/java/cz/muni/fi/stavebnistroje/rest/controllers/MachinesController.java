@@ -3,12 +3,14 @@ package cz.muni.fi.stavebniStroje.rest.controllers;
 import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.resources.MachineResource;
+import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,9 +37,9 @@ public class MachinesController {
         this.machineService = machineService;
     }
     
-    @RequestMapping(value = "create", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
-    MachineResource createMachine(MachineResource machineResource) {
+    MachineResource createMachine(@RequestBody MachineResource machineResource) {
         machineService.newMachine(machineResource);
         return machineResource;
     
@@ -52,10 +54,20 @@ public class MachinesController {
         return mrs;
     }    
 
+    @RequestMapping(value = "type/{type}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<MachineResource> listByType(@PathParam("type") MachineType type) {
+        List<MachineResource> list = new ArrayList<>();
+        for (MachineDto m : machineService.findMachinesByType(type)) {
+            list.add(new MachineResource(m));
+        }
+        return list;
+    }
     
     @RequestMapping(value = "update", method = RequestMethod.PUT)
     public @ResponseBody
-    MachineResource updateMachine(MachineResource machineResource) {
+    MachineResource updateMachine(@PathParam("id") Long id, @RequestBody MachineResource machineResource) {
+        machineResource.setId(id);
         machineService.updateMachine(machineResource);
         return machineResource;
     }    
@@ -70,7 +82,7 @@ public class MachinesController {
     }    
 
     
-    @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(method = RequestMethod.GET)
     public List<MachineResource> getAllMachines() {
         List<MachineResource> list = new ArrayList<>();
         for (MachineDto machineDto : machineService.findAllMachines()) {

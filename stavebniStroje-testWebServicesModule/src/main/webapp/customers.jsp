@@ -12,6 +12,11 @@
 
         <script language="javascript">
 
+            function fail(){
+                $('#alert').show();
+            }
+
+
             function getUser() {
                 var id = 1;
                 $.ajax({
@@ -19,7 +24,8 @@
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
-                    }
+                    },
+                    error:fail
                 });
             }
             function createUser() {
@@ -31,35 +37,39 @@
                     data: JSON.stringify({"firstName": "tert", "secondName": "test", "address": "test", "legalStatus": "NATURAL"}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
-                    }
+                    },
+                    error:fail
                 });
             }
-            function updateUser() {
-                var id = 1;
+            function updateUser(id) {
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer/delete' + id, // ukazujeme URL a
+                    url: 'http://localhost:8080/pa165/rest/service/customer/update/' + id, // ukazujeme URL a
                     type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify({"firstName": "----", "secondName": "----", "address": "----", "legalStatus": "NATURAL"}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
-                    }
+                    },
+                    error:fail
                 });
             }
 
+            function flushList(data) { // funkce success zpracovává data
+                var print = '';
+                $.each(data, function () {
+                    print += "<tr><td>" + this.id + "</td><td>" + this.firstName + "</td><td>" + this.secondName + "<td></td><td>" + this.secondName + "</td><td><button type='button' class='btn btn-default' onclick='updateUser(" + this.id + ")' >Vaporize (=update)</button><button type='button' class='btn btn-danger' onclick='deleteUser(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button></td></tr>";
+                });
+                $('table#users tbody').empty().append(print);
+
+
+            }
 
             function getAllCustomers() {
                 $.ajax({
                     url: 'http://localhost:8080/pa165/rest/service/customer', // ukazujeme URL a
                     type: 'GET',
-                    success: function (data) { // funkce success zpracovává data
-                        var print = '';
-                        $.each(data, function () {
-                            print += "<tr><td>" + this.firstName + "</td><td>" + this.secondName + "<td></td><td>" + this.secondName + "</td><td><button type='button' class='btn btn-danger' onclick='deleteUser(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button></td></tr>";
-                        });
-                        $('table#users tbody').empty().append(print);
-
-
-                    }
-
+                    success: flushList,
+                    error:fail
                 });
             }
 
@@ -70,17 +80,16 @@
                     type: 'DELETE',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
-                    }
+                    },
+                    error:fail
                 });
             }
-            function searchUser() {
-                var search = 1;
+            function searchUser(search) {
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer/delete/' + search, // ukazujeme URL a
-                    type: 'DELETE',
-                    success: function (data, textStatus) { // funkce success zpracovává data
-                        console.log(data);
-                    }
+                    url: 'http://localhost:8080/pa165/rest/service/customer/search/' + search, // ukazujeme URL a
+                    type: 'GET',
+                    success: flushList,
+                    error:fail
                 });
             }
 
@@ -90,16 +99,6 @@
 
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="${pageContext.request.contextPath}"><f:message key="common.buildingMachines"/></a>
-                </div>
-
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <!-- potrebujeme dodat class="active" pokud ma byt odkaz aktivni -->
@@ -108,18 +107,25 @@
                         <li><a href="machines.jsp">Machines tests</a></li>
                     </ul> 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="${pageContext.request.contextPath}/about.jsp"><f:message key="navigation.about"/></a></li>
+                        <li><a href="${pageContext.request.contextPath}/about.jsp">About</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <h1>Customers tests</h1>
 
+        <div class="alert alert-danger" id="alert">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>Error!</strong> There was a problem with your network connection. Or maybe another problem.
+        </div>        
+
         <button onClick="createUser()">Create customer</button>
         <button onClick="getAllCustomers()">Get ALL customers</button>
+        <button onclick="searchUser('----')">Get ALL vaporized</button>
         <table class="table table-striped" id="users">
             <thead>
                 <tr>
+                    <th>id</th>
                     <th>First name</th>
                     <th>Second name</th>
                     <th>Address</th>
@@ -130,8 +136,10 @@
             <tbody>
             </tbody>
         </table>
-<!--        <button onClick="getUser()">Get customer</button>
-        <button onClick="deleteUser()">Delete customer</button>-->
+
+        <script>
+            $('#alert').hide();
+        </script>
 
     </body>
 </html>
