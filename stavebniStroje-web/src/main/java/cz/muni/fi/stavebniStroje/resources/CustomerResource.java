@@ -10,11 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.muni.fi.stavebniStroje.dto.CustomerDto;
 import cz.muni.fi.stavebniStroje.util.LegalStatus;
 
-/**
- * More on:
- * https://kore.fi.muni.cz/wiki/index.php/PA165/Lab_session_Webservices_REST 
-* @author milos
- */
 public class CustomerResource extends CustomerDto {
 
     @JsonCreator
@@ -22,16 +17,13 @@ public class CustomerResource extends CustomerDto {
             @JsonProperty("firstName") String firstName,
             @JsonProperty("secondName") String secondName,
             @JsonProperty("legalStatus") LegalStatus legalStatus,
-            @JsonProperty("address") String address){
+            @JsonProperty("address") String address) {
         setFirstName(firstName);
         setSecondName(secondName);
         setAddress(address);
         setLegalStatus(legalStatus);
     }
-    /**
-     * Constructor for CustomerResouce class
-     * @param customerDto customer which will be used
-     */
+
     public CustomerResource(CustomerDto customerDto) {
         setId(customerDto.getId());
         setFirstName(customerDto.getFirstName());
@@ -41,5 +33,4 @@ public class CustomerResource extends CustomerDto {
         setRents(customerDto.getRents());
     }
 
-    
 }

@@ -118,7 +118,7 @@
         <h1>Customers tests</h1>
 
         <div class="alert alert-danger" id="alert">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <a href="#" class="close" onclick="$('#alert').hide();">&times;</a>
             <strong>Error!</strong> There was a problem with your network connection. Or maybe another problem.
         </div>        
 

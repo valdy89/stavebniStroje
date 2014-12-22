@@ -42,8 +42,9 @@ public class CustomersController {
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    CustomerResource getCustomer(@PathVariable("id") Integer id) {
-        CustomerDto customerDto = customerService.getCustomer(new Long(id));
+    CustomerResource getCustomer(@PathVariable("id") Long id) {
+        log.debug("id: {}", id);
+        CustomerDto customerDto = customerService.getCustomer(id);
         CustomerResource crs = new CustomerResource(customerDto);
         return crs;
     }
@@ -70,8 +71,8 @@ public class CustomersController {
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
     public @ResponseBody
-    CustomerResource deleteCustomer(@PathVariable("id") Integer id) {
-        CustomerDto customerDto = customerService.getCustomer(new Long(id));
+    CustomerResource deleteCustomer(@PathVariable("id") Long id) {
+        CustomerDto customerDto = customerService.getCustomer(id);
         CustomerResource customerResource = new CustomerResource(customerDto);
         customerService.removeCustomer(customerDto);
         return customerResource;
