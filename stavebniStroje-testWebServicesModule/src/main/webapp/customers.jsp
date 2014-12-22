@@ -12,7 +12,7 @@
 
         <script language="javascript">
 
-            function fail(){
+            function fail() {
                 $('#alert').show();
             }
 
@@ -25,9 +25,28 @@
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                     },
-                    error:fail
+                    error: fail
                 });
             }
+
+            function flushList(data) { // funkce success zpracovává data
+                var print = '';
+                $.each(data, function () {
+                    print += "<tr><td>" + this.id + "</td><td>" + this.firstName + "</td><td>" + this.secondName + "</td><td>" + this.secondName + "</td><td><button type='button' class='btn btn-default' onclick='updateUser(" + this.id + ")' >Vaporize (=update)</button><button type='button' class='btn btn-danger' onclick='deleteUser(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button></td></tr>";
+                });
+                $('table#users tbody').empty().append(print);
+            }
+
+            function getAllCustomers() {
+                $.ajax({
+                    url: 'http://localhost:8080/pa165/rest/service/customer', // ukazujeme URL a
+                    type: 'GET',
+                    success: flushList,
+                    error: fail
+                });
+            }
+
+
             function createUser() {
 
                 $.ajax({
@@ -37,8 +56,9 @@
                     data: JSON.stringify({"firstName": "tert", "secondName": "test", "address": "test", "legalStatus": "NATURAL"}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
+                        getAllCustomers();
                     },
-                    error:fail
+                    error: fail
                 });
             }
             function updateUser(id) {
@@ -49,27 +69,9 @@
                     data: JSON.stringify({"firstName": "----", "secondName": "----", "address": "----", "legalStatus": "NATURAL"}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
+                        getAllCustomers();
                     },
-                    error:fail
-                });
-            }
-
-            function flushList(data) { // funkce success zpracovává data
-                var print = '';
-                $.each(data, function () {
-                    print += "<tr><td>" + this.id + "</td><td>" + this.firstName + "</td><td>" + this.secondName + "<td></td><td>" + this.secondName + "</td><td><button type='button' class='btn btn-default' onclick='updateUser(" + this.id + ")' >Vaporize (=update)</button><button type='button' class='btn btn-danger' onclick='deleteUser(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button></td></tr>";
-                });
-                $('table#users tbody').empty().append(print);
-
-
-            }
-
-            function getAllCustomers() {
-                $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer', // ukazujeme URL a
-                    type: 'GET',
-                    success: flushList,
-                    error:fail
+                    error: fail
                 });
             }
 
@@ -80,8 +82,9 @@
                     type: 'DELETE',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
+                        getAllCustomers();
                     },
-                    error:fail
+                    error: fail
                 });
             }
             function searchUser(search) {
@@ -89,7 +92,7 @@
                     url: 'http://localhost:8080/pa165/rest/service/customer/search/' + search, // ukazujeme URL a
                     type: 'GET',
                     success: flushList,
-                    error:fail
+                    error: fail
                 });
             }
 
@@ -129,8 +132,7 @@
                     <th>First name</th>
                     <th>Second name</th>
                     <th>Address</th>
-
-                    <th></th>
+                    <th>Tools</th>
                 </tr>
             </thead>
             <tbody>
