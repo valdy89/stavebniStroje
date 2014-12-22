@@ -15,16 +15,59 @@
             function fail() {
                 $('#alert').show();
             }
-            function getMachine() {
-                var id = 1;
+
+            function flushMachine(data) {
+                $('#mId').text(data.id);
+                $('#mName').text(data.name);
+                $('#mType').text(data.type);
+                $('#mPrice').text(data.price);
+                $('#mAvail').text(data.available?'Yes':'No');
+                $('#mDescription').text(data.description);
+            }
+
+            function getMachine(id) {
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/machine/get/' + id, // ukazujeme URL a
+                    url: '/pa165/rest/service/machine/get/' + id, // ukazujeme URL a
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
+                        flushMachine(data);
                     },
                     error: fail
                 });
+            }
+
+            function deleteRevision(id, machineId) {
+                $.ajax({
+                    url: 'pa165/rest/service/revision/delete/' + id,
+                    type: 'DELETE',
+                    success: function (data, textStatus) {
+                        console.log(data);
+                        getMachine(machineId);
+                    },
+                    error: fail
+                });
+            }
+
+            function addRevision(id, date) {
+                $.ajax({
+                    url: '/pa165/rest/service/revision',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(
+                            {
+                                machineId: id,
+                                dateOfRevision: date
+                            }),
+                    success: function () {
+                        getMachine(id);
+                    },
+                    error: fail
+                });
+            }
+            
+            function getRevisions(id) {
+                //$.ajax({});
             }
 
             function flushList(data) { // funkce success zpracovává data
@@ -38,7 +81,18 @@
                         description: this.description,
                         price: this.price
                     };
-                    print += "<tr><td>" + this.id + "</td><td>" + this.name + "</td><td>" + this.type + "</td><td>" + this.description + "</td><td>" + this.price + "</td><td><button type='button' class='btn btn-default' onclick='updateMachine(" + this.id + ")' >Tractorize (=update)</button><button type='button' class='btn btn-danger' onclick='deleteMachine(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button></td></tr>";
+                    print += "<tr>";
+                    print += "<td>" + this.id + "</td>";
+                    print += "<td>" + this.name + "</td>"
+                    print += "<td>" + this.type + "</td>";
+                    print += "<td>" + this.description + "</td>";
+                    print += "<td>" + this.price + "</td>";
+                    print += "<td>";
+                    print += "<button type='button' class='btn btn-default' onclick='getMachine(" + this.id + ")'>Detail</button>";
+                    print += "<button type='button' class='btn btn-default' onclick='updateMachine(" + this.id + ")' >Tractorize (=update)</button>";
+                    print += "<button type='button' class='btn btn-danger' onclick='deleteMachine(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button>";
+                    print += "</td>";
+                    print += "</tr>";
                 });
                 $('table#users tbody').empty().append(print);
 
@@ -47,7 +101,7 @@
 
             function getAllMachines() {
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/machine', // ukazujeme URL a
+                    url: '/pa165/rest/service/machine', // ukazujeme URL a
                     type: 'GET',
                     success: flushList,
                     error: fail
@@ -57,10 +111,16 @@
             function createMachine() {
 
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/machine', // ukazujeme URL a
+                    url: '/pa165/rest/service/machine', // ukazujeme URL a
                     type: 'POST',
                     contentType: "application/json",
-                    data: JSON.stringify({"name": "m1_super", "type": "EXCAVATOR", "description": "Nice machine.", "price": 42}),
+                    data: JSON.stringify(
+                            {
+                                name: "m1_super",
+                                type: "EXCAVATOR",
+                                description: "Nice machine.",
+                                price: 42
+                            }),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllMachines();
@@ -72,7 +132,7 @@
             function updateMachine(id) {
                 items[id].type = "TRACTOR";
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/machine/update/' + id, // ukazujeme URL a
+                    url: '/pa165/rest/service/machine/update/' + id, // ukazujeme URL a
                     type: 'PUT',
                     contentType: 'application/json',
                     data: JSON.stringify(items[id]),
@@ -87,7 +147,7 @@
             function deleteMachine(id) {
 
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/machine/delete/' + id, // ukazujeme URL a
+                    url: '/pa165/rest/service/machine/delete/' + id, // ukazujeme URL a
                     type: 'DELETE',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
@@ -98,7 +158,7 @@
             }
             function getType(search) {
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/machine/type/' + search, // ukazujeme URL a
+                    url: '/pa165/rest/service/machine/type/' + search, // ukazujeme URL a
                     type: 'GET',
                     success: flushList,
                     error: fail
@@ -149,8 +209,67 @@
             </tbody>
         </table>
 
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Id</h3>
+                    </div>
+                    <div class="panel-body" id="mId">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Name</h3>
+                    </div>
+                    <div class="panel-body" id="mName">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Type</h3>
+                    </div>
+                    <div class="panel-body" id="mType">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Price</h3>
+                    </div>
+                    <div class="panel-body" id="mPrice">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Available</h3>
+                    </div>
+                    <div class="panel-body" id="mAvail">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Description</h3>
+                </div>
+                <div class="panel-body" id="mDescription">
+                </div>
+            </div>
+        </div>
         <script>
             $('#alert').hide();
+            $(function () {
+                getAllMachines();
+            });
         </script>
 
     </body>
