@@ -11,11 +11,6 @@ import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.math.BigDecimal;
 
-/**
- *More on:
- * https://kore.fi.muni.cz/wiki/index.php/PA165/Lab_session_Webservices_REST
- * @author milos
- */
 public class MachineResource extends MachineDto {
 
     @JsonCreator
@@ -23,17 +18,13 @@ public class MachineResource extends MachineDto {
             @JsonProperty("name") String name,
             @JsonProperty("type") MachineType type,
             @JsonProperty("description") String description,
-            @JsonProperty("price") BigDecimal price){
+            @JsonProperty("price") BigDecimal price) {
         setName(name);
         setType(type);
         setDescription(description);
         setPrice(price);
     }
-    
-    /**
-     * 
-     * @param machineDto 
-     */
+
     public MachineResource(MachineDto machineDto) {
         setId(machineDto.getId());
         setName(machineDto.getName());
