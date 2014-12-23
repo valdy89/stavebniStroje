@@ -3,7 +3,6 @@ package cz.muni.fi.stavebniStroje.service;
 
 import cz.muni.fi.stavebniStroje.dto.MachineDto; // todo change to DTO Object
 import cz.muni.fi.stavebniStroje.util.MachineType;
-import java.math.BigDecimal;
 import java.util.Collection;
 import org.springframework.dao.DataAccessException;
 

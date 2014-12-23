@@ -7,23 +7,27 @@ package cz.muni.fi.stavebniStroje.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.dto.RevisionDto;
 import java.util.Date;
 
 /**
  *
  * @author spito
- *More on:
- * https://kore.fi.muni.cz/wiki/index.php/PA165/Lab_session_Webservices_REST
  */
-public class RevisionResource extends RevisionDto {
+public class RevisionResource {
 
+    private Long id;
+    private Date dateOfRevision;
+    private Long machineId;
+    
     @JsonCreator
     public RevisionResource(
             @JsonProperty("dateOfRevision") Date dateOfRevision,
             @JsonProperty("machineId") Long machineId){
+        setId(new Long(0));
         setDateOfRevision(dateOfRevision);
-        getMachine().setId(machineId);
+        setMachineId(machineId);
     }
     
     /**
@@ -33,8 +37,40 @@ public class RevisionResource extends RevisionDto {
     public RevisionResource(RevisionDto revisionDto) {
         setId(revisionDto.getId());
         setDateOfRevision(revisionDto.getDateOfRevision());
-        setMachine(revisionDto.getMachine());
+        setMachineId(revisionDto.getMachine().getId());
+    }
+    
+    public RevisionDto toDto() {
+        RevisionDto r = new RevisionDto();
+        r.setId(id);
+        r.setDateOfRevision(dateOfRevision);
+        r.setMachine(new MachineDto());
+        r.getMachine().setId(machineId);
+        return r;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDateOfRevision() {
+        return dateOfRevision;
+    }
+
+    public void setDateOfRevision(Date dateOfRevision) {
+        this.dateOfRevision = dateOfRevision;
+    }
+
+    public Long getMachineId() {
+        return machineId;
+    }
+
+    public void setMachineId(Long machineId) {
+        this.machineId = machineId;
+    }
 }
 

@@ -36,7 +36,7 @@ public class MachinesController {
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     MachineResource createMachine(@RequestBody MachineResource machineResource) {
-        machineService.newMachine(machineResource);
+        machineService.newMachine(machineResource.toDto());
         return machineResource;
 
     }
@@ -63,7 +63,7 @@ public class MachinesController {
     public @ResponseBody
     MachineResource updateMachine(@PathVariable("id") Long id, @RequestBody MachineResource machineResource) {
         machineResource.setId(id);
-        machineService.updateMachine(machineResource);
+        machineService.updateMachine(machineResource.toDto());
         return machineResource;
     }
 
