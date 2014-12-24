@@ -15,22 +15,22 @@
             function fail() {
                 $('#alert').show();
             }
-            
+
             function formatDate(date) {
-                var pad = function(val) {
+                var pad = function (val) {
                     var value = String(val);
                     while (value.length < 2)
                         value = '0' + value;
-                    return value; 
+                    return value;
                 };
-                return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
+                return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
             }
 
             function flushRevisionList(id, data) {
                 console.log(data);
                 var ul = $('#mRevisions');
                 ul.empty();
-                ul.append('<button onclick="addRevision(' + id + ', \''+formatDate(new Date())+'\')">Add revision</button>');
+                ul.append('<button onclick="addRevision(' + id + ', \'' + formatDate(new Date()) + '\')">Add revision</button>');
                 $.each(data, function () {
                     var li = $('<li class="list-group-item"></li>');
                     li.html('<span class="badge"><button type="button" onclick="deleteRevision(' + this.id + ', ' + id + ')"><span aria-hidden="true">&times;</span></button></span>');
@@ -196,6 +196,7 @@
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="customers.jsp">Customer tests</a></li>
                         <li><a href="machines.jsp">Machines tests</a></li>
+                        <li><a href="rents.jsp">Rents tests</a></li>
                     </ul> 
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="${pageContext.request.contextPath}/about.jsp">About</a></li>
@@ -285,7 +286,7 @@
             </div>
         </div>
         <h4>Revisions</h4>
-            
+
         <ul class="list-group" id="mRevisions">
         </ul>
 

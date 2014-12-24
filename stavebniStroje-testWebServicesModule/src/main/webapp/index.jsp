@@ -32,6 +32,7 @@
                             <li><a href="index.jsp">Home</a></li>
                             <li><a href="customers.jsp">Customer tests</a></li>
                             <li><a href="machines.jsp">Machines tests</a></li>
+                            <li><a href="rents.jsp">Rents tests</a></li>
                         </ul> 
                             
                     </div>
