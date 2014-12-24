@@ -25,6 +25,9 @@ public class RentResource {
     private Date from;
     private Date to;
     
+    private String machineName;
+    private String customerName;
+    
     @JsonCreator
     public RentResource(
             @JsonProperty("machineId") Long machineId,
@@ -44,6 +47,8 @@ public class RentResource {
         setCustomerId(rentDto.getCustomer().getId());
         setFrom(rentDto.getStartOfRent());
         setTo(rentDto.getEndOfRent());
+        setMachineName(rentDto.getMachine().getName());
+        setCustomerName(rentDto.getCustomer().getFullName());
     }
     
     public RentDto toDto() {
@@ -96,6 +101,22 @@ public class RentResource {
 
     public void setTo(Date to) {
         this.to = to;
+    }
+
+    public String getMachineName() {
+        return machineName;
+    }
+
+    public void setMachineName(String machineName) {
+        this.machineName = machineName;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
     
 }
