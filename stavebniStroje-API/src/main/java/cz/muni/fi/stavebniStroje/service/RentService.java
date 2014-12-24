@@ -2,8 +2,6 @@
 package cz.muni.fi.stavebniStroje.service;
 
 
-import cz.muni.fi.stavebniStroje.dto.CustomerDto;
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.dto.RentDto;
 import cz.muni.fi.stavebniStroje.util.DateRangeException;
 import java.util.Collection;
