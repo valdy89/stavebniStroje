@@ -36,8 +36,9 @@ public class MachinesController {
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     MachineResource createMachine(@RequestBody MachineResource machineResource) {
-        machineService.newMachine(machineResource.toDto());
-        return machineResource;
+        MachineDto machineDto = machineResource.toDto();
+        machineService.newMachine(machineDto);
+        return new MachineResource(machineDto);
 
     }
 

@@ -48,8 +48,9 @@ public class RentsController {
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     RentResource createRent(@RequestBody RentResource rentResource) {
-        rentService.newRent(rentResource.toDto());
-        return rentResource;
+        RentDto rentDto = rentResource.toDto();
+        rentService.newRent(rentDto);
+        return new RentResource(rentDto);
     }
 
     public @ResponseBody
