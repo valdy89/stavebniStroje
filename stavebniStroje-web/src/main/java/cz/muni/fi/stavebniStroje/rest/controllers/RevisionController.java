@@ -42,6 +42,11 @@ public class RevisionController {
         this.revisionService = revisionService;
     }
 
+    public void setMachineService(MachineService machineService) {
+        this.machineService = machineService;
+    }
+    
+
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public @ResponseBody
     Collection<RevisionResource> getRevisions(@PathVariable("id") Long id) {
