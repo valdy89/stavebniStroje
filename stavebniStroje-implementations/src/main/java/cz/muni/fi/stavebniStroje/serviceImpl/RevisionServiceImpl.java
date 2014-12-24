@@ -47,6 +47,7 @@ public class RevisionServiceImpl implements RevisionService {
         try {
             Revision revision = dozerBeanMapper.map(revisionDto, Revision.class);
             revisionDao.persist(revision);
+            revisionDto.setId(revision.getId());
         } catch (Exception ex) {
             throw new DataAccessException("Cannot persist item due to exception", ex) {
             };

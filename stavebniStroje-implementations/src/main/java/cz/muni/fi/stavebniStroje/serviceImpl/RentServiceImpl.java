@@ -76,6 +76,7 @@ public class RentServiceImpl implements RentService {
             }
 
             rentDao.persist(rent);
+            rentDto.setId(rent.getId());
         } catch (DateRangeException ex) {
             throw ex;
         } catch (Exception ex) {

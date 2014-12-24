@@ -45,6 +45,7 @@ public class MachineServiceImpl implements MachineService {
             Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
             
             machineDao.persist(machine);
+            machineDto.setId(machine.getId());
             
         } catch (Exception ex) {
             throw new DataAccessException("Cannot persist item due to exception", ex) {

@@ -47,6 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = dozerBeanMapper.map(customerDto, Customer.class);
 
         customerDao.persist(customer);
+        customerDto.setId(customer.getId());
 
     }
 
