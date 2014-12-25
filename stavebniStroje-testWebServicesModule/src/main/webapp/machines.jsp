@@ -113,7 +113,7 @@
                     print += "</td>";
                     print += "</tr>";
                 });
-                $('table#users tbody').empty().append(print);
+                $('table#machines tbody').empty().append(print);
 
 
             }
@@ -164,7 +164,6 @@
             }
 
             function deleteMachine(id) {
-
                 $.ajax({
                     url: '/pa165/rest/service/machine/delete/' + id, // ukazujeme URL a
                     type: 'DELETE',
@@ -208,13 +207,13 @@
 
         <div class="alert alert-danger" id="alert">
             <a href="#" class="close" onclick="$('#alert').hide();">&times;</a>
-            <strong>Error!</strong> There was a problem with your network connection. Or maybe another problem.
+            <strong>Error!</strong> Odds fish, my dear, there was a problem with your network connection. Or maybe another problem.
         </div>        
 
         <button onClick="createMachine()">Create machine</button>
         <button onClick="getAllMachines()">Get ALL machines</button>
         <button onclick="getType('TRACTOR')">Get ALL tractors</button>
-        <table class="table table-striped" id="users">
+        <table class="table table-striped" id="machines">
             <thead>
                 <tr>
                     <th>id</th>
