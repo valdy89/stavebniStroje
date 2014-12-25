@@ -8,6 +8,7 @@ package cz.muni.fi.stavebniStroje.dto;
 import cz.muni.fi.stavebniStroje.util.LegalStatus;
 import cz.muni.fi.stavebniStroje.util.Role;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -25,7 +26,7 @@ public class CustomerDto implements Serializable {
     private String fullName;
     private String address;
     private LegalStatus legalStatus;
-    private Collection<RentDto> rents;
+    private Collection<RentDto> rents = new ArrayList<>();
     private String username;
     private String password;
     private Role role;
