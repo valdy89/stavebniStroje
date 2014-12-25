@@ -29,6 +29,7 @@ public class CustomerResource {
             @JsonProperty("secondName") String secondName,
             @JsonProperty("legalStatus") LegalStatus legalStatus,
             @JsonProperty("address") String address) {
+        setId(new Long(0));
         setFirstName(firstName);
         setSecondName(secondName);
         setAddress(address);
