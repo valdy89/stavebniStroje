@@ -6,8 +6,6 @@ import cz.muni.fi.stavebniStroje.service.CustomerService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/service/customer")
 public class CustomersController {
-
-    final static Logger log = LoggerFactory.getLogger(CustomersController.class);
 
     @Autowired
     private CustomerService customerService;
@@ -44,7 +40,6 @@ public class CustomersController {
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public @ResponseBody
     CustomerResource getCustomer(@PathVariable("id") Long id) {
-        log.debug("id: {}", id);
         CustomerDto customerDto = customerService.getCustomer(id);
         CustomerResource crs = new CustomerResource(customerDto);
         return crs;

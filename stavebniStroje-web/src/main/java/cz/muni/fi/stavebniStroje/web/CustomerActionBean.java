@@ -21,8 +21,6 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -31,7 +29,6 @@ import org.slf4j.LoggerFactory;
 @UrlBinding("/customer/{$event}/")
 public class CustomerActionBean extends BaseActionBean implements ValidationErrorHandler {
 
-    final static Logger log = LoggerFactory.getLogger(CustomerActionBean.class);
     @SpringBean
     protected CustomerService customerService;
 
@@ -47,7 +44,6 @@ public class CustomerActionBean extends BaseActionBean implements ValidationErro
     private String search;
     @DefaultHandler
     public Resolution list() {
-        log.debug("list()");
         if(search != null)
             result = customerService.searchCustomer(search);
         else
@@ -100,7 +96,6 @@ public class CustomerActionBean extends BaseActionBean implements ValidationErro
 
     
     public Resolution add() {
-        log.debug("add() customer={}", customer);
 
         customerService.createCustomer(customer);
 
@@ -109,20 +104,16 @@ public class CustomerActionBean extends BaseActionBean implements ValidationErro
     }
 
     public Resolution edit() throws Exception {
-        log.debug("update() customer={}", customer);
         customerService.updateCustomer(customer);
         return new ForwardResolution("/customer/edit.jsp");
     }
 
     public Resolution save() {
-        log.debug("save() customer={}", customer);
         customerService.updateCustomer(customer);
         return new RedirectResolution(this.getClass(),"list");
     }
 
     public Resolution delete() {
-        log.debug("delete({})", getContext().getRequest().getParameter("customer.id"));
-
         customerService.removeCustomer(customer);
 
         return new RedirectResolution(this.getClass(),"list");

@@ -25,8 +25,6 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 
 /**
@@ -35,9 +33,6 @@ import org.springframework.dao.DataAccessException;
  */
 @UrlBinding("/rent/{$event}/")
 public class RentActionBean extends BaseActionBean {
-
-    //    private ActionBeanContext context;
-    final static Logger log = LoggerFactory.getLogger(RentActionBean.class);
 
     @SpringBean
     protected RentService rentService;
@@ -146,7 +141,6 @@ public class RentActionBean extends BaseActionBean {
 
     @DefaultHandler
     public Resolution list() {
-        log.debug("list()");
         try {
             if (date == null) {
                 result = rentService.findAllRent();
@@ -170,12 +164,9 @@ public class RentActionBean extends BaseActionBean {
     }
 
     public Resolution add() {
-        log.debug("add() rent={}", rent);
 
         try {
             rentService.newRent(rent);
-        } catch (DateRangeException ex) {
-            log.debug("cannot add rent");
         } catch (DataAccessException ex) {
             return new RedirectResolution("/fail/fail.jsp");
         }
@@ -185,18 +176,14 @@ public class RentActionBean extends BaseActionBean {
     }
 
     public Resolution detail() {
-        log.debug("detail({})", rent.getId());
         customers = customerService.findAllCustomer();
         machines = machineService.findAllMachines();
         return new ForwardResolution("/rent/detail.jsp");
     }
 
     public Resolution save() {
-        log.debug("save({})", rent.getId());
         try {
             rentService.updateRent(rent);
-        } catch (DateRangeException ex) {
-            log.debug("cannot add rent");
         } catch (DataAccessException ex) {
             return new RedirectResolution("/fail/fail.jsp");
         }
@@ -206,7 +193,6 @@ public class RentActionBean extends BaseActionBean {
     }
 
     public Resolution delete() {
-        log.debug("delete({})", rent.getId());
         try {
             rentService.removeRent(rent);
         } catch (DataAccessException ex) {

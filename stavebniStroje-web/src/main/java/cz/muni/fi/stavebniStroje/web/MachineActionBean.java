@@ -21,8 +21,6 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 
 /**
@@ -32,7 +30,6 @@ import org.springframework.dao.DataAccessException;
 @UrlBinding("/machine/{$event}/")
 public class MachineActionBean extends BaseActionBean {
 
-    final static Logger log = LoggerFactory.getLogger(MachineActionBean.class);
     @SpringBean
     protected MachineService machineService;
 
@@ -127,7 +124,6 @@ public class MachineActionBean extends BaseActionBean {
     
 
     public Resolution add() {
-        log.debug("add() machine={}", machine);
         try {
             machineService.newMachine(machine);
         } catch (DataAccessException e) {
@@ -138,12 +134,10 @@ public class MachineActionBean extends BaseActionBean {
     }
 
     public Resolution detail() {
-        log.debug("detail({})", machine.getId());
         return new ForwardResolution("/machine/detail.jsp");
     }
 
     public Resolution save() {
-        log.debug("save({})", machine.getId());
         try {
             machineService.updateMachine(machine);
         } catch (DataAccessException e) {
@@ -155,7 +149,6 @@ public class MachineActionBean extends BaseActionBean {
     }
     
     public Resolution addRevision() {
-        log.debug("add() revision={}", revision);
         try {
             revisionService.newRevision(revision);
         } catch (DataAccessException e) {
@@ -167,7 +160,6 @@ public class MachineActionBean extends BaseActionBean {
     }
     
     public Resolution deleteRevision() {
-        log.debug("delete({})", revision.getId());
         try {
             revisionService.removeRevision(revision);
         } catch (DataAccessException e) {
@@ -179,7 +171,6 @@ public class MachineActionBean extends BaseActionBean {
     }
 
     public Resolution delete() {
-        log.debug("delete({})", machine.getId());
         try {
             machineService.removeMachine(machine);
         } catch (DataAccessException e) {
@@ -190,7 +181,6 @@ public class MachineActionBean extends BaseActionBean {
     
     @DefaultHandler
     public Resolution list() {
-        log.debug("list()");
         try {
             
             if (type == null) {
