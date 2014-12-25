@@ -36,8 +36,9 @@ public class CustomersController {
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     CustomerResource createCustomer(@RequestBody CustomerResource customerResource) {
-        customerService.createCustomer(customerResource);
-        return customerResource;
+        CustomerDto customerDto = customerResource.toDto();
+        customerService.createCustomer(customerDto);
+        return new CustomerResource(customerDto);
     }
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
@@ -64,8 +65,7 @@ public class CustomersController {
     public @ResponseBody
     CustomerResource updateCustomer(@PathVariable("id") Long id, @RequestBody CustomerResource customerResource) {
         customerResource.setId(id);
-        customerService.updateCustomer(customerResource);
-
+        customerService.updateCustomer(customerResource.toDto());
         return customerResource;
     }
 
