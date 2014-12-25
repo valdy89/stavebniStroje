@@ -7,10 +7,7 @@ package cz.muni.fi.stavebniStroje.serviceImpl;
 
 import cz.muni.fi.stavebniStroje.dao.MachineDao;
 import cz.muni.fi.stavebniStroje.dao.RentDao;
-import cz.muni.fi.stavebniStroje.dto.CustomerDto;
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
 import cz.muni.fi.stavebniStroje.dto.RentDto;
-import cz.muni.fi.stavebniStroje.entity.Customer;
 import cz.muni.fi.stavebniStroje.entity.Machine;
 import cz.muni.fi.stavebniStroje.entity.Rent;
 import cz.muni.fi.stavebniStroje.service.RentService;
@@ -49,11 +46,13 @@ public class RentServiceImpl implements RentService {
     public void setMachineDao(MachineDao machineDao) {
         this.machineDao = machineDao;
     }
-
+    
     @Transactional(readOnly = true)
     private boolean isRentValid(Rent rent, Machine machine) {
         DateRange rentRange = new DateRange(rent.getStartOfRent(), rent.getEndOfRent());
         for (Rent r : machine.getRents()) {
+            if (r.getId() == rent.getId())
+                continue;
             DateRange range = new DateRange(r.getStartOfRent(), r.getEndOfRent());
             if (range.interleave(rentRange)) {
                 return false;

@@ -12,10 +12,8 @@
 
         <script language="javascript">
             var items;
-            var idTranslator = {
-                machine: new Array(),
-                customer: new Array()
-            };
+            var currentDate = new Date();
+
             function fail() {
                 $('#alert').show();
             }
@@ -66,107 +64,101 @@
                 }
             }
 
-            function flushMachine(data) {
-                $('#mId').text(data.id);
-                $('#mName').text(data.name);
-                $('#mType').text(data.type);
-                $('#mPrice').text(data.price);
-                $('#mAvail').text(data.available ? 'Yes' : 'No');
-                $('#mDescription').text(data.description);
-                flushRevisionList(data.id, data.revisions);
+            function buttonCustomer(id, c) {
+                return "<button type='button' class='btn btn-default' onclick='changeCustomer(" + id + ", " + c + ")' >C: " + c + "</button>";
+            }
+            function buttonMachine(id, c) {
+                return "<button type='button' class='btn btn-default' onclick='changeMachine(" + id + ", " + c + ")' >M: " + c + "</button>";
             }
 
-            function getMachine(id) {
-                $.ajax({
-                    url: '/pa165/rest/service/machine/get/' + id, // ukazujeme URL a
-                    type: 'GET',
-                    success: function (data, textStatus) { // funkce success zpracovává data
-                        console.log(data);
-                        flushMachine(data);
-                    },
-                    error: fail
-                });
-            }
-
-
-            function flushList(data) { // funkce success zpracovává data
+            function flushList(data) {
                 var print = '';
                 items = new Array();
 
                 $.each(data, function () {
                     items[this.id] = {
-                        name: this.name,
-                        type: this.type,
-                        description: this.description,
-                        price: this.price
+                        machineId: this.machineId,
+                        customerId: this.customerId,
+                        from: this.from,
+                        to: this.to
                     };
                     print += "<tr>";
                     print += "<td>" + this.id + "</td>";
-                    print += "<td>" + this.name + "</td>"
-                    print += "<td>" + this.type + "</td>";
-                    print += "<td>" + this.description + "</td>";
-                    print += "<td>" + this.price + "</td>";
+                    print += "<td>" + this.machineName + "</td>"
+                    print += "<td>" + this.customerName + "</td>";
+                    print += "<td>" + formatDate(new Date(this.from)) + "</td>";
+                    print += "<td>" + formatDate(new Date(this.to)) + "</td>";
                     print += "<td>";
-                    print += "<button type='button' class='btn btn-default' onclick='getMachine(" + this.id + ")'>Detail</button>";
-                    print += "<button type='button' class='btn btn-default' onclick='updateMachine(" + this.id + ")' >Tractorize (=update)</button>";
-                    print += "<button type='button' class='btn btn-danger' onclick='deleteMachine(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button>";
+                    for (var j = 0; j < 3; ++j) {
+                        print += buttonMachine(this.id, j + 1);
+                    }
+                    for (var j = 0; j < 3; ++j) {
+                        print += buttonCustomer(this.id, j + 1);
+                    }
+                    print += "<button type='button' class='btn btn-danger' onclick='deleteRent(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button>";
                     print += "</td>";
                     print += "</tr>";
                 });
-                $('table#users tbody').empty().append(print);
+                $('table#rents tbody').empty().append(print);
 
 
             }
             function getAllRents() {
-                
-            }
-
-            function getAllMachines() {
                 $.ajax({
-                    url: '/pa165/rest/service/machine', // ukazujeme URL a
+                    url: '/pa165/rest/service/rent',
                     type: 'GET',
                     success: flushList,
                     error: fail
                 });
+
             }
 
-            function createRent()() {
+            function createRent() {
 
                 $.ajax({
-                    url: '/pa165/rest/service/rent', // ukazujeme URL a
+                    url: '/pa165/rest/service/rent',
                     type: 'POST',
                     contentType: "application/json",
                     data: JSON.stringify(
                             {
-                                machineId: idTranslator.machine[0],
-                                customerId: idTranslator.customer[0],
-                                from: formatDate(),
-                                to: formatDate()
+                                machineId: 1,
+                                customerId: 1,
+                                from: formatDate(currentDate),
+                                to: formatDate(currentDate)
                             }),
-                    success: function (data, textStatus) { // funkce success zpracovává data
+                    success: function (data, textStatus) {
+                        console.log(data);
+                        getAllRents();
+                    },
+                    error: fail
+                });
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            function changeMachine(id, mId) {
+                items[id].machineId = mId;
+                $.ajax({
+                    url: '/pa165/rest/service/rent/' + id,
+                    type: 'PUT',
+                    contentType: "application/json",
+                    data: JSON.stringify(items[id]),
+                    success: function (data, textStatus) {
                         console.log(data);
                         getAllRents();
                     },
                     error: fail
                 });
             }
-
-            function changeMachine(id, mId) {
-                
-            }
             function changeCustomer(id, cId) {
-                
-            }
-            function updateMachine(id) {
-                items[id].type = "TRACTOR";
+                items[id].customerId = cId;
                 $.ajax({
-                    url: '/pa165/rest/service/machine/update/' + id, // ukazujeme URL a
+                    url: '/pa165/rest/service/rent/' + id,
                     type: 'PUT',
-                    contentType: 'application/json',
+                    contentType: "application/json",
                     data: JSON.stringify(items[id]),
-                    success: function (data, textStatus) { // funkce success zpracovává data
+                    success: function (data, textStatus) {
                         console.log(data);
-                        getAllMachines();
+                        getAllRents();
                     },
                     error: fail
                 });
@@ -175,9 +167,9 @@
             function deleteRent(id) {
 
                 $.ajax({
-                    url: '/pa165/rest/service/rent/delete/' + id, // ukazujeme URL a
+                    url: '/pa165/rest/service/rent/' + id,
                     type: 'DELETE',
-                    success: function (data, textStatus) { // funkce success zpracovává data
+                    success: function (data, textStatus) {
                         console.log(data);
                         getAllRents()();
                     },
@@ -186,7 +178,7 @@
             }
             function getRentsByDate(date) {
                 $.ajax({
-                    url: '/pa165/rest/service/rent/date/' + date, // ukazujeme URL a
+                    url: '/pa165/rest/service/rent/date/' + date,
                     type: 'GET',
                     success: flushList,
                     error: fail
@@ -223,7 +215,7 @@
         <button onClick="createRent()">Create rent</button>
         <button onClick="getAllRents()">Get ALL rents</button>
         <button onclick="getRentsByDate(formatDate())">Get ALL rents over today</button>
-        <table class="table table-striped" id="users">
+        <table class="table table-striped" id="rents">
             <thead>
                 <tr>
                     <th>id</th>
@@ -237,6 +229,7 @@
             <tbody>
             </tbody>
         </table>
+        <!--
         <h3>Detail</h3>
         <div class="row">
             <div class="col-sm-1">
@@ -298,7 +291,7 @@
 
         <ul class="list-group" id="mRevisions">
         </ul>
-
+        -->
         <script>
             $('#alert').hide();
             $(function () {

@@ -37,7 +37,7 @@ public class RentsController {
     public void setRentService(RentService rentService) {
         this.rentService = rentService;
     }
-    
+
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public @ResponseBody
     RentResource getRent(@PathVariable("id") Long id) {
@@ -53,23 +53,24 @@ public class RentsController {
         return new RentResource(rentDto);
     }
 
+    @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody
     Collection<RentResource> listAll() {
         Collection<RentDto> rents = rentService.findAllRent();
         Collection<RentResource> rentResources = new ArrayList<>();
-        
+
         for (RentDto r : rents) {
             rentResources.add(new RentResource(r));
         }
         return rentResources;
     }
-    
+
     @RequestMapping(value = "date/{date}", method = RequestMethod.GET)
     public @ResponseBody
     Collection<RentResource> listByDate(@PathVariable("date") Date date) {
         Collection<RentDto> rents = rentService.findRentByDate(date);
         Collection<RentResource> rentResources = new ArrayList<>();
-        
+
         for (RentDto r : rents) {
             rentResources.add(new RentResource(r));
         }
