@@ -13,7 +13,6 @@ import cz.muni.fi.stavebniStroje.util.MachineType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-import org.slf4j.LoggerFactory;
 
 public class MachineResource {
 
@@ -47,20 +46,19 @@ public class MachineResource {
         setAvailable(machineDto.isAvailable());
         setPrice(machineDto.getPrice());
         for (RevisionDto r : machineDto.getRevisions()) {
-            revisions.add(new RevisionResource(r));
+            getRevisions().add(new RevisionResource(r));
         }
         //setRents(machineDto.getRents());
     }
 
     public MachineDto toDto() {
         MachineDto m = new MachineDto();
-        LoggerFactory.getLogger(MachineResource.class).debug("id: {}", id);
-        m.setId(id);
-        m.setName(name);
-        m.setType(type);
-        m.setDescription(description);
-        m.setPrice(price);
-        for (RevisionResource r : revisions) {
+        m.setId(getId());
+        m.setName(getName());
+        m.setType(getType());
+        m.setDescription(getDescription());
+        m.setPrice(getPrice());
+        for (RevisionResource r : getRevisions()) {
             m.getRevisions().add(r.toDto());
         }
         return m;
