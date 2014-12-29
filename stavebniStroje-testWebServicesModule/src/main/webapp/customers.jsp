@@ -72,7 +72,7 @@
                     url: 'http://localhost:8080/pa165/rest/service/customer', // ukazujeme URL a
                     type: 'POST',
                     contentType: "application/json",
-                    data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": "NATURAL"}),
+                    data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllCustomers();
@@ -101,7 +101,7 @@
                     url: 'http://localhost:8080/pa165/rest/service/customer/update/' + id, // ukazujeme URL a
                     type: 'PUT',
                     contentType: 'application/json',
-                      data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": "NATURAL"}),
+                      data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal}),
 //                    data: JSON.stringify({"firstName": "----", "secondName": "----", "address": "----", "legalStatus": "NATURAL"}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
@@ -131,7 +131,16 @@
                     error: fail
                 });
             }
-
+        function preferedBrowser() {
+            prefer = document.forms[0].browsers.value;
+             alert("You prefer browsing internet with " + prefer);
+        }
+ 
+        function legalStatus() {
+            c_legal = document.forms[0].c_legal.value;
+        }
+        
+        
         </script>
     </head>
     <body>
@@ -184,8 +193,13 @@
                     </tr>          
                     <tr>
                         <th>Status</th>
-                        <th><input id="c_legal" type="text"></th>
-                    </tr>   
+                        <th>
+                            <select id="c_legal" onchange="legalStatus()">
+                               <option value="NATURAL">Natural</option>
+                               <option value="LEGAL">Legal</option>
+                            </select>
+                        </th>
+                        </tr>   
                     <tr>
                         <th><button onClick="createUser()">Create customer</button></th>
                     </tr>                    
