@@ -17,8 +17,8 @@
             }
 
 
-            function getUser() {
-                var id = 1;
+            function getUser(id) {
+                //var id = 1;
                 $.ajax({
                     url: 'http://localhost:8080/pa165/rest/service/customer/get/' + id, // ukazujeme URL a
                     type: 'GET',
@@ -32,7 +32,7 @@
             function flushList(data) { // funkce success zpracovává data
                 var print = '';
                 $.each(data, function () {
-                    print += "<tr><td>" + this.id + "</td><td>" + this.firstName + "</td><td>" + this.secondName + "</td><td>" + this.secondName + "</td><td><button type='button' class='btn btn-default' onclick='updateUser(" + this.id + ")' >Vaporize (=update)</button><button type='button' class='btn btn-danger' onclick='deleteUser(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button></td></tr>";
+                    print += "<tr><td>" + this.id + "</td><td>" + this.firstName + "</td><td>" + this.secondName + "</td><td>" + this.address + "</td><td>" + this.legalStatus +"</td><td><button type='button' class='btn btn-default' onclick='updateUser(" + this.id + ")' >Vaporize (=update)</button><button type='button' class='btn btn-danger' onclick='deleteUser(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button></td></tr>";
                 });
                 $('table#users tbody').empty().append(print);
             }
@@ -48,12 +48,21 @@
 
 
             function createUser() {
-
+               var fName, text;
+               var lName, text;
+               var cAddress, text;
+               var cLegal, text;
+               
+                fName   = document.getElementById("c_firstName").value;
+                lName   = document.getElementById("c_secondName").value;
+                cAddress = document.getElementById("c_address").value;
+                cLegal  = document.getElementById("c_legal").value;
+                
                 $.ajax({
                     url: 'http://localhost:8080/pa165/rest/service/customer', // ukazujeme URL a
                     type: 'POST',
                     contentType: "application/json",
-                    data: JSON.stringify({"firstName": "tert", "secondName": "test", "address": "test", "legalStatus": "NATURAL"}),
+                    data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": "NATURAL"}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllCustomers();
@@ -61,12 +70,29 @@
                     error: fail
                 });
             }
+            
+            
             function updateUser(id) {
+//dodato
+               var fName, text;
+               var lName, text;
+               var cAddress, text;
+               var cLegal, text;
+               
+                fName   = document.getElementById("c_firstName").value;
+                lName   = document.getElementById("c_secondName").value;
+                cAddress = document.getElementById("c_address").value;
+                cLegal  = document.getElementById("c_legal").value;
+//dovde
+                    
+                    
+                
                 $.ajax({
                     url: 'http://localhost:8080/pa165/rest/service/customer/update/' + id, // ukazujeme URL a
                     type: 'PUT',
                     contentType: 'application/json',
-                    data: JSON.stringify({"firstName": "----", "secondName": "----", "address": "----", "legalStatus": "NATURAL"}),
+                      data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": "NATURAL"}),
+//                    data: JSON.stringify({"firstName": "----", "secondName": "----", "address": "----", "legalStatus": "NATURAL"}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllCustomers();
@@ -123,29 +149,55 @@
             <strong>Error!</strong> There was a problem with your network connection. Or maybe another problem.
         </div>        
 
-        <button onClick="createUser()">Create customer</button>
+    <!--    
         <button onClick="getAllCustomers()">Get ALL customers</button>
         <button onclick="searchUser('----')">Get ALL vaporized</button>
+    -->
         <table class="table table-striped" id="users">
             <thead>
                 <tr>
-                    <th>id</th>
-                    <th>First name</th>
-                    <th>Second name</th>
-                    <th>Address</th>
-                    <th>Tools</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+                    <tr>.</tr>
+                    <tr>
+                        <th>Form for new customer</th>
+                    </tr>
+                    <tr>
+                        <th>Licno ime</th>
+                        <th><input id="c_firstName" type="text"></th>
+                    </tr>
+                    <tr>
+                        <th>Prezime</th>
+                        <th><input id="c_secondName" type="text"></th>
+                    </tr>                          
+                    <tr>
+                        <th>Adresa</th>
+                        <th><input id="c_address" type="text"></th>
+                    </tr>          
+                    <tr>
+                        <th>Status</th>
+                        <th><input id="c_legal" type="text"></th>
+                    </tr>   
+                    <tr>
+                        <th><button onClick="createUser()">Create customer</button></th>
+                    </tr>                    
+         <tr>
+            <th>id</th>
+            <th>First name</th>
+            <th>Second name</th>
+            <th>Address</th>
+            <th>Legal Status</th>
+            <th>Tools</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 
-        <script>
-            $('#alert').hide();
-            $(function () {
-                getAllCustomers();
-            });
-        </script>
+<script>
+    $('#alert').hide();
+    $(function () {
+        getAllCustomers();
+    });
+</script>
 
-    </body>
+</body>
 </html>
