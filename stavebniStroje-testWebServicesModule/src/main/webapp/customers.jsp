@@ -24,6 +24,7 @@
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
+                        flushCustomer(data);
                     },
                     error: fail
                 });
@@ -37,6 +38,15 @@
                 $('table#users tbody').empty().append(print);
             }
 
+            function flushCustomer(data) {
+                $('#cId').text(data.id);
+                $('#cFirstName').text(data.firstName);
+                $('#cLastName').text(data.secondName);
+                $('#cAddress').text(data.address);
+                $('#clegalStatus').text(data.legalStatus ? 'NATURAL' : 'LEGAL');
+             
+            }
+            
             function getAllCustomers() {
                 $.ajax({
                     url: 'http://localhost:8080/pa165/rest/service/customer', // ukazujeme URL a
