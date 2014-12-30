@@ -24,18 +24,21 @@
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
+                        flushCustomer(data);
                     },
                     error: fail
                 });
             }
+
+
             function editUser(id) {
+                //$('#cfn').text(getUser(id).firstName);
                 document.getElementById("c_firstName").value = "Johnny";
                 document.getElementById("c_secondName").value = "Bravo";
                 document.getElementById("c_address").value = "NY"; 
                 document.getElementById("c_legal").value = "LEGAL";  
-                
-             
             }            
+
 
             function flushList(data) { // funkce success zpracovává data
                 var print = '';
@@ -151,9 +154,7 @@
             document.getElementById("theForm").reset();
         }
  
-        function showButton(){
-            document.getElementById("button").style.display='block';
-        }          
+      
         </script>
         
   
