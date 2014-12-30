@@ -24,7 +24,7 @@
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
-                        flushCustomer(data);
+                        //flushCustomer(data);
                     },
                     error: fail
                 });
@@ -202,6 +202,7 @@
                         </tr>   
                     <tr>
                         <th><button onClick="createUser()">Create customer</button></th>
+                        <th><button onClick="updateUser()">Update customer</button></th>
                     </tr>                    
          <tr>
             <th>id</th>
