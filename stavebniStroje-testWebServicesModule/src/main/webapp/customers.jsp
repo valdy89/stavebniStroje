@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
         <script language="javascript">
-
+           
             function fail() {
                 $('#alert').show();
             }
@@ -24,16 +24,23 @@
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
-                        flushCustomer(data);
                     },
                     error: fail
                 });
             }
+            function editUser(id) {
+                document.getElementById("c_firstName").value = "Johnny";
+                document.getElementById("c_secondName").value = "Bravo";
+                document.getElementById("c_address").value = "NY"; 
+                document.getElementById("c_legal").value = "LEGAL";  
+                
+             
+            }            
 
             function flushList(data) { // funkce success zpracovává data
                 var print = '';
                 $.each(data, function () {
-                    print += "<tr><td>" + this.id + "</td><td>" + this.firstName + "</td><td>" + this.secondName + "</td><td>" + this.address + "</td><td>" + this.legalStatus +"</td><td><button type='button' class='btn btn-default' onclick='updateUser(" + this.id + ")' >Vaporize (=update)</button><button type='button' class='btn btn-danger' onclick='deleteUser(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button></td></tr>";
+                    print += "<tr><td>" + this.id + "</td><td>" + this.firstName + "</td><td>" + this.secondName + "</td><td>" + this.address + "</td><td>" + this.legalStatus +"</td><td><button type='button' class='btn btn-default' onclick='editUser(" + this.id + ")' >Edit</button><button type='button' class='btn btn-default' onclick='updateUser(" + this.id + ")' >Update</button><button type='button' class='btn btn-danger' onclick='deleteUser(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button></td></tr>";
                 });
                 $('table#users tbody').empty().append(print);
             }
@@ -142,8 +149,14 @@
         
         function resetForm() {
             document.getElementById("theForm").reset();
-        }        
+        }
+ 
+        function showButton(){
+            document.getElementById("button").style.display='block';
+        }          
         </script>
+        
+  
     </head>
     <body>
 
@@ -185,15 +198,15 @@
                  <form id="theForm">     
                     <tr>
                         <th>Licno ime</th>
-                        <th><input id="c_firstName" type="text"></th>
+                        <th><input id="c_firstName" type="text" value=""></th>
                     </tr>
                     <tr>
                         <th>Prezime</th>
-                        <th><input id="c_secondName" type="text"></th>
+                        <th><input id="c_secondName" type="text" value=""></th>
                     </tr>                          
                     <tr>
                         <th>Adresa</th>
-                        <th><input id="c_address" type="text"></th>
+                        <th><input id="c_address" type="text" value=""></th>
                     </tr>          
                     <tr>
                         <th>Status</th>
@@ -207,9 +220,8 @@
                     <tr>
                         <th>&nbsp;</th>
                         <th>
-                            <button onClick="createUser()">Create customer</button>
-                            <button onClick="updateUser()">Update</button>
-                            <button onClick="resetForm()">Reset</button>  
+                            <button id="create" onClick="createUser()">Create customer</button>
+                            <button id="reset"  onClick="resetForm()">Reset</button>  
                         </th>
                         <th>&nbsp;</th>
                     </tr>
