@@ -24,7 +24,7 @@
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
-                        //flushCustomer(data);
+                        flushCustomer(data);
                     },
                     error: fail
                 });
@@ -140,7 +140,9 @@
             c_legal = document.forms[0].c_legal.value;
         }
         
-        
+        function resetForm() {
+            document.getElementById("theForm").reset();
+        }        
         </script>
     </head>
     <body>
@@ -172,13 +174,15 @@
         <button onClick="getAllCustomers()">Get ALL customers</button>
         <button onclick="searchUser('----')">Get ALL vaporized</button>
     -->
+    <br>
+    <br>
+    <h2>Customer form</h2>
+
+   
         <table class="table table-striped" id="users">
             <thead>
-                <tr>
-                    <tr>.</tr>
-                    <tr>
-                        <th>Form for new customer</th>
-                    </tr>
+
+                 <form id="theForm">     
                     <tr>
                         <th>Licno ime</th>
                         <th><input id="c_firstName" type="text"></th>
@@ -199,12 +203,23 @@
                                <option value="LEGAL">Legal</option>
                             </select>
                         </th>
-                        </tr>   
+                    </tr>   
                     <tr>
-                        <th><button onClick="createUser()">Create customer</button></th>
-                        <th><button onClick="updateUser()">Update customer</button></th>
-                    </tr>                    
+                        <th>&nbsp;</th>
+                        <th>
+                            <button onClick="createUser()">Create customer</button>
+                            <button onClick="updateUser()">Update</button>
+                            <button onClick="resetForm()">Reset</button>  
+                        </th>
+                        <th>&nbsp;</th>
+                    </tr>
+
+                    </form>
+
+
+     
          <tr>
+
             <th>id</th>
             <th>First name</th>
             <th>Second name</th>
