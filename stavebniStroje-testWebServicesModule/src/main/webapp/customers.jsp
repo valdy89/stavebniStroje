@@ -11,33 +11,28 @@
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
         <script language="javascript">
-           
+
             function fail() {
                 $('#alert').show();
             }
 
-
-            function getUser(id) {
-                //var id = 1;
+            function editUser(id) {
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer/get/' + id, // ukazujeme URL a
+                    url: '/pa165/rest/service/customer/get/' + id, // ukazujeme URL a
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
-                        flushCustomer(data);
+                        $("#update").show();
+                        $("#customerFirstName").val(data.firstName);
+                        $("#customerSecondName").val(data.secondName);
+                        $("#customerAddress").val(data.address);
+                        $("#customerLegal").val(data.legalStatus);
                     },
                     error: fail
-                });
-            }
+                });                
+    
 
-
-            function editUser(id) {
-                //$('#cfn').text(getUser(id).firstName);
-                document.getElementById("c_firstName").value = "Johnny";
-                document.getElementById("c_secondName").value = "Bravo";
-                document.getElementById("c_address").value = "NY"; 
-                document.getElementById("c_legal").value = "LEGAL";  
-            }            
+    }  
 
 
             function flushList(data) { // funkce success zpracovává data
@@ -48,44 +43,47 @@
                 $('table#users tbody').empty().append(print);
             }
 
-            function flushCustomer(data) {
-                $('#cId').text(data.id);
-                $('#cFirstName').text(data.firstName);
-                $('#cLastName').text(data.secondName);
-                $('#cAddress').text(data.address);
-                $('#clegalStatus').text(data.legalStatus ? 'NATURAL' : 'LEGAL');
-             
-            }
+
             
             function getAllCustomers() {
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer', // ukazujeme URL a
+                    url: '/pa165/rest/service/customer', // ukazujeme URL a
                     type: 'GET',
                     success: flushList,
                     error: fail
                 });
             }
 
+            function getUser(id) {
+                var id = 35;
+                $.ajax({
+                    url: '/pa165/rest/service/customer/get/' + id, // ukazujeme URL a
+                    type: 'GET',
+                    success: function (data, textStatus) { // funkce success zpracovává data
+                        console.log(data);
+                        flushList(data);
+                    },
+                    error: fail
+                });
+            }
+
 
             function createUser() {
-               var fName, text;
-               var lName, text;
-               var cAddress, text;
-               var cLegal, text;
-               
-                fName   = document.getElementById("c_firstName").value;
-                lName   = document.getElementById("c_secondName").value;
-                cAddress = document.getElementById("c_address").value;
-                cLegal  = document.getElementById("c_legal").value;
+                
+                var fName   = $("#customerFirstName").val();
+                var lName   = $("#customerSecondName").val();
+                var cAddress= $("#customerAddress").val();
+                var cLegal  = $("#customerLegal").val();
                 
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer', // ukazujeme URL a
+                    url: '/pa165/rest/service/customer', // ukazujeme URL a
                     type: 'POST',
                     contentType: "application/json",
                     data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllCustomers();
+                        resetForm();
                     },
                     error: fail
                 });
@@ -93,29 +91,24 @@
             
             
             function updateUser(id) {
-//dodato
-               var fName, text;
-               var lName, text;
-               var cAddress, text;
-               var cLegal, text;
-               
-                fName   = document.getElementById("c_firstName").value;
-                lName   = document.getElementById("c_secondName").value;
-                cAddress = document.getElementById("c_address").value;
-                cLegal  = document.getElementById("c_legal").value;
-//dovde
+
+            var fName   = $("#customerFirstName").val();
+            var lName   = $("#customerSecondName").val();
+            var cAddress= $("#customerAddress").val();
+            var cLegal  = $("#customerLegal").val();
+
                     
                     
                 
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer/update/' + id, // ukazujeme URL a
+                    url: '/pa165/rest/service/customer/update/' + id, // ukazujeme URL a
                     type: 'PUT',
                     contentType: 'application/json',
                       data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal}),
-//                    data: JSON.stringify({"firstName": "----", "secondName": "----", "address": "----", "legalStatus": "NATURAL"}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllCustomers();
+                        resetForm();
                     },
                     error: fail
                 });
@@ -124,7 +117,7 @@
             function deleteUser(id) {
 
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer/delete/' + id, // ukazujeme URL a
+                    url: '/pa165/rest/service/customer/delete/' + id, // ukazujeme URL a
                     type: 'DELETE',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
@@ -133,9 +126,10 @@
                     error: fail
                 });
             }
-            function searchUser(search) {
+        
+        function searchUser(search) {
                 $.ajax({
-                    url: 'http://localhost:8080/pa165/rest/service/customer/search/' + search, // ukazujeme URL a
+                    url: '/pa165/rest/service/customer/search/' + search, // ukazujeme URL a
                     type: 'GET',
                     success: flushList,
                     error: fail
@@ -145,16 +139,19 @@
             prefer = document.forms[0].browsers.value;
              alert("You prefer browsing internet with " + prefer);
         }
- 
+
+        //multiple choice    
         function legalStatus() {
             c_legal = document.forms[0].c_legal.value;
         }
         
         function resetForm() {
-            document.getElementById("theForm").reset();
+            $("#customerFirstName").val("");
+            $("#customerSecondName").val("");
+            $("#customerAddress").val("");
+            $("#customerLegal").val("");
         }
- 
-      
+
         </script>
         
   
@@ -184,10 +181,6 @@
             <strong>Error!</strong> There was a problem with your network connection. Or maybe another problem.
         </div>        
 
-    <!--    
-        <button onClick="getAllCustomers()">Get ALL customers</button>
-        <button onclick="searchUser('----')">Get ALL vaporized</button>
-    -->
     <br>
     <br>
     <h2>Customer form</h2>
@@ -198,21 +191,21 @@
 
                  <form id="theForm">     
                     <tr>
-                        <th>Licno ime</th>
-                        <th><input id="c_firstName" type="text" value=""></th>
+                        <th>First name:</th>
+                        <th><input id="customerFirstName" type="text"></th>
                     </tr>
                     <tr>
-                        <th>Prezime</th>
-                        <th><input id="c_secondName" type="text" value=""></th>
+                        <th>Second name:</th>
+                        <th><input id="customerSecondName" type="text"></th>
                     </tr>                          
                     <tr>
-                        <th>Adresa</th>
-                        <th><input id="c_address" type="text" value=""></th>
+                        <th>Address:</th>
+                        <th><input id="customerAddress" type="text"></th>
                     </tr>          
                     <tr>
-                        <th>Status</th>
+                        <th>Legal status:</th>
                         <th>
-                            <select id="c_legal" onchange="legalStatus()">
+                            <select id="customerLegal" onchange="legalStatus()">
                                <option value="NATURAL">Natural</option>
                                <option value="LEGAL">Legal</option>
                             </select>
@@ -221,15 +214,25 @@
                     <tr>
                         <th>&nbsp;</th>
                         <th>
-                            <button id="create" onClick="createUser()">Create customer</button>
-                            <button id="reset"  onClick="resetForm()">Reset</button>  
+                            <button id="create" type='button' class='btn btn-default' onClick="createUser()">Create customer</button>
+                            <button id="reset"  type='button' class='btn btn-default' onClick="resetForm()">Reset</button>  
                         </th>
+                        <th>
+                            
+                        </th>                        
+                        <th>
                         <th>&nbsp;</th>
                     </tr>
-
+                    <tr>
+                        <th>Search for :</th>
+                        <th>
+                            <input id="searchParameter" type="text">
+                            <button id="search"  type='button' class='btn btn-default' onClick="searchUser($('#searchParameter').val())">Search by name</button>
+                            <button id="getAllCustomer" type='button' class='btn btn-default' onClick="getAllCustomers()">Get all customers</button>
+                        </th>                            
+                        
+                    </tr>
                     </form>
-
-
      
          <tr>
 
