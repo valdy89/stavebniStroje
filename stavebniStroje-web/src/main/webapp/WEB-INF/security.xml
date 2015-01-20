@@ -8,17 +8,14 @@
  
 	<http use-expressions="true">
 	    <intercept-url pattern="/" access="permitAll()" />
-	    <intercept-url pattern="/admin/" access="permitAll()" />
-		<intercept-url pattern="/**" access="isAuthenticated()" />
+	     <intercept-url pattern="/j_spring_security_check" access="permitAll()" />
+		<intercept-url pattern="/admin**" access="isAuthenticated()" />
 		
 		<!-- form login -->
-     	<form-login 
-		    login-page="/login.jsp" 
-		    default-target-url="/admin/machine" 
-			authentication-failure-url="/login.jsp?error" 
-			username-parameter="username"
-			password-parameter="password" />
- 
+     	
+ <form-login login-page="/login.jsp" login-processing-url="/j_spring_security_check" 
+     	    always-use-default-target="false" default-target-url="/admin/machine"
+     	    authentication-failure-url="/login.jsp?error=true" />
      	<!-- logout -->
      	<logout logout-url="/j_spring_security_logout" logout-success-url="/login.jsp"/>
 	</http>
