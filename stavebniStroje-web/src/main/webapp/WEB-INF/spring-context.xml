@@ -12,4 +12,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     <context:component-scan base-package="cz.muni.fi.stavebniStroje.web"/>
 
     <import resource="classpath:applicationContext.xml"/>
+    
+     <!-- bcrypt password encoder -->
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 </beans>

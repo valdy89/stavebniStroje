@@ -11,8 +11,8 @@ package cz.muni.fi.stavebniStroje.util;
  */
 public enum Role {
     
-    ROLE_USER("User"),
-    ROLE_ADMIN("Admin");
+    ROLE_USER("ROLE_USER"),
+    ROLE_ADMIN("ROLE_ADMIN");
     private String role;
     
     Role(String role) {

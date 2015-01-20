@@ -27,7 +27,7 @@ import org.springframework.dao.DataAccessException;
  *
  * @author milos
  */
-@UrlBinding("/machine/{$event}/")
+@UrlBinding("/admin/machine/{$event}/")
 public class MachineActionBean extends BaseActionBean {
 
     @SpringBean

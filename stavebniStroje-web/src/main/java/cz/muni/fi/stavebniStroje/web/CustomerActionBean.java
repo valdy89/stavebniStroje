@@ -26,7 +26,7 @@ import net.sourceforge.stripes.validation.ValidationErrors;
  *
  * @author milos
  */
-@UrlBinding("/customer/{$event}/")
+@UrlBinding("/admin/customer/{$event}/")
 public class CustomerActionBean extends BaseActionBean implements ValidationErrorHandler {
 
     @SpringBean

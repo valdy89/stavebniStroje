@@ -31,7 +31,7 @@ import org.springframework.dao.DataAccessException;
  *
  * @author milos
  */
-@UrlBinding("/rent/{$event}/")
+@UrlBinding("/admin/rent/{$event}/")
 public class RentActionBean extends BaseActionBean {
 
     @SpringBean
