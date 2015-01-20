@@ -108,7 +108,8 @@
                     print += "<td>" + this.price + "</td>";
                     print += "<td>";
                     print += "<button type='button' class='btn btn-default' onclick='getMachine(" + this.id + ")'>Detail</button>";
-                    print += "<button type='button' class='btn btn-default' onclick='updateMachine(" + this.id + ")' >Tractorize (=update)</button>";
+                    print += "<button type='button' class='btn btn-default' onclick='editMachine(" + this.id + ")'>Edit</button>";
+                    print += "<button type='button' class='btn btn-default' onclick='updateMachine(" + this.id + ")' >Update</button>";
                     print += "<button type='button' class='btn btn-danger' onclick='deleteMachine(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button>";
                     print += "</td>";
                     print += "</tr>";
@@ -128,36 +129,68 @@
             }
 
             function createMachine() {
-
+                var mName         = $("#machineName").val();
+                var mType         = $("#machineType").val();
+                var maDescription = $("#machineDescription").val();
+                var mPrice        = $("#machinePrice").val(); 
+                
                 $.ajax({
                     url: '/pa165/rest/service/machine', // ukazujeme URL a
                     type: 'POST',
                     contentType: "application/json",
                     data: JSON.stringify(
                             {
-                                name: "m1_super",
-                                type: "EXCAVATOR",
-                                description: "Nice machine.",
-                                price: 42
+                                "name": mName,
+                                "type": mType,
+                                "description": maDescription,
+                                "price": mPrice
                             }),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllMachines();
+                        resetForm();                        
                     },
                     error: fail
                 });
             }
+            
+            function editMachine(id) {
+                $.ajax({                
+                    url: '/pa165/rest/service/machine/get/' + id, // ukazujeme URL a
+                    type: 'GET',
+                    success: function (data, textStatus) { // funkce success zpracovává data
+                        console.log(data);
+                        $("#machineName").val(data.name);
+                        $("#machineType").val(data.type);
+                        $("#machineDescription").val(data.description);
+                        $("#machinePrice").val(data.price);  
+                    },
+                    error: fail                        
+                });                   
+            }
+            
             // tractorize
             function updateMachine(id) {
-                items[id].type = "TRACTOR";
+                var mName         = $("#machineName").val();
+                var mType         = $("#machineType").val();
+                var maDescription = $("#machineDescription").val();
+                var mPrice        = $("#machinePrice").val(); 
+                
                 $.ajax({
                     url: '/pa165/rest/service/machine/update/' + id, // ukazujeme URL a
                     type: 'PUT',
                     contentType: 'application/json',
-                    data: JSON.stringify(items[id]),
+                    data: JSON.stringify(
+                            {
+                                "name": mName,
+                                "type": mType,
+                                "description": maDescription,
+                                "price": mPrice
+                            }),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllMachines();
+                        resetForm();                         
                     },
                     error: fail
                 });
@@ -182,7 +215,18 @@
                     error: fail
                 });
             }
-
+            function resetForm() {
+                $("#machineName").val("");
+                $("#machineType").val("");
+                $("#machineDescription").val("");
+                $("#machinePrice").val("");
+            }   
+            
+        //multiple choice    
+        function machineType() {
+            //c_legal = document.forms[0].c_legal.value;
+            machineType = document.forms[0].machineType.value;
+        }            
         </script>
     </head>
     <body>
@@ -193,9 +237,9 @@
                     <ul class="nav navbar-nav">
                         <!-- potrebujeme dodat class="active" pokud ma byt odkaz aktivni -->
                         <li><a href="index.jsp">Home</a></li>
-                        <li><a href="customers.jsp">Customer tests</a></li>
-                        <li><a href="machines.jsp">Machines tests</a></li>
-                        <li><a href="rents.jsp">Rents tests</a></li>
+                        <li><a href="customers.jsp">Customers</a></li>
+                        <li><a href="machines.jsp">Machines</a></li>
+                        <li><a href="rents.jsp">Rents</a></li>
                     </ul> 
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="${pageContext.request.contextPath}/about.jsp">About</a></li>
@@ -203,18 +247,70 @@
                 </div>
             </div>
         </nav>
-        <h1>Machines tests</h1>
+
 
         <div class="alert alert-danger" id="alert">
             <a href="#" class="close" onclick="$('#alert').hide();">&times;</a>
             <strong>Error!</strong> Odds fish, my dear, there was a problem with your network connection. Or maybe another problem.
         </div>        
-
-        <button onClick="createMachine()">Create machine</button>
-        <button onClick="getAllMachines()">Get ALL machines</button>
-        <button onclick="getType('TRACTOR')">Get ALL tractors</button>
+        <br>
+        <br>        
+        <h2>Machine form</h2>
+        
         <table class="table table-striped" id="machines">
             <thead>
+                <tr>
+                    <th>Name:</th>
+                    <th><input id="machineName" type="text"></th>
+                </tr>
+                <tr>
+                    <th>Type:</th>
+                    <th>
+                        <select id="machineType" onchange="machineType()">
+                            <option value="N/A"></option>
+                            <option value="TRACTOR">Tractor</option>
+                            <option value="EXCAVATOR">Excavator</option>
+                            <option value="LORRY">Lorry</option>                               
+                        </select>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Description:</th>
+                    <th><input id="machineDescription" type="text"></th>
+                </tr> 
+                <tr>
+                    <th>Price:</th>
+                    <th><input id="machinePrice" type="number"></th>
+                </tr> 
+
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>
+                        <button id="create" type='button' class='btn btn-default' onClick="createMachine()">Create machine</button>
+                        <button id="reset"  type='button' class='btn btn-default' onClick="resetForm()">Reset</button>  
+                    </th>
+                </tr>  
+                    <tr>
+                        <th>Search:</th>
+                        <tr>
+                            <th>By type:</th>
+                            <th>
+                                <select id="typeOfMachine" onchange="machineType()">
+                                    <option value="N/A"></option>
+                                    <option value="TRACTOR">Tractor</option>
+                                    <option value="EXCAVATOR">Excavator</option>
+                                    <option value="LORRY">Lorry</option>                               
+                                </select>
+                            </th>
+                            <th>
+                                <button id="search"  type='button' class='btn btn-default' onClick="getType( $('#typeOfMachine').val() )">Search by type</button>
+                                <button id="getAllCustomer" type='button' class='btn btn-default' onClick="getAllMachines()">Get all machines</button>
+                            </th>
+                  
+
+                            <th>&nbsp;</th>
+                        </tr> 
+              
                 <tr>
                     <th>id</th>
                     <th>Name</th>
