@@ -49,7 +49,7 @@ public class CustomerActionBean extends BaseActionBean implements ValidationErro
         else
             result = customerService.findAllCustomer();
         
-        return new ForwardResolution("/customer/list.jsp");
+        return new ForwardResolution("/admin/customer/list.jsp");
     }
 
     public Collection<CustomerDto> getResult() {
@@ -105,7 +105,7 @@ public class CustomerActionBean extends BaseActionBean implements ValidationErro
 
     public Resolution edit() throws Exception {
         customerService.updateCustomer(customer);
-        return new ForwardResolution("/customer/edit.jsp");
+        return new ForwardResolution("/admin/customer/edit.jsp");
     }
 
     public Resolution save() {

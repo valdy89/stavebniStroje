@@ -11,7 +11,6 @@ import cz.muni.fi.stavebniStroje.dto.RentDto;
 import cz.muni.fi.stavebniStroje.service.CustomerService;
 import cz.muni.fi.stavebniStroje.service.MachineService;
 import cz.muni.fi.stavebniStroje.service.RentService;
-import cz.muni.fi.stavebniStroje.util.DateRangeException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -160,7 +159,7 @@ public class RentActionBean extends BaseActionBean {
         } catch (DataAccessException ex) {
             return new RedirectResolution("/fail/fail.jsp");
         }
-        return new ForwardResolution("/rent/list.jsp");
+        return new ForwardResolution("/admin/rent/list.jsp");
     }
 
     public Resolution add() {
@@ -178,7 +177,7 @@ public class RentActionBean extends BaseActionBean {
     public Resolution detail() {
         customers = customerService.findAllCustomer();
         machines = machineService.findAllMachines();
-        return new ForwardResolution("/rent/detail.jsp");
+        return new ForwardResolution("/admin/rent/detail.jsp");
     }
 
     public Resolution save() {

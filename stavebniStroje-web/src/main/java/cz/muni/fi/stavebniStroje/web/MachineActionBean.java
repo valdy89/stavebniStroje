@@ -134,7 +134,7 @@ public class MachineActionBean extends BaseActionBean {
     }
 
     public Resolution detail() {
-        return new ForwardResolution("/machine/detail.jsp");
+        return new ForwardResolution("/admin/machine/detail.jsp");
     }
 
     public Resolution save() {
@@ -143,7 +143,7 @@ public class MachineActionBean extends BaseActionBean {
         } catch (DataAccessException e) {
             return new RedirectResolution("/fail/Fail.jsp");
         }
-        RedirectResolution resolution = new RedirectResolution("/machine/detail/");
+        RedirectResolution resolution = new RedirectResolution("/admin/machine/detail/");
         resolution.addParameter("machine.id", machine.getId());
         return resolution;
     }
@@ -154,7 +154,7 @@ public class MachineActionBean extends BaseActionBean {
         } catch (DataAccessException e) {
             return new ForwardResolution("/fail/Fail.jsp");
         }
-        RedirectResolution resolution = new RedirectResolution("/machine/detail/");
+        RedirectResolution resolution = new RedirectResolution("/admin/machine/detail/");
         resolution.addParameter("machine.id", revision.getMachine().getId());
         return resolution;
     }
@@ -165,7 +165,7 @@ public class MachineActionBean extends BaseActionBean {
         } catch (DataAccessException e) {
             return new RedirectResolution("/fail/Fail.jsp");
         }
-        RedirectResolution resolution = new RedirectResolution("/machine/detail/");
+        RedirectResolution resolution = new RedirectResolution("/admin/machine/detail/");
         resolution.addParameter("machine.id", revision.getMachine().getId());
         return resolution;
     }
@@ -193,7 +193,7 @@ public class MachineActionBean extends BaseActionBean {
         } catch (DataAccessException e) {
             return new RedirectResolution("/fail/Fail.jsp");
         }
-        return new ForwardResolution("/machine/list.jsp");
+        return new ForwardResolution("/admin/machine/list.jsp");
     }
 
 }
