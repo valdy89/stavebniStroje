@@ -37,7 +37,6 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerDao = customerDao;
     }
 
-    
     @Override
     public void createCustomer(CustomerDto customerDto) {
         if (customerDto == null) {
@@ -51,7 +50,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
-    
     @Override
     public Collection<CustomerDto> findAllCustomer() {
         Collection<CustomerDto> customers = new ArrayList<>();
@@ -66,7 +64,6 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    
     @Override
     public void updateCustomer(CustomerDto customerDto) {
         if (customerDto == null) {
@@ -81,19 +78,13 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    
     @Override
     public void removeCustomer(CustomerDto customerDto) {
         if (customerDto == null) {
             throw new IllegalArgumentException("Argument customerDto was null");
         }
-        try {
-            Customer customer = dozerBeanMapper.map(customerDto, Customer.class);
-            customerDao.remove(customer);
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot remove item due to exception", ex) {
-            };
-        }
+        Customer customer = dozerBeanMapper.map(customerDto, Customer.class);
+        customerDao.remove(customer);
     }
 
     @Transactional(readOnly = true)
@@ -102,14 +93,9 @@ public class CustomerServiceImpl implements CustomerService {
         if (id == null) {
             throw new IllegalArgumentException("Argument id was null");
         }
-        try {
-            Customer customer;
-            customer = customerDao.findById(id);
-            return dozerBeanMapper.map(customer, CustomerDto.class);
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot read item due to exception", ex) {
-            };
-        }
+        Customer customer;
+        customer = customerDao.findById(id);
+        return dozerBeanMapper.map(customer, CustomerDto.class);
     }
 
     /**
@@ -126,17 +112,11 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         Collection<CustomerDto> customers = new ArrayList<>();
-        try {
-
-            for (Customer customer : customerDao.findByName(name)) {
-                customers.add(dozerBeanMapper.map(customer, CustomerDto.class));
-            }
-            return customers;
-
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot read item due to exception", ex) {
-            };
+        for (Customer customer : customerDao.findByName(name)) {
+            customers.add(dozerBeanMapper.map(customer, CustomerDto.class));
         }
+        return customers;
+
     }
 
     @Transactional(readOnly = true)

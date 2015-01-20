@@ -41,16 +41,10 @@ public class MachineServiceImpl implements MachineService {
             throw new IllegalArgumentException("Argument machineDto was null");
         }
 
-        try {
-            Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
-            
-            machineDao.persist(machine);
-            machineDto.setId(machine.getId());
-            
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot persist item due to exception", ex) {
-            };
-        }
+        Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
+
+        machineDao.persist(machine);
+        machineDto.setId(machine.getId());
 
     }
 
@@ -59,13 +53,8 @@ public class MachineServiceImpl implements MachineService {
         if (machineDto == null) {
             throw new IllegalArgumentException("Argument machineDto was null");
         }
-        try {
-            Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
-            machineDao.update(machine);
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot update item due to exception", ex) {
-            };
-        }
+        Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
+        machineDao.update(machine);
     }
 
     @Override
@@ -73,13 +62,8 @@ public class MachineServiceImpl implements MachineService {
         if (machineDto == null) {
             throw new IllegalArgumentException("Argument machineDto was null");
         }
-        try {
-            Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
-            machineDao.remove(machine);
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot remove item due to exception", ex) {
-            };
-        }
+        Machine machine = dozerBeanMapper.map(machineDto, Machine.class);
+        machineDao.remove(machine);
     }
 
     @Transactional(readOnly = true)
@@ -88,28 +72,18 @@ public class MachineServiceImpl implements MachineService {
         if (id == null) {
             throw new IllegalArgumentException("Argument id was null");
         }
-        try {
-            Machine machine = machineDao.findById(id);
-            return dozerBeanMapper.map(machine, MachineDto.class);
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot read items due to exception", ex) {
-            };
-        }
+        Machine machine = machineDao.findById(id);
+        return dozerBeanMapper.map(machine, MachineDto.class);
     }
 
     @Transactional(readOnly = true)
     @Override
     public Collection<MachineDto> findAllMachines() {
         Collection<MachineDto> machines = new ArrayList<>();
-        try {
-            for (Machine machine : machineDao.findAll()) {
-                machines.add(dozerBeanMapper.map(machine, MachineDto.class));
-            }
-            return machines;
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot read items due to exception", ex) {
-            };
+        for (Machine machine : machineDao.findAll()) {
+            machines.add(dozerBeanMapper.map(machine, MachineDto.class));
         }
+        return machines;
     }
 
     @Transactional(readOnly = true)
@@ -119,16 +93,10 @@ public class MachineServiceImpl implements MachineService {
             throw new IllegalArgumentException("Argument type was null");
         }
         Collection<MachineDto> machines = new ArrayList<>();
-        try {
-            for (Machine machine : machineDao.findByType(type)) {
-                machines.add(dozerBeanMapper.map(machine, MachineDto.class));
-            }
-            return machines;
-        } catch (Exception ex) {
-            throw new DataAccessException("Cannot read items due to exception", ex) {
-            };
+        for (Machine machine : machineDao.findByType(type)) {
+            machines.add(dozerBeanMapper.map(machine, MachineDto.class));
         }
+        return machines;
     }
-
 
 }
