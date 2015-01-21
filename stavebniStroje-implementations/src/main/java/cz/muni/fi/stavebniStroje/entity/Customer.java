@@ -36,12 +36,12 @@ public class Customer implements Serializable {
     @Column(name = "SECONDNAME", length = 20)
     private String secondName;
     @Column(name = "ADDRESS", length = 100)
-    private String address;
+    private String address; 
     @Column(name = "LEGALSTATUS")
     private LegalStatus legalStatus;
     @Column(name = "USERNAME", length = 20)
     private String username;
-    @Column(name = "PASSWORD", length = 20)
+    @Column(name = "PASSWORD", length = 255)
     private String password;
     @Column(name = "ROLE")
     private Role role;

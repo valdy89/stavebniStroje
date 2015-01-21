@@ -21,6 +21,7 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  *
@@ -32,23 +33,29 @@ public class CustomerActionBean extends BaseActionBean implements ValidationErro
     @SpringBean
     protected CustomerService customerService;
 
+    @SpringBean
+    protected BCryptPasswordEncoder passwordEncoder;
+
     private Collection<CustomerDto> result;
 
     @ValidateNestedProperties({
         @Validate(on = {"delete"}, field = "id", required = true),
-        @Validate(on = {"add",  "save"}, field = "firstName", required = true),
-        @Validate(on = {"add",  "save"}, field = "secondName", required = true),
-        @Validate(on = {"add",  "save"}, field = "address", required = true),
-        @Validate(on = {"add",  "save"}, field = "legalStatus", required = true),})
+        @Validate(on = {"add", "save"}, field = "firstName", required = true),
+        @Validate(on = {"add", "save"}, field = "secondName", required = true),
+        @Validate(on = {"add", "save"}, field = "address", required = true),
+        @Validate(on = {"add", "save"}, field = "password", required = true),
+        @Validate(on = {"add", "save"}, field = "legalStatus", required = true),})
     private CustomerDto customer;
     private String search;
+
     @DefaultHandler
     public Resolution list() {
-        if(search != null)
+        if (search != null) {
             result = customerService.searchCustomer(search);
-        else
+        } else {
             result = customerService.findAllCustomer();
-        
+        }
+
         return new ForwardResolution("/admin/customer/list.jsp");
     }
 
@@ -83,7 +90,6 @@ public class CustomerActionBean extends BaseActionBean implements ValidationErro
     public void setSearch(String search) {
         this.search = search;
     }
-    
 
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"edit", "save", "delete"})
     public void loadCustomerFromDB() {
@@ -94,31 +100,33 @@ public class CustomerActionBean extends BaseActionBean implements ValidationErro
         customer = customerService.getCustomer(Long.parseLong(id));
     }
 
-    
     public Resolution add() {
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
 
         customerService.createCustomer(customer);
 
         result = (List<CustomerDto>) customerService.findAllCustomer();
-       return new RedirectResolution(this.getClass(),"list");
+        return new RedirectResolution(this.getClass(), "list");
     }
 
     public Resolution edit() throws Exception {
+
         customerService.updateCustomer(customer);
         return new ForwardResolution("/admin/customer/edit.jsp");
     }
 
     public Resolution save() {
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+
         customerService.updateCustomer(customer);
-        return new RedirectResolution(this.getClass(),"list");
+        return new RedirectResolution(this.getClass(), "list");
     }
 
     public Resolution delete() {
         customerService.removeCustomer(customer);
 
-        return new RedirectResolution(this.getClass(),"list");
+        return new RedirectResolution(this.getClass(), "list");
     }
-
 
     @Override
     public Resolution handleValidationErrors(ValidationErrors ve) throws Exception {
