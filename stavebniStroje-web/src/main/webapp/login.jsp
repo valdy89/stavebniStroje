@@ -5,25 +5,32 @@
 
 <s:layout-render name="/layout.jsp" titlekey="index.title">
     <s:layout-component name="body">
+        
+                
+        
        <form action="<c:url value='j_spring_security_check' />" id="loginForm" method="post">
     
 <!--    <c:if test="${param.error == 'true'}">
         <div class="error">Login Failed.</div>
     </c:if>-->
 
-    <label for="username" id="username-label">Username</label><br/>
-    <input id="username" type="text" name="j_username"/><br/>
+    <label for="username" id="username-label">Username</label>
+    <input id="username" type="text" name="j_username" class="form-control" />
+     
+    
 
     <label for="password">Password</label><br/>
-    <input id="password" type="password" name="j_password"/><br/>
+    <input id="password" type="password" name="j_password" class="form-control" /><br/>
 
     <input type="checkbox" name="rememberMe" id="rememberMe"/>
     <label for="rememberMe" style="vertical-align: top">Remember Me</label><br/>
 
-    <input type="submit" id="login" class="button" value="Login"/>
-    <input type="reset" id="reset" class="button" value="Clear"/>
+    <input type="submit" id="login" class="btn btn-success" value="Login"/>
+    <input type="reset" id="reset" class="btn btn-default" value="Clear"/>
     
 </form>
+       
+
 
 <script type="text/javascript">
 <c:if test="${param.ajax}">
