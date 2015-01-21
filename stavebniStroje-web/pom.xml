@@ -199,6 +199,11 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
+                <configuration>
+                    <systemProperties>
+                        <JAVA_OPTS>-Dfile.encoding=UTF-8</JAVA_OPTS>
+                    </systemProperties>
+                </configuration>
             </plugin>
         </plugins>
     </build>
