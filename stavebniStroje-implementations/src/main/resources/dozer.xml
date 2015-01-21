@@ -27,7 +27,7 @@
         </list>
     </property>
     </bean>
-    <bean id="machineConverter" class="cz.muni.fi.stavebniStroje.mapper.MachineMapper">
+    <bean id="machineConverter" class="cz.muni.fi.stavebnistroje.mapper.MachineMapper">
         
     </bean>
     

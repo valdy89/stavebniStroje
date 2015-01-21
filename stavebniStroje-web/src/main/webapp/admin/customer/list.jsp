@@ -17,7 +17,7 @@
                 </button>
             </div>
             <div class="col-sm-6">
-                <s:form beanclass="cz.muni.fi.stavebniStroje.web.CustomerActionBean" class="form-search form-inline pull-right">
+                <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" class="form-search form-inline pull-right">
                     <div class="form-group">
                         <s:text id="search" name="search" class="form-control"/>
                     </div>
@@ -30,8 +30,8 @@
             </div>
         </div>
 
-        <s:useActionBean beanclass="cz.muni.fi.stavebniStroje.web.CustomerActionBean" var="actionBean"/>
-        <s:form beanclass="cz.muni.fi.stavebniStroje.web.CustomerActionBean">
+        <s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" var="actionBean"/>
+        <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -54,7 +54,7 @@
                             <td> ${customer.address}</td>
                             <td>
 
-                                <s:link beanclass="cz.muni.fi.stavebniStroje.web.CustomerActionBean" event="edit"><s:param name="customer.id" value="${customer.id}"/>
+                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit"><s:param name="customer.id" value="${customer.id}"/>
                                     <button type="button" class="btn btn-default">
                                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         <f:message key="customer.list.editBtn"/>
@@ -62,7 +62,7 @@
                                 </s:link>
                             </td>
                             <td>
-                                <s:link beanclass="cz.muni.fi.stavebniStroje.web.CustomerActionBean" event="delete">
+                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="delete">
                                     <s:param name="customer.id" value="${customer.id}"/>
                                     <button type="button" class="btn btn-danger">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -97,7 +97,7 @@
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <s:form beanclass="cz.muni.fi.stavebniStroje.web.CustomerActionBean">
+                    <s:form beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                             <h4 class="modal-title" id="myModalLabel"><f:message key="customer.list.addCustomer"/></h4>

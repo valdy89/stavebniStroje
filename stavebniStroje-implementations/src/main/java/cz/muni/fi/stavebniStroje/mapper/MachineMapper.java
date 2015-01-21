@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.mapper;
+package cz.muni.fi.stavebnistroje.mapper;
 
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
-import cz.muni.fi.stavebniStroje.dto.RentDto;
-import cz.muni.fi.stavebniStroje.dto.RevisionDto;
-import cz.muni.fi.stavebniStroje.entity.Machine;
-import cz.muni.fi.stavebniStroje.entity.Rent;
-import cz.muni.fi.stavebniStroje.entity.Revision;
-import cz.muni.fi.stavebniStroje.util.DateRange;
+import cz.muni.fi.stavebnistroje.dto.MachineDto;
+import cz.muni.fi.stavebnistroje.dto.RentDto;
+import cz.muni.fi.stavebnistroje.dto.RevisionDto;
+import cz.muni.fi.stavebnistroje.entity.Machine;
+import cz.muni.fi.stavebnistroje.entity.Rent;
+import cz.muni.fi.stavebnistroje.entity.Revision;
+import cz.muni.fi.stavebnistroje.util.DateRange;
 import java.util.ArrayList;
 import java.util.Date;
 import org.dozer.DozerBeanMapper;

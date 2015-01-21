@@ -1,9 +1,9 @@
-package cz.muni.fi.stavebniStroje.rest.controllers;
+package cz.muni.fi.stavebnistroje.rest.controllers;
 
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
-import cz.muni.fi.stavebniStroje.service.MachineService;
-import cz.muni.fi.stavebniStroje.resources.MachineResource;
-import cz.muni.fi.stavebniStroje.util.MachineType;
+import cz.muni.fi.stavebnistroje.dto.MachineDto;
+import cz.muni.fi.stavebnistroje.service.MachineService;
+import cz.muni.fi.stavebnistroje.resources.MachineResource;
+import cz.muni.fi.stavebnistroje.util.MachineType;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

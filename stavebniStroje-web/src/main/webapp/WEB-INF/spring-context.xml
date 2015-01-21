@@ -9,12 +9,13 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 ">
 
-    <context:component-scan base-package="cz.muni.fi.stavebniStroje.web"/>
+    <context:component-scan base-package="cz.muni.fi.stavebnistroje.web"/>
 
     <import resource="classpath:applicationContext.xml"/>
     
      <!-- bcrypt password encoder -->
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <bean id="userDetailsService" class="cz.muni.fi.stavebnistroje.user.service.UserDetailsServiceImpl"/>
     
-    <!--<bean id="userDetailsService" class="cz.muni.fi.stavebnistroje.web.UserDetailsServiceImpl1"/>-->
+    
 </beans>

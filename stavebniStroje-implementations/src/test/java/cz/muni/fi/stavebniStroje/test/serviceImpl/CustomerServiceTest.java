@@ -1,12 +1,12 @@
 
-package cz.muni.fi.stavebniStroje.test.serviceImpl;
+package cz.muni.fi.stavebnistroje.test.serviceImpl;
 
-import cz.muni.fi.stavebniStroje.dao.CustomerDao;
-import cz.muni.fi.stavebniStroje.dto.CustomerDto;
-import cz.muni.fi.stavebniStroje.entity.Customer;
-import cz.muni.fi.stavebniStroje.service.CustomerService;
-import cz.muni.fi.stavebniStroje.serviceImpl.CustomerServiceImpl;
-import cz.muni.fi.stavebniStroje.util.LegalStatus;
+import cz.muni.fi.stavebnistroje.dao.CustomerDao;
+import cz.muni.fi.stavebnistroje.dto.CustomerDto;
+import cz.muni.fi.stavebnistroje.entity.Customer;
+import cz.muni.fi.stavebnistroje.service.CustomerService;
+import cz.muni.fi.stavebnistroje.serviceImpl.CustomerServiceImpl;
+import cz.muni.fi.stavebnistroje.util.LegalStatus;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;

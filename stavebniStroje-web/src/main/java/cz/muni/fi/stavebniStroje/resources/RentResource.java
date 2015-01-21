@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.resources;
+package cz.muni.fi.stavebnistroje.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import cz.muni.fi.stavebniStroje.dto.CustomerDto;
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
-import cz.muni.fi.stavebniStroje.dto.RentDto;
+import cz.muni.fi.stavebnistroje.dto.CustomerDto;
+import cz.muni.fi.stavebnistroje.dto.MachineDto;
+import cz.muni.fi.stavebnistroje.dto.RentDto;
 import java.util.Date;
 
 /**

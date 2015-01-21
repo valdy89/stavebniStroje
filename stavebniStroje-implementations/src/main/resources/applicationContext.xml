@@ -11,36 +11,36 @@
     <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
     
 
-    <bean id="stavebniStrojeMachineDao" class="cz.muni.fi.stavebniStroje.daoImpl.MachineDaoImpl" /> 
+    <bean id="stavebnistrojeMachineDao" class="cz.muni.fi.stavebnistroje.daoImpl.MachineDaoImpl" /> 
     
-    <bean id="machineService" class="cz.muni.fi.stavebniStroje.serviceImpl.MachineServiceImpl">
+    <bean id="machineService" class="cz.muni.fi.stavebnistroje.serviceImpl.MachineServiceImpl">
         
-        <property name="machineDao" ref="stavebniStrojeMachineDao"/>
+        <property name="machineDao" ref="stavebnistrojeMachineDao"/>
     </bean>
     
     
-    <bean id="stavebniStrojeCustomerDao" class="cz.muni.fi.stavebniStroje.daoImpl.CustomerDaoImpl" /> 
+    <bean id="stavebnistrojeCustomerDao" class="cz.muni.fi.stavebnistroje.daoImpl.CustomerDaoImpl" /> 
     
-    <bean id="customerService" class="cz.muni.fi.stavebniStroje.serviceImpl.CustomerServiceImpl">
+    <bean id="customerService" class="cz.muni.fi.stavebnistroje.serviceImpl.CustomerServiceImpl">
        
-        <property name="customerDao" ref="stavebniStrojeCustomerDao"/>
+        <property name="customerDao" ref="stavebnistrojeCustomerDao"/>
     </bean>
     
     
     
-    <bean id="stavebniStrojeRentDao" class="cz.muni.fi.stavebniStroje.daoImpl.RentDaoImpl" /> 
+    <bean id="stavebnistrojeRentDao" class="cz.muni.fi.stavebnistroje.daoImpl.RentDaoImpl" /> 
     
-    <bean id="rentService" class="cz.muni.fi.stavebniStroje.serviceImpl.RentServiceImpl">
+    <bean id="rentService" class="cz.muni.fi.stavebnistroje.serviceImpl.RentServiceImpl">
         
-        <property name="rentDao" ref="stavebniStrojeRentDao"/>
-        <property name="machineDao" ref="stavebniStrojeMachineDao"/>
+        <property name="rentDao" ref="stavebnistrojeRentDao"/>
+        <property name="machineDao" ref="stavebnistrojeMachineDao"/>
     </bean>
     
-    <bean id="stavebniStrojeRevisionDao" class="cz.muni.fi.stavebniStroje.daoImpl.RevisionDaoImpl" /> 
+    <bean id="stavebnistrojeRevisionDao" class="cz.muni.fi.stavebnistroje.daoImpl.RevisionDaoImpl" /> 
     
-    <bean id="revisionService" class="cz.muni.fi.stavebniStroje.serviceImpl.RevisionServiceImpl">
+    <bean id="revisionService" class="cz.muni.fi.stavebnistroje.serviceImpl.RevisionServiceImpl">
         
-        <property name="revisionDao" ref="stavebniStrojeRevisionDao"/>
+        <property name="revisionDao" ref="stavebnistrojeRevisionDao"/>
     </bean>
     
   

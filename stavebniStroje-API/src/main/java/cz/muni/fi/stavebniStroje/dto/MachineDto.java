@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.dto;
+package cz.muni.fi.stavebnistroje.dto;
 
-import cz.muni.fi.stavebniStroje.util.MachineType;
+import cz.muni.fi.stavebnistroje.util.MachineType;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;

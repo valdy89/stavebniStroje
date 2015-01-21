@@ -17,7 +17,7 @@
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                     <f:message key="all.btn.edit"/>
                 </button>
-                <s:link beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean" event="delete"><s:param name="machine.id" value="${machine.id}"/>
+                <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="delete"><s:param name="machine.id" value="${machine.id}"/>
                     <button type="button" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         <f:message key="all.btn.delete"/>
@@ -96,7 +96,7 @@
         <div class="modal fade" id="updateMachineModal" tabindex="-1" role="dialog" aria-labelledby="addMachineModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <s:form beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean">
+                    <s:form beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean">
                         <div class="modal-header">
                             <button type="reset" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>

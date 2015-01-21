@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.test.daoImpl;
+package cz.muni.fi.stavebnistroje.test.daoImpl;
 
-import cz.muni.fi.stavebniStroje.daoImpl.MachineDaoImpl;
-import cz.muni.fi.stavebniStroje.entity.Customer;
-import cz.muni.fi.stavebniStroje.entity.Machine;
-import cz.muni.fi.stavebniStroje.entity.Rent;
-import cz.muni.fi.stavebniStroje.entity.Revision;
-import cz.muni.fi.stavebniStroje.util.MachineType;
+import cz.muni.fi.stavebnistroje.daoImpl.MachineDaoImpl;
+import cz.muni.fi.stavebnistroje.entity.Customer;
+import cz.muni.fi.stavebnistroje.entity.Machine;
+import cz.muni.fi.stavebnistroje.entity.Rent;
+import cz.muni.fi.stavebnistroje.entity.Revision;
+import cz.muni.fi.stavebnistroje.util.MachineType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;

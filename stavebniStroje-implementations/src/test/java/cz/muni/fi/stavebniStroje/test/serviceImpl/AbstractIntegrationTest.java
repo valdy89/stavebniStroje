@@ -1,4 +1,4 @@
-package cz.muni.fi.stavebniStroje.test.serviceImpl;
+package cz.muni.fi.stavebnistroje.test.serviceImpl;
 
 import org.junit.runner.RunWith;
 

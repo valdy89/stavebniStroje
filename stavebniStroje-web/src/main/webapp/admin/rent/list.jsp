@@ -9,7 +9,7 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
-<s:useActionBean beanclass="cz.muni.fi.stavebniStroje.web.RentActionBean" var="actionBean"/>
+<s:useActionBean beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" var="actionBean"/>
 
 <s:layout-render name="/layout.jsp" titlekey="rent.list.title">
     <s:layout-component name="body">
@@ -24,7 +24,7 @@
                 </button>
             </div>
             <div class="col-sm-9">
-                <s:form beanclass="cz.muni.fi.stavebniStroje.web.RentActionBean" class="form-inline pull-right">
+                <s:form beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" class="form-inline pull-right">
                     <f:message key="all.display"/>
                     <div class="form-group">
                         <s:select name="machineId" class="form-control">
@@ -57,7 +57,7 @@
                 </s:form>
             </div>
         </div>
-        <s:form beanclass="cz.muni.fi.stavebniStroje.web.RentActionBean">
+        <s:form beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -77,13 +77,13 @@
                         <tr>
                             <td><input type="checkbox" name="rents[]" value="${rent.id}"/></td>
                             <td>
-                                <s:link beanclass="cz.muni.fi.stavebniStroje.web.CustomerActionBean" event="edit">
+                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean" event="edit">
                                     <s:param name="customer.id" value="${rent.customer.id}"/>
                                     ${rent.customer.secondName}, ${rent.customer.firstName}
                                 </s:link>
                             </td>
                             <td>
-                                <s:link beanclass="cz.muni.fi.stavebniStroje.web.MachineActionBean" event="detail">
+                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean" event="detail">
                                     <s:param name="machine.id" value="${rent.machine.id}"/>
                                     ${rent.machine.name}
                                 </s:link>
@@ -91,7 +91,7 @@
                             <td>${rent.startOfRent}</td>
                             <td>${rent.endOfRent}</td>                            
                             <td>
-                                <s:link beanclass="cz.muni.fi.stavebniStroje.web.RentActionBean" event="detail">
+                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" event="detail">
                                     <s:param name="rent.id" value="${rent.id}"/>
                                     <button type="button" class="btn btn-default">
                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
@@ -100,7 +100,7 @@
                                 </s:link>
                             </td>
                             <td>
-                                <s:link beanclass="cz.muni.fi.stavebniStroje.web.RentActionBean" event="delete">
+                                <s:link beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean" event="delete">
                                     <s:param name="rent.id" value="${rent.id}"/>
                                     <button type="button" class="btn btn-danger">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -122,7 +122,7 @@
 
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <s:form beanclass="cz.muni.fi.stavebniStroje.web.RentActionBean">
+                    <s:form beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean">
                         <div class="modal-header">
                             <button type="reset" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>

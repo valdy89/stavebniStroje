@@ -9,9 +9,9 @@
         <trim-strings>false</trim-strings>
     
         <custom-converters>
-            <converter type="cz.muni.fi.stavebniStroje.mapper.MachineMapper">
-                <class-a>cz.muni.fi.stavebniStroje.entity.Machine</class-a>
-                <class-b>cz.muni.fi.stavebniStroje.dto.MachineDto</class-b>
+            <converter type="cz.muni.fi.stavebnistroje.mapper.MachineMapper">
+                <class-a>cz.muni.fi.stavebnistroje.entity.Machine</class-a>
+                <class-b>cz.muni.fi.stavebnistroje.dto.MachineDto</class-b>
             </converter>
         </custom-converters>
     

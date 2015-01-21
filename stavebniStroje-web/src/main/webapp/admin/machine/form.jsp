@@ -23,7 +23,7 @@
     </div>
     <div class="col-sm-9">
         <s:select name="machine.type" class="form-control">
-            <s:options-enumeration enum="cz.muni.fi.stavebniStroje.util.MachineType" />
+            <s:options-enumeration enum="cz.muni.fi.stavebnistroje.util.MachineType" />
         </s:select>
     </div>
 </div>

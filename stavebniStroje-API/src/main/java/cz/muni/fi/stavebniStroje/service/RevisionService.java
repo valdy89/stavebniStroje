@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package cz.muni.fi.stavebniStroje.service;
+package cz.muni.fi.stavebnistroje.service;
 
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
-import cz.muni.fi.stavebniStroje.dto.RevisionDto;
+import cz.muni.fi.stavebnistroje.dto.MachineDto;
+import cz.muni.fi.stavebnistroje.dto.RevisionDto;
 import java.util.Collection;
 import java.util.Date;
 import org.springframework.dao.DataAccessException;

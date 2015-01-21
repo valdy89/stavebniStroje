@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.daoImpl;
+package cz.muni.fi.stavebnistroje.daoImpl;
 
-import cz.muni.fi.stavebniStroje.dao.MachineDao;
-import cz.muni.fi.stavebniStroje.entity.Machine;
-import cz.muni.fi.stavebniStroje.util.MachineType;
+import cz.muni.fi.stavebnistroje.dao.MachineDao;
+import cz.muni.fi.stavebnistroje.entity.Machine;
+import cz.muni.fi.stavebnistroje.util.MachineType;
 
 import java.math.BigDecimal;
 import java.util.List;

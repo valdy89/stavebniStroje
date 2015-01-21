@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.test.serviceImpl;
+package cz.muni.fi.stavebnistroje.test.serviceImpl;
 
-import cz.muni.fi.stavebniStroje.dao.MachineDao;
-import cz.muni.fi.stavebniStroje.dao.RentDao;
-import cz.muni.fi.stavebniStroje.dto.CustomerDto;
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
-import cz.muni.fi.stavebniStroje.dto.RentDto;
-import cz.muni.fi.stavebniStroje.entity.Customer;
-import cz.muni.fi.stavebniStroje.entity.Machine;
-import cz.muni.fi.stavebniStroje.entity.Rent;
-import cz.muni.fi.stavebniStroje.service.RentService;
-import cz.muni.fi.stavebniStroje.serviceImpl.RentServiceImpl;
+import cz.muni.fi.stavebnistroje.dao.MachineDao;
+import cz.muni.fi.stavebnistroje.dao.RentDao;
+import cz.muni.fi.stavebnistroje.dto.CustomerDto;
+import cz.muni.fi.stavebnistroje.dto.MachineDto;
+import cz.muni.fi.stavebnistroje.dto.RentDto;
+import cz.muni.fi.stavebnistroje.entity.Customer;
+import cz.muni.fi.stavebnistroje.entity.Machine;
+import cz.muni.fi.stavebnistroje.entity.Rent;
+import cz.muni.fi.stavebnistroje.service.RentService;
+import cz.muni.fi.stavebnistroje.serviceImpl.RentServiceImpl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;

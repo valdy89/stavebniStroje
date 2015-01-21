@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.web;
+package cz.muni.fi.stavebnistroje.web;
 
-import cz.muni.fi.stavebniStroje.dto.CustomerDto;
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
-import cz.muni.fi.stavebniStroje.dto.RentDto;
-import cz.muni.fi.stavebniStroje.service.CustomerService;
-import cz.muni.fi.stavebniStroje.service.MachineService;
-import cz.muni.fi.stavebniStroje.service.RentService;
+import cz.muni.fi.stavebnistroje.dto.CustomerDto;
+import cz.muni.fi.stavebnistroje.dto.MachineDto;
+import cz.muni.fi.stavebnistroje.dto.RentDto;
+import cz.muni.fi.stavebnistroje.service.CustomerService;
+import cz.muni.fi.stavebnistroje.service.MachineService;
+import cz.muni.fi.stavebnistroje.service.RentService;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;

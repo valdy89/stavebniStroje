@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.serviceImpl;
+package cz.muni.fi.stavebnistroje.serviceImpl;
 
-import cz.muni.fi.stavebniStroje.dao.MachineDao;
-import cz.muni.fi.stavebniStroje.dao.RentDao;
-import cz.muni.fi.stavebniStroje.dto.RentDto;
-import cz.muni.fi.stavebniStroje.entity.Machine;
-import cz.muni.fi.stavebniStroje.entity.Rent;
-import cz.muni.fi.stavebniStroje.service.RentService;
-import cz.muni.fi.stavebniStroje.util.DateRange;
-import cz.muni.fi.stavebniStroje.util.DateRangeException;
+import cz.muni.fi.stavebnistroje.dao.MachineDao;
+import cz.muni.fi.stavebnistroje.dao.RentDao;
+import cz.muni.fi.stavebnistroje.dto.RentDto;
+import cz.muni.fi.stavebnistroje.entity.Machine;
+import cz.muni.fi.stavebnistroje.entity.Rent;
+import cz.muni.fi.stavebnistroje.service.RentService;
+import cz.muni.fi.stavebnistroje.util.DateRange;
+import cz.muni.fi.stavebnistroje.util.DateRangeException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;

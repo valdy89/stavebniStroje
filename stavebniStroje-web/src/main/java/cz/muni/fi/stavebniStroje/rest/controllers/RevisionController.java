@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.rest.controllers;
+package cz.muni.fi.stavebnistroje.rest.controllers;
 
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
-import cz.muni.fi.stavebniStroje.dto.RevisionDto;
-import cz.muni.fi.stavebniStroje.resources.RevisionResource;
-import cz.muni.fi.stavebniStroje.service.MachineService;
-import cz.muni.fi.stavebniStroje.service.RevisionService;
+import cz.muni.fi.stavebnistroje.dto.MachineDto;
+import cz.muni.fi.stavebnistroje.dto.RevisionDto;
+import cz.muni.fi.stavebnistroje.resources.RevisionResource;
+import cz.muni.fi.stavebnistroje.service.MachineService;
+import cz.muni.fi.stavebnistroje.service.RevisionService;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;

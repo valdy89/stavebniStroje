@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.web;
+package cz.muni.fi.stavebnistroje.web;
 
-import cz.muni.fi.stavebniStroje.dto.CustomerDto;
-import cz.muni.fi.stavebniStroje.service.CustomerService;
+import cz.muni.fi.stavebnistroje.dto.CustomerDto;
+import cz.muni.fi.stavebnistroje.service.CustomerService;
 import java.util.Collection;
 import java.util.List;
 import net.sourceforge.stripes.action.Before;

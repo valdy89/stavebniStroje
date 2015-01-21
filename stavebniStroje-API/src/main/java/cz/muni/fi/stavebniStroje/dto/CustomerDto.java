@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.dto;
+package cz.muni.fi.stavebnistroje.dto;
 
-import cz.muni.fi.stavebniStroje.util.LegalStatus;
-import cz.muni.fi.stavebniStroje.util.Role;
+import cz.muni.fi.stavebnistroje.util.LegalStatus;
+import cz.muni.fi.stavebnistroje.util.Role;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;

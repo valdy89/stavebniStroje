@@ -1,8 +1,8 @@
-package cz.muni.fi.stavebniStroje.service;
+package cz.muni.fi.stavebnistroje.service;
 
 
-import cz.muni.fi.stavebniStroje.dto.MachineDto; // todo change to DTO Object
-import cz.muni.fi.stavebniStroje.util.MachineType;
+import cz.muni.fi.stavebnistroje.dto.MachineDto; // todo change to DTO Object
+import cz.muni.fi.stavebnistroje.util.MachineType;
 import java.util.Collection;
 import org.springframework.dao.DataAccessException;
 

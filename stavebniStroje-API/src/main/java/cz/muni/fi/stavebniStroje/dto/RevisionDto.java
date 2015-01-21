@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package cz.muni.fi.stavebniStroje.dto;
+package cz.muni.fi.stavebnistroje.dto;
 
 import java.io.Serializable;
 import java.util.Date;

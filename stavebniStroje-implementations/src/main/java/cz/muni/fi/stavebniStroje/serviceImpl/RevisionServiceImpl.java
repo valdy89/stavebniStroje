@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.serviceImpl;
+package cz.muni.fi.stavebnistroje.serviceImpl;
 
-import cz.muni.fi.stavebniStroje.dao.RevisionDao;
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
-import cz.muni.fi.stavebniStroje.dto.RevisionDto;
-import cz.muni.fi.stavebniStroje.entity.Machine;
-import cz.muni.fi.stavebniStroje.entity.Revision;
-import cz.muni.fi.stavebniStroje.service.RevisionService;
+import cz.muni.fi.stavebnistroje.dao.RevisionDao;
+import cz.muni.fi.stavebnistroje.dto.MachineDto;
+import cz.muni.fi.stavebnistroje.dto.RevisionDto;
+import cz.muni.fi.stavebnistroje.entity.Machine;
+import cz.muni.fi.stavebnistroje.entity.Revision;
+import cz.muni.fi.stavebnistroje.service.RevisionService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;

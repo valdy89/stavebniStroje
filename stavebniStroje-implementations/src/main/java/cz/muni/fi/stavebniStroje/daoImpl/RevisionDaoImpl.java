@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.daoImpl;
+package cz.muni.fi.stavebnistroje.daoImpl;
 
-import cz.muni.fi.stavebniStroje.dao.RevisionDao;
-import cz.muni.fi.stavebniStroje.entity.Machine;
-import cz.muni.fi.stavebniStroje.entity.Revision;
+import cz.muni.fi.stavebnistroje.dao.RevisionDao;
+import cz.muni.fi.stavebnistroje.entity.Machine;
+import cz.muni.fi.stavebnistroje.entity.Revision;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.EntityManager;

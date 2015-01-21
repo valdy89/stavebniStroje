@@ -5,23 +5,23 @@
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
           
   <mapping>         
-    <class-a>cz.muni.fi.stavebniStroje.entity.Machine</class-a>
-    <class-b>cz.muni.fi.stavebniStroje.dto.MachineDto</class-b>
+    <class-a>cz.muni.fi.stavebnistroje.entity.Machine</class-a>
+    <class-b>cz.muni.fi.stavebnistroje.dto.MachineDto</class-b>
   </mapping>
   
   <mapping>         
-    <class-a>cz.muni.fi.stavebniStroje.entity.Customer</class-a>
-    <class-b>cz.muni.fi.stavebniStroje.dto.CustomerDto</class-b>
+    <class-a>cz.muni.fi.stavebnistroje.entity.Customer</class-a>
+    <class-b>cz.muni.fi.stavebnistroje.dto.CustomerDto</class-b>
   </mapping>
   
    <mapping>         
-    <class-a>cz.muni.fi.stavebniStroje.entity.Rent</class-a>
-    <class-b>cz.muni.fi.stavebniStroje.dto.RentDto</class-b>
+    <class-a>cz.muni.fi.stavebnistroje.entity.Rent</class-a>
+    <class-b>cz.muni.fi.stavebnistroje.dto.RentDto</class-b>
   </mapping>
   
   <mapping>         
-    <class-a>cz.muni.fi.stavebniStroje.entity.Revision</class-a>
-    <class-b>cz.muni.fi.stavebniStroje.dto.RevisionDto</class-b>
+    <class-a>cz.muni.fi.stavebnistroje.entity.Revision</class-a>
+    <class-b>cz.muni.fi.stavebnistroje.dto.RevisionDto</class-b>
   </mapping>
 
 </mappings>

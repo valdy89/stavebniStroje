@@ -1,10 +1,10 @@
-package cz.muni.fi.stavebniStroje.serviceImpl;
+package cz.muni.fi.stavebnistroje.serviceImpl;
 
-import cz.muni.fi.stavebniStroje.dao.MachineDao;
-import cz.muni.fi.stavebniStroje.service.MachineService;
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
-import cz.muni.fi.stavebniStroje.entity.Machine;
-import cz.muni.fi.stavebniStroje.util.MachineType;
+import cz.muni.fi.stavebnistroje.dao.MachineDao;
+import cz.muni.fi.stavebnistroje.service.MachineService;
+import cz.muni.fi.stavebnistroje.dto.MachineDto;
+import cz.muni.fi.stavebnistroje.entity.Machine;
+import cz.muni.fi.stavebnistroje.util.MachineType;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;

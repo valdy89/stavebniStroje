@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.entity;
+package cz.muni.fi.stavebnistroje.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,8 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Entity;
-import cz.muni.fi.stavebniStroje.util.LegalStatus;
-import cz.muni.fi.stavebniStroje.util.Role;
+import cz.muni.fi.stavebnistroje.util.LegalStatus;
+import cz.muni.fi.stavebnistroje.util.Role;
 import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;

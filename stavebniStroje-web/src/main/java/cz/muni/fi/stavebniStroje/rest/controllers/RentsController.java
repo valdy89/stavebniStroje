@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.rest.controllers;
+package cz.muni.fi.stavebnistroje.rest.controllers;
 
-import cz.muni.fi.stavebniStroje.dto.RentDto;
-import cz.muni.fi.stavebniStroje.resources.RentResource;
-import cz.muni.fi.stavebniStroje.service.RentService;
+import cz.muni.fi.stavebnistroje.dto.RentDto;
+import cz.muni.fi.stavebnistroje.resources.RentResource;
+import cz.muni.fi.stavebnistroje.service.RentService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;

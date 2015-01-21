@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.entity;
+package cz.muni.fi.stavebnistroje.entity;
 
 import java.io.Serializable;
 import java.util.Date;

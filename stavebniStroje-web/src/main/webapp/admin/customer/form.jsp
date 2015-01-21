@@ -43,7 +43,7 @@
         </div>
         <div class="col-sm-9">
             <s:select id="b4" name="customer.legalStatus" class="form-control">
-                <s:options-enumeration enum="cz.muni.fi.stavebniStroje.util.LegalStatus"/>
+                <s:options-enumeration enum="cz.muni.fi.stavebnistroje.util.LegalStatus"/>
             </s:select>
         </div>
     </div>

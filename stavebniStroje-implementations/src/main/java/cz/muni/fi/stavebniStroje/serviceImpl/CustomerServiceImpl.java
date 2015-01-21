@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.stavebniStroje.serviceImpl;
+package cz.muni.fi.stavebnistroje.serviceImpl;
 
-import cz.muni.fi.stavebniStroje.dao.CustomerDao;
-import cz.muni.fi.stavebniStroje.dto.CustomerDto;
-import cz.muni.fi.stavebniStroje.entity.Customer;
-import cz.muni.fi.stavebniStroje.service.CustomerService;
+import cz.muni.fi.stavebnistroje.dao.CustomerDao;
+import cz.muni.fi.stavebnistroje.dto.CustomerDto;
+import cz.muni.fi.stavebnistroje.entity.Customer;
+import cz.muni.fi.stavebnistroje.service.CustomerService;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.dozer.DozerBeanMapper;

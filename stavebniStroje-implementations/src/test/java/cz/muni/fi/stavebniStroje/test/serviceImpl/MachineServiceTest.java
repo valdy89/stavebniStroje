@@ -1,13 +1,13 @@
-package cz.muni.fi.stavebniStroje.test.serviceImpl;
+package cz.muni.fi.stavebnistroje.test.serviceImpl;
 
-import cz.muni.fi.stavebniStroje.dao.MachineDao;
-import cz.muni.fi.stavebniStroje.dto.MachineDto;
-import cz.muni.fi.stavebniStroje.entity.Machine;
-import cz.muni.fi.stavebniStroje.entity.Rent;
+import cz.muni.fi.stavebnistroje.dao.MachineDao;
+import cz.muni.fi.stavebnistroje.dto.MachineDto;
+import cz.muni.fi.stavebnistroje.entity.Machine;
+import cz.muni.fi.stavebnistroje.entity.Rent;
 
-import cz.muni.fi.stavebniStroje.service.MachineService;
-import cz.muni.fi.stavebniStroje.serviceImpl.MachineServiceImpl;
-import cz.muni.fi.stavebniStroje.util.MachineType;
+import cz.muni.fi.stavebnistroje.service.MachineService;
+import cz.muni.fi.stavebnistroje.serviceImpl.MachineServiceImpl;
+import cz.muni.fi.stavebnistroje.util.MachineType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,7 +34,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
     private MachineService machineService;
 
     @Mock
-    private MachineDao stavebniStrojeMachineDao;
+    private MachineDao stavebnistrojeMachineDao;
 
     @Autowired
     private DozerBeanMapper mapper;
@@ -48,7 +48,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
     public void before() {
 
         ReflectionTestUtils.setField(machineService, "dozerBeanMapper", mapper);
-        ReflectionTestUtils.setField(machineService, "machineDao", stavebniStrojeMachineDao);
+        ReflectionTestUtils.setField(machineService, "machineDao", stavebnistrojeMachineDao);
     }
 
     @After
@@ -64,7 +64,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
         machine.setName("machine");
         machineService.newMachine(machineDto);
 
-        verify(stavebniStrojeMachineDao).persist(mapper.map(machineDto, Machine.class));
+        verify(stavebnistrojeMachineDao).persist(mapper.map(machineDto, Machine.class));
         assertNotNull(machine.getId());
 
     }
@@ -112,7 +112,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
 
         MachineDto machineDto = mapper.map(machine, MachineDto.class);
         machineService.updateMachine(machineDto);
-        verify(stavebniStrojeMachineDao).update(machine);
+        verify(stavebnistrojeMachineDao).update(machine);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class MachineServiceTest extends AbstractIntegrationTest {
         machine.setId(7L);
         MachineDto remove = mapper.map(machine, MachineDto.class);
         machineService.removeMachine(remove);
-        verify(stavebniStrojeMachineDao).remove(machine);
+        verify(stavebnistrojeMachineDao).remove(machine);
     }
 
     @Test
@@ -144,9 +144,9 @@ public class MachineServiceTest extends AbstractIntegrationTest {
         machineDto.setName("stroj");
 
         Long id = machine.getId();
-        Mockito.when(stavebniStrojeMachineDao.findById(id)).thenReturn(machine);
+        Mockito.when(stavebnistrojeMachineDao.findById(id)).thenReturn(machine);
         MachineDto res = machineService.findMachineById(id);
-        Mockito.verify(stavebniStrojeMachineDao, Mockito.times(1)).findById(id);
+        Mockito.verify(stavebnistrojeMachineDao, Mockito.times(1)).findById(id);
 
     }
 
@@ -168,9 +168,9 @@ public class MachineServiceTest extends AbstractIntegrationTest {
             expected.add(mapper.map(m, MachineDto.class));
         }
 
-        Mockito.when(stavebniStrojeMachineDao.findAll()).thenReturn(machines);
+        Mockito.when(stavebnistrojeMachineDao.findAll()).thenReturn(machines);
         Assert.assertEquals(expected, machineService.findAllMachines());
-        Mockito.verify(stavebniStrojeMachineDao, Mockito.times(1)).findAll();
+        Mockito.verify(stavebnistrojeMachineDao, Mockito.times(1)).findAll();
     }
 
     @Test
@@ -190,9 +190,9 @@ public class MachineServiceTest extends AbstractIntegrationTest {
             expected.add(mapper.map(m, MachineDto.class));
         }
 
-        Mockito.when(stavebniStrojeMachineDao.findByType(MachineType.EXCAVATOR)).thenReturn(machines);
+        Mockito.when(stavebnistrojeMachineDao.findByType(MachineType.EXCAVATOR)).thenReturn(machines);
         Assert.assertEquals(expected, machineService.findMachinesByType(MachineType.EXCAVATOR));
-        Mockito.verify(stavebniStrojeMachineDao, Mockito.times(1)).findByType(MachineType.EXCAVATOR);
+        Mockito.verify(stavebnistrojeMachineDao, Mockito.times(1)).findByType(MachineType.EXCAVATOR);
     }
 
     

@@ -1,9 +1,9 @@
 
-package cz.muni.fi.stavebniStroje.service;
+package cz.muni.fi.stavebnistroje.service;
 
 
-import cz.muni.fi.stavebniStroje.dto.RentDto;
-import cz.muni.fi.stavebniStroje.util.DateRangeException;
+import cz.muni.fi.stavebnistroje.dto.RentDto;
+import cz.muni.fi.stavebnistroje.util.DateRangeException;
 import java.util.Collection;
 import java.util.Date;
 import org.springframework.dao.DataAccessException;
