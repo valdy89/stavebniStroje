@@ -205,7 +205,7 @@
                 </div>
             </div>
         </nav>
-        <h1>Rents tests</h1>
+        <h3>Rents</h3>
 
         <div class="alert alert-danger" id="alert">
             <a href="#" class="close" onclick="$('#alert').hide();">&times;</a>
@@ -229,69 +229,7 @@
             <tbody>
             </tbody>
         </table>
-        <!--
-        <h3>Detail</h3>
-        <div class="row">
-            <div class="col-sm-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Id</h3>
-                    </div>
-                    <div class="panel-body" id="mId">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Name</h3>
-                    </div>
-                    <div class="panel-body" id="mName">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Type</h3>
-                    </div>
-                    <div class="panel-body" id="mType">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Price</h3>
-                    </div>
-                    <div class="panel-body" id="mPrice">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Available</h3>
-                    </div>
-                    <div class="panel-body" id="mAvail">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Description</h3>
-                </div>
-                <div class="panel-body" id="mDescription">
-                </div>
-            </div>
-        </div>
-        <h4>Revisions</h4>
 
-        <ul class="list-group" id="mRevisions">
-        </ul>
-        -->
         <script>
             $('#alert').hide();
             $(function () {
