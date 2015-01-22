@@ -129,11 +129,11 @@
             }
 
             function createMachine() {
-                var mName         = $("#machineName").val();
-                var mType         = $("#machineType").val();
+                var mName = $("#machineName").val();
+                var mType = $("#machineType").val();
                 var maDescription = $("#machineDescription").val();
-                var mPrice        = $("#machinePrice").val(); 
-                
+                var mPrice = $("#machinePrice").val();
+
                 $.ajax({
                     url: '/pa165/rest/service/machine', // ukazujeme URL a
                     type: 'POST',
@@ -148,14 +148,14 @@
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllMachines();
-                        resetForm();                        
+                        resetForm();
                     },
                     error: fail
                 });
             }
-            
+
             function editMachine(id) {
-                $.ajax({                
+                $.ajax({
                     url: '/pa165/rest/service/machine/get/' + id, // ukazujeme URL a
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
@@ -163,19 +163,19 @@
                         $("#machineName").val(data.name);
                         $("#machineType").val(data.type);
                         $("#machineDescription").val(data.description);
-                        $("#machinePrice").val(data.price);  
+                        $("#machinePrice").val(data.price);
                     },
-                    error: fail                        
-                });                   
+                    error: fail
+                });
             }
-            
+
             // tractorize
             function updateMachine(id) {
-                var mName         = $("#machineName").val();
-                var mType         = $("#machineType").val();
+                var mName = $("#machineName").val();
+                var mType = $("#machineType").val();
                 var maDescription = $("#machineDescription").val();
-                var mPrice        = $("#machinePrice").val(); 
-                
+                var mPrice = $("#machinePrice").val();
+
                 $.ajax({
                     url: '/pa165/rest/service/machine/update/' + id, // ukazujeme URL a
                     type: 'PUT',
@@ -190,7 +190,7 @@
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllMachines();
-                        resetForm();                         
+                        resetForm();
                     },
                     error: fail
                 });
@@ -220,13 +220,13 @@
                 $("#machineType").val("");
                 $("#machineDescription").val("");
                 $("#machinePrice").val("");
-            }   
-            
-        //multiple choice    
-        function machineType() {
-            //c_legal = document.forms[0].c_legal.value;
-            machineType = document.forms[0].machineType.value;
-        }            
+            }
+
+            //multiple choice    
+            function machineType() {
+                //c_legal = document.forms[0].c_legal.value;
+                machineType = document.forms[0].machineType.value;
+            }
         </script>
     </head>
     <body>
@@ -251,146 +251,154 @@
 
         <div class="alert alert-danger" id="alert">
             <a href="#" class="close" onclick="$('#alert').hide();">&times;</a>
-            <strong>Error!</strong> Odds fish, my dear, there was a problem with your network connection. Or maybe another problem.
+            <strong>Error!</strong> there was a problem with your network connection. Or maybe another problem.
         </div>        
         <br>
         <br>        
-        <h2>Machine form</h2>
-        
-        <table class="table table-striped" id="machines">
-            <thead>
-                <tr>
-                    <th>Name:</th>
-                    <th><input id="machineName" type="text"></th>
-                </tr>
-                <tr>
-                    <th>Type:</th>
-                    <th>
-                        <select id="machineType" onchange="machineType()">
-                            <option value="N/A"></option>
-                            <option value="TRACTOR">Tractor</option>
-                            <option value="EXCAVATOR">Excavator</option>
-                            <option value="LORRY">Lorry</option>                               
-                        </select>
-                    </th>
-                </tr>
-                <tr>
-                    <th>Description:</th>
-                    <th><input id="machineDescription" type="text"></th>
-                </tr> 
-                <tr>
-                    <th>Price:</th>
-                    <th><input id="machinePrice" type="number"></th>
-                </tr> 
+        <h3>Machine form</h3>
 
-                <tr>
-                    <th>&nbsp;</th>
-                    <th>
-                        <button id="create" type='button' class='btn btn-default' onClick="createMachine()">Create machine</button>
-                        <button id="reset"  type='button' class='btn btn-default' onClick="resetForm()">Reset</button>  
-                    </th>
-                </tr>  
-                    <tr>
-                        <th>Search:</th>
-                        <tr>
-                            <th>By type:</th>
-                            <th>
-                                <select id="typeOfMachine" onchange="machineType()">
-                                    <option value="N/A"></option>
-                                    <option value="TRACTOR">Tractor</option>
-                                    <option value="EXCAVATOR">Excavator</option>
-                                    <option value="LORRY">Lorry</option>                               
-                                </select>
-                            </th>
-                            <th>
-                                <button id="search"  type='button' class='btn btn-default' onClick="getType( $('#typeOfMachine').val() )">Search by type</button>
-                                <button id="getAllCustomer" type='button' class='btn btn-default' onClick="getAllMachines()">Get all machines</button>
-                            </th>
-                  
+        <table class="table table-striped" id="machinesForm">
+            <tr>
+                <th>Name:</th>
+                <th><input id="machineName" type="text"></th>
+            </tr>
+            <tr>
+                <th>Type:</th>
+                <th>
+                    <select id="machineType" onchange="machineType()">
+                        <option value="N/A"></option>
+                        <option value="TRACTOR">Tractor</option>
+                        <option value="EXCAVATOR">Excavator</option>
+                        <option value="LORRY">Lorry</option>                               
+                    </select>
+                </th>
+            </tr>
+            <tr>
+                <th>Description:</th>
+                <th><input id="machineDescription" type="text"></th>
+            </tr> 
+            <tr>
+                <th>Price:</th>
+                <th><input id="machinePrice" type="number"></th>
+            </tr> 
 
-                            <th>&nbsp;</th>
-                        </tr> 
-              
-                <tr>
-                    <th>id</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Tools</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <h3>Detail</h3>
-        <div class="row">
-            <div class="col-sm-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Id</h3>
-                    </div>
-                    <div class="panel-body" id="mId">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Name</h3>
-                    </div>
-                    <div class="panel-body" id="mName">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Type</h3>
-                    </div>
-                    <div class="panel-body" id="mType">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Price</h3>
-                    </div>
-                    <div class="panel-body" id="mPrice">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Available</h3>
-                    </div>
-                    <div class="panel-body" id="mAvail">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
+            <tr>
+                <th>&nbsp;</th>
+                <th>
+                    <button id="create" type='button' class='btn btn-default' onClick="createMachine()">Create machine</button>
+                    <button id="reset"  type='button' class='btn btn-default' onClick="resetForm()">Reset</button>  
+                </th>
+            </tr>  
+        </table>    
+        <br>
+        <br>
+        <h3>Search machines</h3>
+        <table class="table table-striped" id="machinesList">
+            <th>By type:</th>
+            <th>
+                <select id="typeOfMachine" onchange="machineType()">
+                    <option value="N/A"></option>
+                    <option value="TRACTOR">Tractor</option>
+                    <option value="EXCAVATOR">Excavator</option>
+                    <option value="LORRY">Lorry</option>                               
+                </select>
+            </th>
+            <th>
+                <button id="search"  type='button' class='btn btn-default' onClick="getType($('#typeOfMachine').val())">Search by type</button>
+                <button id="getAllCustomer" type='button' class='btn btn-default' onClick="getAllMachines()">Get all machines</button>
+            </th>
+
+
+            <th>&nbsp;</th>
+        </tr>             
+    </table>
+    <br>
+    <br>
+    <br>
+    <table class="table table-striped" id="machines">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Tools</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <h3>Detail</h3>
+    <div class="row">
+        <div class="col-sm-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Description</h3>
+                    <h4 class="panel-title">Id</h4>
                 </div>
-                <div class="panel-body" id="mDescription">
+                <div class="panel-body" id="mId">
                 </div>
             </div>
         </div>
-        <h4>Revisions</h4>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Name</h4>
+                </div>
+                <div class="panel-body" id="mName">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Type</h4>
+                </div>
+                <div class="panel-body" id="mType">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Price</h4>
+                </div>
+                <div class="panel-body" id="mPrice">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Available</h4>
+                </div>
+                <div class="panel-body" id="mAvail">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Description</h3>
+            </div>
+            <div class="panel-body" id="mDescription">
+            </div>
+        </div>
+    </div>
+    <br>
+    
+    <h3>Revisions</h3>
 
-        <ul class="list-group" id="mRevisions">
-        </ul>
+    <ul class="list-group" id="mRevisions">
+    </ul>
 
-        <script>
-            $('#alert').hide();
-            $(function () {
-                getAllMachines();
-            });
-        </script>
+    <script>
+        $('#alert').hide();
+        $(function () {
+            getAllMachines();
+        });
+    </script>
 
-    </body>
+</body>
 </html>
