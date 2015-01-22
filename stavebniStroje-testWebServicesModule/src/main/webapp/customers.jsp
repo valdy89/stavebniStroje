@@ -127,7 +127,7 @@
                 });
             }
         
-        function searchUser(search) {
+            function searchUser(search) {
                 $.ajax({
                     url: '/pa165/rest/service/customer/search/' + search, // ukazujeme URL a
                     type: 'GET',
@@ -135,17 +135,18 @@
                     error: fail
                 });
             }
-        function preferedBrowser() {
+        
+            function preferedBrowser() {
             prefer = document.forms[0].browsers.value;
              alert("You prefer browsing internet with " + prefer);
         }
 
-        //multiple choice    
-        function legalStatus() {
+            //multiple choice    
+            function legalStatus() {
             c_legal = document.forms[0].c_legal.value;
         }
         
-        function resetForm() {
+            function resetForm() {
             $("#customerFirstName").val("");
             $("#customerSecondName").val("");
             $("#customerAddress").val("");
@@ -164,9 +165,9 @@
                     <ul class="nav navbar-nav">
                         <!-- potrebujeme dodat class="active" pokud ma byt odkaz aktivni -->
                         <li><a href="index.jsp">Home</a></li>
-                        <li><a href="customers.jsp">Customer tests</a></li>
-                        <li><a href="machines.jsp">Machines tests</a></li>
-                        <li><a href="rents.jsp">Rents tests</a></li>
+                        <li><a href="customers.jsp">Customer</a></li>
+                        <li><a href="machines.jsp">Machines</a></li>
+                        <li><a href="rents.jsp">Rents</a></li>
                     </ul> 
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="${pageContext.request.contextPath}/about.jsp">About</a></li>
@@ -174,7 +175,7 @@
                 </div>
             </div>
         </nav>
-        <h1>Customers tests</h1>
+
 
         <div class="alert alert-danger" id="alert">
             <a href="#" class="close" onclick="$('#alert').hide();">&times;</a>
@@ -183,13 +184,9 @@
 
     <br>
     <br>
-    <h2>Customer form</h2>
-
-   
-        <table class="table table-striped" id="users">
-            <thead>
-
-                 <form id="theForm">     
+    <h3>Customer form</h3>
+    <br>
+        <table class="table table-striped" id="usersForm">
                     <tr>
                         <th>First name:</th>
                         <th><input id="customerFirstName" type="text"></th>
@@ -221,32 +218,35 @@
                             
                         </th>                        
                         <th>
-                        <th>&nbsp;</th>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     </tr>
-                    <tr>
-                        <th>Search for :</th>
-                        <th>
-                            <input id="searchParameter" type="text">
-                            <button id="search"  type='button' class='btn btn-default' onClick="searchUser($('#searchParameter').val())">Search by name</button>
-                            <button id="getAllCustomer" type='button' class='btn btn-default' onClick="getAllCustomers()">Get all customers</button>
-                        </th>                            
-                        
-                    </tr>
-                    </form>
-     
-         <tr>
-
-            <th>id</th>
-            <th>First name</th>
-            <th>Second name</th>
-            <th>Address</th>
-            <th>Legal Status</th>
-            <th>Tools</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+        </table>
+    <br>
+    <br>
+    <h3>Search customers</h3>
+    <br>    
+        <table class="table table-striped" id="usersSearch">
+                <th><input id="searchParameter" type="text"></th>
+                <th>
+                    <button id="search"  type='button' class='btn btn-default' onClick="searchUser($('#searchParameter').val())">Search by name</button>
+                    <button id="getAllCustomer" type='button' class='btn btn-default' onClick="getAllCustomers()">Get all customers</button>
+                </th>
+                <th></th>
+        </table>
+        <table class="table table-striped" id="users">
+            <thead>
+                <tr>
+                    <th width="5%">id</th>
+                    <th width="19%">First name</th>
+                    <th width="19%">Second name</th>
+                    <th width="19%">Address</th>
+                    <th width="19%">Legal Status</th>
+                    <th width="19%">Tools</th>
+                </tr>                
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
 
 <script>
     $('#alert').hide();
