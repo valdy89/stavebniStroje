@@ -6,27 +6,32 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
  
-    <http use-expressions="true">
+    <http use-expressions="true" auto-config="true">
+        <intercept-url pattern="/*" access="permitAll()" />
         <intercept-url pattern="/admin/**" access="isAuthenticated()" />
-        <intercept-url pattern="/**" access="permitAll()" />
-		
+        <intercept-url pattern="/admin/customer/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/admin/revision/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/admin/machine/**" access="ROLE_ADMIN" />
+        
+        	
         <!-- form login -->
         <form-login 
             login-page="/login.jsp" 
-            default-target-url="/admin/machine" 
+            default-target-url="/admin/rent" 
             authentication-failure-url="/login.jsp?error" />
  
         <!-- logout -->
         <logout logout-url="/j_spring_security_logout" logout-success-url="/login.jsp"/>
+  
     </http>
 	
     <global-method-security pre-post-annotations="enabled"/>
 	
-	<authentication-manager>
-		<authentication-provider user-service-ref="userDetailsService">
-	    	<password-encoder ref="passwordEncoder" />
-		</authentication-provider>
-	</authentication-manager>
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDetailsService">
+            <password-encoder ref="passwordEncoder" />
+        </authentication-provider>
+    </authentication-manager>
  
 </beans:beans>
 

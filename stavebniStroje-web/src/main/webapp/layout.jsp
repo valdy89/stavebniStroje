@@ -2,9 +2,10 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <s:layout-definition>
     <!DOCTYPE html>
-    <html lang="${pageContext.request.locale}">
+    <html>
         <head>
             <title><f:message key="${titlekey}"/></title>
 
@@ -17,7 +18,7 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
             <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
- 
+
             <!-- Bootstrap základ konec -->
             <s:layout-component name="header"/>
         </head>
@@ -38,16 +39,36 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <!-- potrebujeme dodat class="active" pokud ma byt odkaz aktivni -->
-                            <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean"><f:message key="navigation.machineList"/></s:link></li>
-                            <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean"><f:message key="navigation.customerList"/></s:link></li>
-                            <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean"><f:message key="navigation.rentList"/></s:link></li>                                 
-                            </ul> 
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="${pageContext.request.contextPath}/about.jsp"><f:message key="navigation.about"/></a></li>
+
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.MachineActionBean"><f:message key="navigation.machineList"/></s:link></li>
+                                <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.CustomerActionBean"><f:message key="navigation.customerList"/></s:link></li>
+                                </sec:authorize>
+                                <sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+                                <li><s:link beanclass="cz.muni.fi.stavebnistroje.web.RentActionBean"><f:message key="navigation.rentList"/></s:link></li>                                 
+                                </sec:authorize>
+                        </ul> 
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="${pageContext.request.contextPath}/about.jsp"><f:message key="navigation.about"/></a></li>
+                                
+                            <c:if test="${pageContext.request.userPrincipal.name != null}">
+                            	<c:url value="/j_spring_security_logout" var="logoutUrl" />
+                                <li><a href="${logoutUrl}"> Logout</a></li>
+                            </c:if>
+                        </ul>
+                        <!-- Roles display -->
+                        <sec:authentication property="authorities" var="roles" scope="page" />
+                        Your roles are:
+                        <ul>
+                            <c:forEach var="role" items="${roles}">
+                                <li>${role}</li>
+                                </c:forEach>
                         </ul>
                     </div>
                 </div>
             </nav>
+
+
 
 
 

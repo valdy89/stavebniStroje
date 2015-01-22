@@ -44,6 +44,8 @@ public class CustomerActionBean extends BaseActionBean implements ValidationErro
         @Validate(on = {"add", "save"}, field = "secondName", required = true),
         @Validate(on = {"add", "save"}, field = "address", required = true),
         @Validate(on = {"add", "save"}, field = "password", required = true),
+        @Validate(on = {"add", "save"}, field = "role", required = true),
+        @Validate(on = {"add", "save"}, field = "username", required = true),
         @Validate(on = {"add", "save"}, field = "legalStatus", required = true),})
     private CustomerDto customer;
     private String search;
