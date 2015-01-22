@@ -10,17 +10,17 @@
         
        <form action="<c:url value='j_spring_security_check' />" id="loginForm" method="post">
     
-<!--    <c:if test="${param.error == 'true'}">
+<!--   <c:if test="${param.error == 'true'}">
         <div class="error">Login Failed.</div>
     </c:if>-->
 
-    <label for="username" id="username-label">Username</label>
-    <input id="username" type="text" name="j_username" class="form-control" />
+    <label for="username" id="username-label">Username</label><br />
+    <input id="username" size="20" type="text" name="j_username" class="form-control" /><br />
      
     
 
     <label for="password">Password</label><br/>
-    <input id="password" type="password" name="j_password" class="form-control" /><br/>
+    <input id="password" size="20" type="password" name="j_password" class="form-control" /><br/>
 
     <input type="checkbox" name="rememberMe" id="rememberMe"/>
     <label for="rememberMe" style="vertical-align: top">Remember Me</label><br/>

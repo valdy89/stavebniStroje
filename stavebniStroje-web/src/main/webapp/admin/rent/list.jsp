@@ -141,9 +141,10 @@
                             <s:submit name="add" class="btn btn-success">
                                 <f:message key="all.btn.save"/>
                             </s:submit>
-                            <button type="reset" class="btn btn-default" data-dismis="modal">
+                            <button type="reset" class="btn btn-default" data-dismiss="modal">
                                 <f:message key="all.btn.cancel"/>
                             </button>
+                            
                         </div>
                     </div>
                 </s:form>
@@ -157,6 +158,16 @@
                 $('#startOfRent,#endOfRent,#date').datepicker({dateFormat: 'yy-mm-dd'});
                 $('#date').attr('placeholder', '<f:message key="rent.search.date"/>');
             });
+            
+             $(document).ready(function() {
+
+
+                if ($("#displayModalErrors").length) {
+                    $('#addRentModal').modal('show');
+                }
+
+
+            })
         </script>
     </s:layout-component>
 </s:layout-render>
