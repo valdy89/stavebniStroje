@@ -20,6 +20,7 @@ import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,6 +49,7 @@ public class RentServiceImpl implements RentService {
     }
 
     @Transactional(readOnly = true)
+    @PreAuthorize("hasRole('ROLE_ADMIN','ROLE_USER')")
     private boolean isRentValid(Rent rent, Machine machine) {
         DateRange rentRange = new DateRange(rent.getStartOfRent(), rent.getEndOfRent());
         for (Rent r : machine.getRents()) {
@@ -64,6 +66,7 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN','ROLE_USER')")
     public void newRent(RentDto rentDto) {
         if (rentDto == null) {
             throw new IllegalArgumentException("Argument rentDto is null");
@@ -79,6 +82,7 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN','ROLE_USER')")
     public void updateRent(RentDto rentDto) {
         if (rentDto == null) {
             throw new IllegalArgumentException("Argument rentDto is null");
@@ -93,6 +97,7 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN','ROLE_USER')")
     public void removeRent(RentDto rentDto) {
         if (rentDto == null) {
             throw new IllegalArgumentException("Argument rentDto is null");
@@ -102,6 +107,7 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN','ROLE_USER')")
     public RentDto findRentById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Argument id was null");
@@ -112,6 +118,7 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN','ROLE_USER')")
     public Collection<RentDto> findAllRent() {
         Collection<RentDto> rents = new ArrayList<>();
         for (Rent rent : rentDao.findAll()) {
@@ -121,6 +128,7 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN','ROLE_USER')")
     public Collection<RentDto> findRentByDate(Date date) {
         if (date == null) {
             throw new IllegalArgumentException("Argument date was null.");

@@ -9,9 +9,9 @@
     <http use-expressions="true" auto-config="true">
         <intercept-url pattern="/*" access="permitAll()" />
         <intercept-url pattern="/admin/**" access="isAuthenticated()" />
-        <intercept-url pattern="/admin/customer/**" access="ROLE_ADMIN" />
-        <intercept-url pattern="/admin/revision/**" access="ROLE_ADMIN" />
-        <intercept-url pattern="/admin/machine/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/admin/customer/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/admin/revision/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/admin/machine/**" access="hasRole('ROLE_ADMIN')" />
         
         	
         <!-- form login -->

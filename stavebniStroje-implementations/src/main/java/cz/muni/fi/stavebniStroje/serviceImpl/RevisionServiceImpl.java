@@ -18,6 +18,7 @@ import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +41,7 @@ public class RevisionServiceImpl implements RevisionService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void newRevision(RevisionDto revisionDto) {
         if (revisionDto == null) {
             throw new IllegalArgumentException("Argument revisionDto is null");
@@ -50,6 +52,7 @@ public class RevisionServiceImpl implements RevisionService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateRevision(RevisionDto revisionDto) {
         if (revisionDto == null) {
             throw new IllegalArgumentException("Argument revisionDto is null");
@@ -64,6 +67,7 @@ public class RevisionServiceImpl implements RevisionService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void removeRevision(RevisionDto revisionDto) {
         if (revisionDto == null) {
             throw new IllegalArgumentException("Argument revisionDto is null");
@@ -73,6 +77,7 @@ public class RevisionServiceImpl implements RevisionService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public RevisionDto findRevisionById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Argument id was null");
@@ -83,6 +88,7 @@ public class RevisionServiceImpl implements RevisionService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Collection<RevisionDto> findByEndOfRevision(Date date) {
         if (date == null) {
             throw new IllegalArgumentException("Argument date was null");
@@ -96,6 +102,7 @@ public class RevisionServiceImpl implements RevisionService {
 
     // nejsem si jisty zda ma byt parametr machineDto, nebo jen machine,  funkce v DAO bere jen machine
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Collection<RevisionDto> findRevisionByMachine(MachineDto machineDto) {
         if (machineDto == null) {
             throw new IllegalArgumentException("Argument machineDto was null");
@@ -108,6 +115,7 @@ public class RevisionServiceImpl implements RevisionService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Collection<RevisionDto> findAllRevision() {
         Collection<RevisionDto> revisions = new ArrayList<>();
         for (Revision revision : revisionDao.findAll()) {

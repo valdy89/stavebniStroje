@@ -57,19 +57,19 @@
                             </c:if>
                         </ul>
                         <!-- Roles display -->
-                        <sec:authentication property="authorities" var="roles" scope="page" />
+                      
+                    </div>
+                </div>
+            </nav>
+
+<!--tohle pouzit pro zjisteni aktualnich roli - pripadny vypis-->
+<!--  <sec:authentication property="authorities" var="roles" scope="page" />
                         Your roles are:
                         <ul>
                             <c:forEach var="role" items="${roles}">
                                 <li>${role}</li>
                                 </c:forEach>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-
-
+                        </ul>-->
 
 
             <!-- <div id="navigation">

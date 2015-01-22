@@ -15,6 +15,7 @@ import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void createCustomer(CustomerDto customerDto) {
         if (customerDto == null) {
             throw new IllegalArgumentException("Argument customerDto was null");
@@ -51,6 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Collection<CustomerDto> findAllCustomer() {
         Collection<CustomerDto> customers = new ArrayList<>();
         try {
@@ -65,6 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateCustomer(CustomerDto customerDto) {
         if (customerDto == null) {
             throw new IllegalArgumentException("Argument customerDto was null");
@@ -79,6 +83,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void removeCustomer(CustomerDto customerDto) {
         if (customerDto == null) {
             throw new IllegalArgumentException("Argument customerDto was null");
@@ -86,9 +91,9 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = dozerBeanMapper.map(customerDto, Customer.class);
         customerDao.remove(customer);
     }
-
+     @Override
     @Transactional(readOnly = true)
-    @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CustomerDto getCustomer(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Argument id was null");
@@ -106,6 +111,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Transactional(readOnly = true)
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Collection<CustomerDto> searchCustomer(String name) throws DataAccessException {
         if (name == null) {
             throw new IllegalArgumentException("Argument string name was null");
@@ -121,6 +127,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Transactional(readOnly = true)
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CustomerDto findByUsername(String username) {
         Customer customer = customerDao.findByUsername(username);
         if (customer == null) {

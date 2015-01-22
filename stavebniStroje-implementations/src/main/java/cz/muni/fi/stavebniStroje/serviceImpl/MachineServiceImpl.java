@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,11 +32,13 @@ public class MachineServiceImpl implements MachineService {
     DozerBeanMapper dozerBeanMapper;
 
     @Required
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void setMachineDao(MachineDao machineDao) {
         this.machineDao = machineDao;
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void newMachine(MachineDto machineDto) {
         if (machineDto == null) {
             throw new IllegalArgumentException("Argument machineDto was null");
@@ -49,6 +52,7 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateMachine(MachineDto machineDto) {
         if (machineDto == null) {
             throw new IllegalArgumentException("Argument machineDto was null");
@@ -58,6 +62,7 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void removeMachine(MachineDto machineDto) {
         if (machineDto == null) {
             throw new IllegalArgumentException("Argument machineDto was null");
@@ -68,6 +73,7 @@ public class MachineServiceImpl implements MachineService {
 
     @Transactional(readOnly = true)
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public MachineDto findMachineById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Argument id was null");
@@ -78,6 +84,7 @@ public class MachineServiceImpl implements MachineService {
 
     @Transactional(readOnly = true)
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Collection<MachineDto> findAllMachines() {
         Collection<MachineDto> machines = new ArrayList<>();
         for (Machine machine : machineDao.findAll()) {
@@ -88,6 +95,7 @@ public class MachineServiceImpl implements MachineService {
 
     @Transactional(readOnly = true)
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Collection<MachineDto> findMachinesByType(MachineType type) {
         if (type == null) {
             throw new IllegalArgumentException("Argument type was null");
