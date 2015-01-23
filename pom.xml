@@ -8,8 +8,8 @@
 
   <modules>
     <module>stavebnistroje-web</module>
-    <module>stavebnistroje-API</module>
+    <module>stavebnistroje-api</module>
     <module>stavebnistroje-implementations</module>
-    <module>stavebnistroje-testWebServicesModule</module>
+    <module>stavebnistroje-testwebservices</module>
   </modules>
 </project>
