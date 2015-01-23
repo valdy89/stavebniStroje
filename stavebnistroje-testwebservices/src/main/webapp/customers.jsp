@@ -11,14 +11,14 @@
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
         <script language="javascript">
-
+            var baseUrl = '<%=application.getInitParameter("server")+application.getInitParameter("path")%>';
             function fail() {
                 $('#alert').show();
             }
 
             function editUser(id) {
                 $.ajax({
-                    url: '/pa165/rest/service/customer/get/' + id, // ukazujeme URL a
+                    url: baseUrl + '/customer/get/' + id, // ukazujeme URL a
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
@@ -47,7 +47,7 @@
             
             function getAllCustomers() {
                 $.ajax({
-                    url: '/pa165/rest/service/customer', // ukazujeme URL a
+                    url: baseUrl + '/customer', // ukazujeme URL a
                     type: 'GET',
                     success: flushList,
                     error: fail
@@ -57,7 +57,7 @@
             function getUser(id) {
                 var id = 35;
                 $.ajax({
-                    url: '/pa165/rest/service/customer/get/' + id, // ukazujeme URL a
+                    url: baseUrl + '/customer/get/' + id, // ukazujeme URL a
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
@@ -76,7 +76,7 @@
                 var cLegal  = $("#customerLegal").val();
                 
                 $.ajax({
-                    url: '/pa165/rest/service/customer', // ukazujeme URL a
+                    url: baseUrl + '/customer', // ukazujeme URL a
                     type: 'POST',
                     contentType: "application/json",
                     data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal}),
@@ -101,7 +101,7 @@
                     
                 
                 $.ajax({
-                    url: '/pa165/rest/service/customer/update/' + id, // ukazujeme URL a
+                    url: baseUrl + '/customer/update/' + id, // ukazujeme URL a
                     type: 'PUT',
                     contentType: 'application/json',
                       data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal}),
@@ -117,7 +117,7 @@
             function deleteUser(id) {
 
                 $.ajax({
-                    url: '/pa165/rest/service/customer/delete/' + id, // ukazujeme URL a
+                    url: baseUrl + '/customer/delete/' + id, // ukazujeme URL a
                     type: 'DELETE',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
@@ -129,7 +129,7 @@
         
             function searchUser(search) {
                 $.ajax({
-                    url: '/pa165/rest/service/customer/search/' + search, // ukazujeme URL a
+                    url: baseUrl + '/customer/search/' + search, // ukazujeme URL a
                     type: 'GET',
                     success: flushList,
                     error: fail

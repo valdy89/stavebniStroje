@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
         <script language="javascript">
+            var baseUrl = '<%=application.getInitParameter("server")+application.getInitParameter("path")%>';
             var items;
             function fail() {
                 $('#alert').show();
@@ -50,7 +51,7 @@
 
             function getMachine(id) {
                 $.ajax({
-                    url: '/pa165/rest/service/machine/get/' + id, // ukazujeme URL a
+                    url: baseUrl + '/machine/get/' + id, // ukazujeme URL a
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
@@ -62,7 +63,7 @@
 
             function deleteRevision(id, machineId) {
                 $.ajax({
-                    url: '/pa165/rest/service/revision/delete/' + id,
+                    url: baseUrl + '/revision/delete/' + id,
                     type: 'DELETE',
                     success: function (data, textStatus) {
                         console.log(data);
@@ -74,7 +75,7 @@
 
             function addRevision(id, date) {
                 $.ajax({
-                    url: '/pa165/rest/service/revision',
+                    url: baseUrl + '/revision',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(
@@ -121,7 +122,7 @@
 
             function getAllMachines() {
                 $.ajax({
-                    url: '/pa165/rest/service/machine', // ukazujeme URL a
+                    url: baseUrl + '/machine', // ukazujeme URL a
                     type: 'GET',
                     success: flushList,
                     error: fail
@@ -135,7 +136,7 @@
                 var mPrice = $("#machinePrice").val();
 
                 $.ajax({
-                    url: '/pa165/rest/service/machine', // ukazujeme URL a
+                    url: baseUrl + '/machine', // ukazujeme URL a
                     type: 'POST',
                     contentType: "application/json",
                     data: JSON.stringify(
@@ -156,7 +157,7 @@
 
             function editMachine(id) {
                 $.ajax({
-                    url: '/pa165/rest/service/machine/get/' + id, // ukazujeme URL a
+                    url: baseUrl + '/machine/get/' + id, // ukazujeme URL a
                     type: 'GET',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
@@ -177,7 +178,7 @@
                 var mPrice = $("#machinePrice").val();
 
                 $.ajax({
-                    url: '/pa165/rest/service/machine/update/' + id, // ukazujeme URL a
+                    url: baseUrl + '/machine/update/' + id, // ukazujeme URL a
                     type: 'PUT',
                     contentType: 'application/json',
                     data: JSON.stringify(
@@ -198,7 +199,7 @@
 
             function deleteMachine(id) {
                 $.ajax({
-                    url: '/pa165/rest/service/machine/delete/' + id, // ukazujeme URL a
+                    url: baseUrl + '/machine/delete/' + id, // ukazujeme URL a
                     type: 'DELETE',
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
@@ -209,7 +210,7 @@
             }
             function getType(search) {
                 $.ajax({
-                    url: '/pa165/rest/service/machine/type/' + search, // ukazujeme URL a
+                    url: baseUrl + '/machine/type/' + search, // ukazujeme URL a
                     type: 'GET',
                     success: flushList,
                     error: fail
