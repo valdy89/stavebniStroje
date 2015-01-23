@@ -30,6 +30,9 @@
                         $("#customerSecondName").val(data.secondName);
                         $("#customerAddress").val(data.address);
                         $("#customerLegal").val(data.legalStatus);
+                        $("#username").val(data.username);
+                        $("#password").val(data.password);
+                        $("#userRole").val(data.role);
                     },
                     error: fail
                 });
@@ -78,12 +81,15 @@
 
 
             function createUser() {
-
-                var fName = $("#customerFirstName").val();
-                var lName = $("#customerSecondName").val();
-                var cAddress = $("#customerAddress").val();
-                var cLegal = $("#customerLegal").val();
-
+                
+                var fName      = $("#customerFirstName").val();
+                var lName      = $("#customerSecondName").val();
+                var cAddress   = $("#customerAddress").val();
+                var cLegal     = $("#customerLegal").val();
+                var cUsername  = $("#username").val();
+                var cPassword  = $("#password").val();
+                var cRole      = $("#userRole").val(); 
+        
                 $.ajax({
                     url: baseUrl + '/customer', // ukazujeme URL a
                     type: 'POST',
@@ -91,7 +97,7 @@
                         "Authorization": "Basic " + btoa("rest:rest")
                     },
                     contentType: "application/json",
-                    data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal}),
+                    data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal, "username": cUsername, "password": cPassword, "role": cRole}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllCustomers();
@@ -104,14 +110,16 @@
 
             function updateUser(id) {
 
-                var fName = $("#customerFirstName").val();
-                var lName = $("#customerSecondName").val();
-                var cAddress = $("#customerAddress").val();
-                var cLegal = $("#customerLegal").val();
-
-
-
-
+                var fName   = $("#customerFirstName").val();
+                var lName   = $("#customerSecondName").val();
+                var cAddress= $("#customerAddress").val();
+                var cLegal  = $("#customerLegal").val();
+                var cUsername  = $("#username").val();
+                var cPassword  = $("#password").val();
+                var cRole      = $("#userRole").val();
+                    
+                    
+                
                 $.ajax({
                     url: baseUrl + '/customer/update/' + id, // ukazujeme URL a
                     type: 'PUT',
@@ -119,7 +127,6 @@
                         "Authorization": "Basic " + btoa("rest:rest")
                     },
                     contentType: 'application/json',
-                    data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllCustomers();
@@ -168,11 +175,7 @@
             }
 
             function resetForm() {
-                $("#customerFirstName").val("");
-                $("#customerSecondName").val("");
-                $("#customerAddress").val("");
-                $("#customerLegal").val("");
-            }
+                      data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal, "username": cUsername, "password": cPassword, "role": cRole}),
 
         </script>
 
@@ -208,29 +211,14 @@
         <h3>Customer form</h3>
         <br>
         <table class="table table-striped" id="usersForm">
-            <tr>
-                <th>First name:</th>
-                <th><input id="customerFirstName" type="text"></th>
-            </tr>
-            <tr>
-                <th>Second name:</th>
-                <th><input id="customerSecondName" type="text"></th>
-            </tr>                          
-            <tr>
-                <th>Address:</th>
-                <th><input id="customerAddress" type="text"></th>
-            </tr>          
-            <tr>
-                <th>Legal status:</th>
-                <th>
-                    <select id="customerLegal" onchange="legalStatus()">
-                        <option value="NATURAL">Natural</option>
-                        <option value="LEGAL">Legal</option>
-                    </select>
-                </th>
-            </tr>   
-            <tr>
-                <th>&nbsp;</th>
+            $("#customerFirstName").val("");
+            $("#customerSecondName").val("");
+            $("#customerAddress").val("");
+            $("#customerLegal").val("");
+            $("#username").val("");
+            $("#password").val("");
+           $("#userRole").val("");            
+        }
                 <th>
                     <button id="create" type='button' class='btn btn-default' onClick="createUser()">Create customer</button>
                     <button id="reset"  type='button' class='btn btn-default' onClick="resetForm()">Reset</button>  
@@ -278,3 +266,60 @@
 
     </body>
 </html>
+                    <tr>
+                        <th>First name:</th>
+                        <th><input id="customerFirstName" type="text"></th>
+                    </tr>
+                    <tr>
+                        <th>Second name:</th>
+                        <th><input id="customerSecondName" type="text"></th>
+                    </tr>                          
+                    <tr>
+                        <th>Address:</th>
+                        <th><input id="customerAddress" type="text"></th>
+                    </tr>          
+                    <tr>
+                        <th>Legal status:</th>
+                        <th>
+                            <select id="customerLegal" onchange="legalStatus()">
+                               <option value="NATURAL">Natural</option>
+                               <option value="LEGAL">Legal</option>
+                            </select>
+                        </th>
+                    </tr>   
+                    <tr>
+                        <th>Username:</th>
+                        <th><input id="username" type="text"></th>
+                    </tr>  
+                    <tr>
+                        <th>Password:</th>
+                        <th><input id="username" type="password"></th>
+                    </tr>   
+                    <tr>
+                        <th>User role:</th>
+                        <th>
+                            <select id="userRole" onchange="legalStatus()">
+                               <option value="ROLE_USER">ROLE_USER</option>
+                               <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                            </select>
+                        </th>
+                    </tr>                      
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>
+                            <button id="create" type='button' class='btn btn-default' onClick="createUser()">Create customer</button>
+                            <button id="reset"  type='button' class='btn btn-default' onClick="resetForm()">Reset</button>  
+                        </th>
+                        <th>
+                            
+                        </th>                        
+                        <th>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    </tr>
+        </table>
+    <br>
+    <br>
+    <h3>Search customers</h3>
+    <br>    
+        <table class="table table-striped" id="usersSearch">
+                <th><input id="searchParameter" type="text"></th>
