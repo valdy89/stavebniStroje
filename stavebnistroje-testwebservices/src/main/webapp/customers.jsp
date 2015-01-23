@@ -27,6 +27,9 @@
                         $("#customerSecondName").val(data.secondName);
                         $("#customerAddress").val(data.address);
                         $("#customerLegal").val(data.legalStatus);
+                        $("#username").val(data.username);
+                        $("#password").val(data.password);
+                        $("#userRole").val(data.role);
                     },
                     error: fail
                 });                
@@ -70,16 +73,19 @@
 
             function createUser() {
                 
-                var fName   = $("#customerFirstName").val();
-                var lName   = $("#customerSecondName").val();
-                var cAddress= $("#customerAddress").val();
-                var cLegal  = $("#customerLegal").val();
-                
+                var fName      = $("#customerFirstName").val();
+                var lName      = $("#customerSecondName").val();
+                var cAddress   = $("#customerAddress").val();
+                var cLegal     = $("#customerLegal").val();
+                var cUsername  = $("#username").val();
+                var cPassword  = $("#password").val();
+                var cRole      = $("#userRole").val(); 
+        
                 $.ajax({
                     url: baseUrl + '/customer', // ukazujeme URL a
                     type: 'POST',
                     contentType: "application/json",
-                    data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal}),
+                    data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal, "username": cUsername, "password": cPassword, "role": cRole}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllCustomers();
@@ -92,11 +98,13 @@
             
             function updateUser(id) {
 
-            var fName   = $("#customerFirstName").val();
-            var lName   = $("#customerSecondName").val();
-            var cAddress= $("#customerAddress").val();
-            var cLegal  = $("#customerLegal").val();
-
+                var fName   = $("#customerFirstName").val();
+                var lName   = $("#customerSecondName").val();
+                var cAddress= $("#customerAddress").val();
+                var cLegal  = $("#customerLegal").val();
+                var cUsername  = $("#username").val();
+                var cPassword  = $("#password").val();
+                var cRole      = $("#userRole").val();
                     
                     
                 
@@ -104,7 +112,7 @@
                     url: baseUrl + '/customer/update/' + id, // ukazujeme URL a
                     type: 'PUT',
                     contentType: 'application/json',
-                      data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal}),
+                      data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal, "username": cUsername, "password": cPassword, "role": cRole}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllCustomers();
@@ -208,6 +216,23 @@
                             </select>
                         </th>
                     </tr>   
+                    <tr>
+                        <th>Username:</th>
+                        <th><input id="username" type="text"></th>
+                    </tr>  
+                    <tr>
+                        <th>Password:</th>
+                        <th><input id="username" type="password"></th>
+                    </tr>   
+                    <tr>
+                        <th>User role:</th>
+                        <th>
+                            <select id="userRole" onchange="legalStatus()">
+                               <option value="ROLE_USER">ROLE_USER</option>
+                               <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                            </select>
+                        </th>
+                    </tr>                      
                     <tr>
                         <th>&nbsp;</th>
                         <th>
