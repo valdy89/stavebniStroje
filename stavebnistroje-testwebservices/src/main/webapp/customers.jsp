@@ -159,6 +159,9 @@
             $("#customerSecondName").val("");
             $("#customerAddress").val("");
             $("#customerLegal").val("");
+            $("#username").val("");
+            $("#password").val("");
+           $("#userRole").val("");            
         }
 
         </script>
