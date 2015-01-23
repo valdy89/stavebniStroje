@@ -53,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public Collection<CustomerDto> findAllCustomer() {
         Collection<CustomerDto> customers = new ArrayList<>();
         try {
@@ -93,7 +93,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
      @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public CustomerDto getCustomer(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Argument id was null");
@@ -111,7 +111,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Transactional(readOnly = true)
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public Collection<CustomerDto> searchCustomer(String name) throws DataAccessException {
         if (name == null) {
             throw new IllegalArgumentException("Argument string name was null");
@@ -127,7 +127,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Transactional(readOnly = true)
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public CustomerDto findByUsername(String username) {
         Customer customer = customerDao.findByUsername(username);
         if (customer == null) {

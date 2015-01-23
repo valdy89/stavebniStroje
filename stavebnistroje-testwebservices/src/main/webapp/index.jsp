@@ -30,15 +30,15 @@
                         <ul class="nav navbar-nav">
                             <!-- potrebujeme dodat class="active" pokud ma byt odkaz aktivni -->
                             <li><a href="index.jsp">Home</a></li>
-                            <li><a href="customers.jsp">Customer tests</a></li>
-                            <li><a href="machines.jsp">Machines tests</a></li>
-                            <li><a href="rents.jsp">Rents tests</a></li>
+                            <li><a href="customers.jsp">Customers</a></li>
+                            <li><a href="machines.jsp">Machiness</a></li>
+                           
                         </ul> 
                             
                     </div>
                 </div>
             </nav>
-        <h1>Hello World!</h1>
+        <h1>Application designed for testing web services!</h1>
 
        
     </body>

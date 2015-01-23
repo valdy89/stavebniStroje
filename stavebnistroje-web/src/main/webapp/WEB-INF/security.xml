@@ -12,7 +12,7 @@
         <intercept-url pattern="/admin/customer/**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/admin/revision/**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/admin/machine/**" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/admin/rent/**" access="isAuthenticated()" />
+        <intercept-url pattern="/admin/rent/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
         
         	
         <!-- form login -->

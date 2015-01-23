@@ -73,7 +73,7 @@ public class MachineServiceImpl implements MachineService {
 
     @Transactional(readOnly = true)
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public MachineDto findMachineById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Argument id was null");
@@ -84,7 +84,7 @@ public class MachineServiceImpl implements MachineService {
 
     @Transactional(readOnly = true)
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public Collection<MachineDto> findAllMachines() {
         Collection<MachineDto> machines = new ArrayList<>();
         for (Machine machine : machineDao.findAll()) {
@@ -95,7 +95,7 @@ public class MachineServiceImpl implements MachineService {
 
     @Transactional(readOnly = true)
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+   @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public Collection<MachineDto> findMachinesByType(MachineType type) {
         if (type == null) {
             throw new IllegalArgumentException("Argument type was null");

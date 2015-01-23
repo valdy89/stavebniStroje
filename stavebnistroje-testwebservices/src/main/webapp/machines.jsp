@@ -240,7 +240,7 @@
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="customers.jsp">Customers</a></li>
                         <li><a href="machines.jsp">Machines</a></li>
-                        <li><a href="rents.jsp">Rents</a></li>
+                        
                     </ul> 
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="${pageContext.request.contextPath}/about.jsp">About</a></li>
