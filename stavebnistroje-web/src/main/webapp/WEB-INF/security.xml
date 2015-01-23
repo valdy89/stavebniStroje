@@ -8,6 +8,8 @@
  
     <http use-expressions="true" auto-config="true">
         <intercept-url pattern="/*" access="permitAll()" />
+        <intercept-url pattern="/rest/**" access="hasRole('ROLE_ADMIN')" />
+        
         <intercept-url pattern="/admin/**" access="isAuthenticated()" />
         <intercept-url pattern="/admin/customer/**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/admin/revision/**" access="hasRole('ROLE_ADMIN')" />
@@ -31,6 +33,11 @@
     <authentication-manager>
         <authentication-provider user-service-ref="userDetailsService">
             <password-encoder ref="passwordEncoder" />
+        </authentication-provider>
+        <authentication-provider>
+            <user-service>
+                <user name="rest" password="rest" authorities="ROLE_ADMIN, ROLE_USER"/>
+            </user-service>
         </authentication-provider>
     </authentication-manager>
  

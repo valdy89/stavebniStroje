@@ -53,6 +53,9 @@
                 $.ajax({
                     url: baseUrl + '/machine/get/' + id, // ukazujeme URL a
                     type: 'GET',
+                     headers: {
+                        "Authorization": "Basic " + btoa("rest:rest")
+                    },
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         flushMachine(data);
@@ -65,6 +68,9 @@
                 $.ajax({
                     url: baseUrl + '/revision/delete/' + id,
                     type: 'DELETE',
+                     headers: {
+                        "Authorization": "Basic " + btoa("rest:rest")
+                    },
                     success: function (data, textStatus) {
                         console.log(data);
                         getMachine(machineId);
@@ -77,6 +83,9 @@
                 $.ajax({
                     url: baseUrl + '/revision',
                     type: 'POST',
+                     headers: {
+                        "Authorization": "Basic " + btoa("rest:rest")
+                    },
                     contentType: 'application/json',
                     data: JSON.stringify(
                             {
@@ -124,6 +133,9 @@
                 $.ajax({
                     url: baseUrl + '/machine', // ukazujeme URL a
                     type: 'GET',
+                     headers: {
+                        "Authorization": "Basic " + btoa("rest:rest")
+                    },
                     success: flushList,
                     error: fail
                 });
@@ -138,6 +150,9 @@
                 $.ajax({
                     url: baseUrl + '/machine', // ukazujeme URL a
                     type: 'POST',
+                     headers: {
+                        "Authorization": "Basic " + btoa("rest:rest")
+                    },
                     contentType: "application/json",
                     data: JSON.stringify(
                             {
@@ -159,6 +174,9 @@
                 $.ajax({
                     url: baseUrl + '/machine/get/' + id, // ukazujeme URL a
                     type: 'GET',
+                     headers: {
+                        "Authorization": "Basic " + btoa("rest:rest")
+                    },
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         $("#machineName").val(data.name);
@@ -180,6 +198,9 @@
                 $.ajax({
                     url: baseUrl + '/machine/update/' + id, // ukazujeme URL a
                     type: 'PUT',
+                     headers: {
+                        "Authorization": "Basic " + btoa("rest:rest")
+                    },
                     contentType: 'application/json',
                     data: JSON.stringify(
                             {
@@ -201,6 +222,9 @@
                 $.ajax({
                     url: baseUrl + '/machine/delete/' + id, // ukazujeme URL a
                     type: 'DELETE',
+                     headers: {
+                        "Authorization": "Basic " + btoa("rest:rest")
+                    },
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllMachines();
@@ -212,6 +236,9 @@
                 $.ajax({
                     url: baseUrl + '/machine/type/' + search, // ukazujeme URL a
                     type: 'GET',
+                     headers: {
+                        "Authorization": "Basic " + btoa("rest:rest")
+                    },
                     success: flushList,
                     error: fail
                 });
