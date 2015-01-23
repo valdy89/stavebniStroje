@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
         <script language="javascript">
-            var baseUrl = '<%=application.getInitParameter("server") + application.getInitParameter("path")%>';
+            var baseUrl = '<%=application.getInitParameter("server")+application.getInitParameter("path")%>';
             function fail() {
                 $('#alert').show();
             }
@@ -22,7 +22,7 @@
                     type: 'GET',
                     headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
-                    },
+                    },                    
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         $("#update").show();
@@ -35,29 +35,29 @@
                         $("#userRole").val(data.role);
                     },
                     error: fail
-                });
+                });                
+    
 
-
-            }
+    }  
 
 
             function flushList(data) { // funkce success zpracovává data
                 var print = '';
                 $.each(data, function () {
-                    print += "<tr><td>" + this.id + "</td><td>" + this.firstName + "</td><td>" + this.secondName + "</td><td>" + this.address + "</td><td>" + this.legalStatus + "</td><td><button type='button' class='btn btn-default' onclick='editUser(" + this.id + ")' >Edit</button><button type='button' class='btn btn-default' onclick='updateUser(" + this.id + ")' >Update</button><button type='button' class='btn btn-danger' onclick='deleteUser(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button></td></tr>";
+                    print += "<tr><td>" + this.id + "</td><td>" + this.firstName + "</td><td>" + this.secondName + "</td><td>" + this.address + "</td><td>" + this.legalStatus +"</td><td><button type='button' class='btn btn-default' onclick='editUser(" + this.id + ")' >Edit</button><button type='button' class='btn btn-default' onclick='updateUser(" + this.id + ")' >Update</button><button type='button' class='btn btn-danger' onclick='deleteUser(" + this.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button></td></tr>";
                 });
                 $('table#users tbody').empty().append(print);
             }
 
 
-
+            
             function getAllCustomers() {
                 $.ajax({
                     url: baseUrl + '/customer', // ukazujeme URL a
                     type: 'GET',
                      headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
-                    },
+                    },                    
                     success: flushList,
                     error: fail
                 });
@@ -70,7 +70,7 @@
                     type: 'GET',
                      headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
-                    },
+                    },                    
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         flushList(data);
@@ -93,9 +93,9 @@
                 $.ajax({
                     url: baseUrl + '/customer', // ukazujeme URL a
                     type: 'POST',
-                     headers: {
+                    headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
-                    },
+                    },                    
                     contentType: "application/json",
                     data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal, "username": cUsername, "password": cPassword, "role": cRole}),
                     success: function (data, textStatus) { // funkce success zpracovává data
@@ -106,8 +106,8 @@
                     error: fail
                 });
             }
-
-
+            
+            
             function updateUser(id) {
 
                 var fName   = $("#customerFirstName").val();
@@ -123,10 +123,11 @@
                 $.ajax({
                     url: baseUrl + '/customer/update/' + id, // ukazujeme URL a
                     type: 'PUT',
+                    contentType: 'application/json',
                      headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
-                    },
-                    contentType: 'application/json',
+                    },                    
+                    data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal, "username": cUsername, "password": cPassword, "role": cRole}),
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllCustomers();
@@ -143,7 +144,7 @@
                     type: 'DELETE',
                      headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
-                    },
+                    },                    
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
                         getAllCustomers();
@@ -151,35 +152,41 @@
                     error: fail
                 });
             }
-
+        
             function searchUser(search) {
                 $.ajax({
                     url: baseUrl + '/customer/search/' + search, // ukazujeme URL a
                     type: 'GET',
                      headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
-                    },
+                    },                    
                     success: flushList,
                     error: fail
                 });
             }
-
+        
             function preferedBrowser() {
-                prefer = document.forms[0].browsers.value;
-                alert("You prefer browsing internet with " + prefer);
-            }
+            prefer = document.forms[0].browsers.value;
+             alert("You prefer browsing internet with " + prefer);
+        }
 
             //multiple choice    
             function legalStatus() {
-                c_legal = document.forms[0].c_legal.value;
-            }
+            c_legal = document.forms[0].c_legal.value;
+        }
 
-            function resetForm() {
-                      data: JSON.stringify({"firstName": fName, "secondName": lName, "address": cAddress, "legalStatus": cLegal, "username": cUsername, "password": cPassword, "role": cRole}),
-
+       function resetForm() {
+            $("#customerFirstName").val("");
+            $("#customerSecondName").val("");
+            $("#customerAddress").val("");
+            $("#customerLegal").val("");
+            $("#username").val("");
+            $("#password").val("");
+           $("#userRole").val("");            
+        }
         </script>
-
-
+        
+  
     </head>
     <body>
 
@@ -191,7 +198,7 @@
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="customers.jsp">Customer</a></li>
                         <li><a href="machines.jsp">Machines</a></li>
-
+                       
                     </ul> 
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="${pageContext.request.contextPath}/about.jsp">About</a></li>
@@ -206,66 +213,11 @@
             <strong>Error!</strong> There was a problem with your network connection. Or maybe another problem.
         </div>        
 
-        <br>
-        <br>
-        <h3>Customer form</h3>
-        <br>
+    <br>
+    <br>
+    <h3>Customer form</h3>
+    <br>
         <table class="table table-striped" id="usersForm">
-            $("#customerFirstName").val("");
-            $("#customerSecondName").val("");
-            $("#customerAddress").val("");
-            $("#customerLegal").val("");
-            $("#username").val("");
-            $("#password").val("");
-           $("#userRole").val("");            
-        }
-                <th>
-                    <button id="create" type='button' class='btn btn-default' onClick="createUser()">Create customer</button>
-                    <button id="reset"  type='button' class='btn btn-default' onClick="resetForm()">Reset</button>  
-                </th>
-                <th>
-
-                </th>                        
-                <th>
-                <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
-            </tr>
-        </table>
-        <br>
-        <br>
-        <h3>Search customers</h3>
-        <br>    
-        <table class="table table-striped" id="usersSearch">
-            <th><input id="searchParameter" type="text"></th>
-            <th>
-                <button id="search"  type='button' class='btn btn-default' onClick="searchUser($('#searchParameter').val())">Search by name</button>
-                <button id="getAllCustomer" type='button' class='btn btn-default' onClick="getAllCustomers()">Get all customers</button>
-            </th>
-            <th></th>
-        </table>
-        <table class="table table-striped" id="users">
-            <thead>
-                <tr>
-                    <th width="5%">id</th>
-                    <th width="19%">First name</th>
-                    <th width="19%">Second name</th>
-                    <th width="19%">Address</th>
-                    <th width="19%">Legal Status</th>
-                    <th width="19%">Tools</th>
-                </tr>                
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-
-        <script>
-            $('#alert').hide();
-            $(function () {
-                getAllCustomers();
-            });
-        </script>
-
-    </body>
-</html>
                     <tr>
                         <th>First name:</th>
                         <th><input id="customerFirstName" type="text"></th>
@@ -323,3 +275,33 @@
     <br>    
         <table class="table table-striped" id="usersSearch">
                 <th><input id="searchParameter" type="text"></th>
+                <th>
+                    <button id="search"  type='button' class='btn btn-default' onClick="searchUser($('#searchParameter').val())">Search by name</button>
+                    <button id="getAllCustomer" type='button' class='btn btn-default' onClick="getAllCustomers()">Get all customers</button>
+                </th>
+                <th></th>
+        </table>
+        <table class="table table-striped" id="users">
+            <thead>
+                <tr>
+                    <th width="5%">id</th>
+                    <th width="19%">First name</th>
+                    <th width="19%">Second name</th>
+                    <th width="19%">Address</th>
+                    <th width="19%">Legal Status</th>
+                    <th width="19%">Tools</th>
+                </tr>                
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+<script>
+    $('#alert').hide();
+    $(function () {
+        getAllCustomers();
+    });
+</script>
+
+</body>
+</html>
