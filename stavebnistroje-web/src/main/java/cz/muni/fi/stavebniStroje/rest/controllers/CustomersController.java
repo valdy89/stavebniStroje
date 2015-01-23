@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,9 @@ public class CustomersController {
 
     @Autowired
     private CustomerService customerService;
+    
+    @Autowired
+    protected BCryptPasswordEncoder passwordEncoder;
 
     public void setCustomerService(CustomerService customerService) {
         this.customerService = customerService;
@@ -33,6 +37,7 @@ public class CustomersController {
     public @ResponseBody
     CustomerResource createCustomer(@RequestBody CustomerResource customerResource) {
         CustomerDto customerDto = customerResource.toDto();
+        customerDto.setPassword(passwordEncoder.encode(customerDto.getPassword()));
         customerService.createCustomer(customerDto);
         return new CustomerResource(customerDto);
     }
@@ -60,6 +65,7 @@ public class CustomersController {
     public @ResponseBody
     CustomerResource updateCustomer(@PathVariable("id") Long id, @RequestBody CustomerResource customerResource) {
         customerResource.setId(id);
+        customerResource.setPassword(passwordEncoder.encode(customerResource.getPassword()));
         customerService.updateCustomer(customerResource.toDto());
         return customerResource;
     }
