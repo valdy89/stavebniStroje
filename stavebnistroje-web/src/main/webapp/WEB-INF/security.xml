@@ -17,12 +17,12 @@
         	
         <!-- form login -->
         <form-login 
-            login-page="/login.jsp" 
+            login-page="/" 
             default-target-url="/admin/rent" 
-            authentication-failure-url="/login.jsp?error" />
+            authentication-failure-url="/?error" />
  
         <!-- logout -->
-        <logout logout-url="/j_spring_security_logout" logout-success-url="/login.jsp"/>
+        <logout logout-url="/j_spring_security_logout" logout-success-url="/"/>
   
     </http>
 	

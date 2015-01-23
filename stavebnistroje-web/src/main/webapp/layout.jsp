@@ -15,7 +15,7 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
             <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css"> 
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
             <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
@@ -53,7 +53,7 @@
                                 
                             <c:if test="${pageContext.request.userPrincipal.name != null}">
                             	<c:url value="/j_spring_security_logout" var="logoutUrl" />
-                                <li><a href="${logoutUrl}"> Logout</a></li>
+                                <li><a href="${logoutUrl}"><f:message key="common.logout"/></a></li>
                             </c:if>
                         </ul>
                         <!-- Roles display -->
