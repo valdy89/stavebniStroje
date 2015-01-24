@@ -31,7 +31,7 @@
                             <!-- potrebujeme dodat class="active" pokud ma byt odkaz aktivni -->
                             <li><a href="index.jsp">Home</a></li>
                             <li><a href="customers.jsp">Customers</a></li>
-                            <li><a href="machines.jsp">Machiness</a></li>
+                            <li><a href="machines.jsp">Machines</a></li>
                            
                         </ul> 
                             
