@@ -18,7 +18,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.test.skip>true</maven.test.skip>
-        <tomcat.version>7.0.33</tomcat.version>
+        <tomcat.version>7.0.42</tomcat.version>
         <jetty.version>9.0.6.v20130930</jetty.version>
     </properties>
 
