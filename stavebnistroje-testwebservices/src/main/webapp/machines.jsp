@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Machines</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -11,12 +11,20 @@
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
         <script language="javascript">
-            var baseUrl = '<%=application.getInitParameter("server")+application.getInitParameter("path")%>';
+            var baseUrl = '<%=application.getInitParameter("server") + application.getInitParameter("path")%>';
             var items;
+
+            /**
+             * Function is used to show alert in case of any error
+             */
             function fail() {
                 $('#alert').show();
             }
 
+            /**
+             * Function for date format
+             * @param {date} date date for formating
+             */
             function formatDate(date) {
                 var pad = function (val) {
                     var value = String(val);
@@ -27,6 +35,11 @@
                 return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
             }
 
+            /**
+             * Function used for preparing data about revison for the output 
+             * @param {data} data which needs to be present by the table
+             * @param {Long} id of the revision
+             */
             function flushRevisionList(id, data) {
                 console.log(data);
                 var ul = $('#mRevisions');
@@ -39,6 +52,11 @@
                     ul.append(li);
                 });
             }
+
+            /**
+             * Function used for preparing data about machine for the output 
+             * @param data 
+             */
             function flushMachine(data) {
                 $('#mId').text(data.id);
                 $('#mName').text(data.name);
@@ -49,11 +67,16 @@
                 flushRevisionList(data.id, data.revisions);
             }
 
+            /**
+             * Function returns machine with given id
+             * @param {Long} id of the machine
+             * @returns data about machine
+             */
             function getMachine(id) {
                 $.ajax({
                     url: baseUrl + '/machine/get/' + id, // ukazujeme URL a
                     type: 'GET',
-                     headers: {
+                    headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
                     },
                     success: function (data, textStatus) { // funkce success zpracovává data
@@ -64,11 +87,16 @@
                 });
             }
 
+            /**
+             * Function for deleting revision
+             * @param {Long} id id of the revision
+             * @param {Long} machineId id of the machine 
+             */
             function deleteRevision(id, machineId) {
                 $.ajax({
                     url: baseUrl + '/revision/delete/' + id,
                     type: 'DELETE',
-                     headers: {
+                    headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
                     },
                     success: function (data, textStatus) {
@@ -79,11 +107,17 @@
                 });
             }
 
+            /**
+             * Function for ading new revision.
+             * @param {Long} id id of the machine
+             * @param {Date} date date of the revision
+             * @returns {Machine} returns machine with given id
+             */
             function addRevision(id, date) {
                 $.ajax({
                     url: baseUrl + '/revision',
                     type: 'POST',
-                     headers: {
+                    headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
                     },
                     contentType: 'application/json',
@@ -99,6 +133,10 @@
                 });
             }
 
+            /**
+             * Function used for generating body of the table based on the input data
+             * @param {type} data which needs to be present by the table
+             */
             function flushList(data) { // funkce success zpracovává data
                 var print = '';
                 items = new Array();
@@ -129,11 +167,15 @@
 
             }
 
+            /**
+             * Function returns all amchines from the DB
+             * @returns list of the machines
+             */
             function getAllMachines() {
                 $.ajax({
                     url: baseUrl + '/machine', // ukazujeme URL a
                     type: 'GET',
-                     headers: {
+                    headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
                     },
                     success: flushList,
@@ -141,6 +183,31 @@
                 });
             }
 
+            /**
+             * Function for searching machines by Id
+             * @param {Long} id id of the amchine
+             * @returns machine with given id
+             */
+            function getMachineById(id) {
+                $.ajax({
+                    url: baseUrl + '/machine/get/' + id, // ukazujeme URL a
+                    type: 'GET',
+                    headers: {
+                        "Authorization": "Basic " + btoa("rest:rest")
+                    },
+                    success: function (data, textStatus) { // funkce success zpracovává data
+                        console.log(data);
+                        var print = '';
+                        print += "<tr>" + "<td>" + id + "</td>" + "<td>" + data.name + "</td>" + "<td>" + data.type + "</td>" + "<td>" + data.description + "</td>" + "<td>" + data.price + "</td>" + "<td>" + "<button type='button' class='btn btn-default' onclick='getMachine(" + id + ")'>Detail</button>" + "<button type='button' class='btn btn-default' onclick='editMachine(" + id + ")'>Edit</button>" + "<button type='button' class='btn btn-default' onclick='updateMachine(" + id + ")' >Update</button>" + "<button type='button' class='btn btn-danger' onclick='deleteMachine(" + id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button>" + "</td>" + "</tr>";
+                        $('table#machines tbody').empty().append(print);
+                    },
+                    error: fail
+                });
+            }
+
+            /**
+             * Function is used for creating new machine
+             */
             function createMachine() {
                 var mName = $("#machineName").val();
                 var mType = $("#machineType").val();
@@ -150,7 +217,7 @@
                 $.ajax({
                     url: baseUrl + '/machine', // ukazujeme URL a
                     type: 'POST',
-                     headers: {
+                    headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
                     },
                     contentType: "application/json",
@@ -170,11 +237,15 @@
                 });
             }
 
+            /**
+             * Function loads machine's information to the form in order to reuse for new machne or for updating existing
+             * @param {Long} id Id of the machine
+             */
             function editMachine(id) {
                 $.ajax({
                     url: baseUrl + '/machine/get/' + id, // ukazujeme URL a
                     type: 'GET',
-                     headers: {
+                    headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
                     },
                     success: function (data, textStatus) { // funkce success zpracovává data
@@ -188,7 +259,11 @@
                 });
             }
 
-            // tractorize
+            /**
+             * Function for updating machine
+             * @param {Long} id of the machine which needs to be updated
+             
+             */
             function updateMachine(id) {
                 var mName = $("#machineName").val();
                 var mType = $("#machineType").val();
@@ -198,7 +273,7 @@
                 $.ajax({
                     url: baseUrl + '/machine/update/' + id, // ukazujeme URL a
                     type: 'PUT',
-                     headers: {
+                    headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
                     },
                     contentType: 'application/json',
@@ -218,11 +293,15 @@
                 });
             }
 
+            /**
+             * Function for deleting machine with given Id
+             * @param {Long} id of the machine
+             */
             function deleteMachine(id) {
                 $.ajax({
                     url: baseUrl + '/machine/delete/' + id, // ukazujeme URL a
                     type: 'DELETE',
-                     headers: {
+                    headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
                     },
                     success: function (data, textStatus) { // funkce success zpracovává data
@@ -232,17 +311,27 @@
                     error: fail
                 });
             }
+
+            /**
+             * Function returns list of amchines with given type
+             * @param {String} search type of the machine
+             * @returns list of the machines
+             */
             function getType(search) {
                 $.ajax({
                     url: baseUrl + '/machine/type/' + search, // ukazujeme URL a
                     type: 'GET',
-                     headers: {
+                    headers: {
                         "Authorization": "Basic " + btoa("rest:rest")
                     },
                     success: flushList,
                     error: fail
                 });
             }
+
+            /**
+             * Function for resetting the form
+             */    
             function resetForm() {
                 $("#machineName").val("");
                 $("#machineType").val("");
@@ -250,7 +339,9 @@
                 $("#machinePrice").val("");
             }
 
-            //multiple choice    
+            /**
+             * Multiple choice    
+             */
             function machineType() {
                 //c_legal = document.forms[0].c_legal.value;
                 machineType = document.forms[0].machineType.value;
@@ -267,7 +358,7 @@
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="customers.jsp">Customers</a></li>
                         <li><a href="machines.jsp">Machines</a></li>
-                        
+
                     </ul> 
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="${pageContext.request.contextPath}/about.jsp">About</a></li>
@@ -333,8 +424,18 @@
             </th>
             <th>
                 <button id="search"  type='button' class='btn btn-default' onClick="getType($('#typeOfMachine').val())">Search by type</button>
-                <button id="getAllCustomer" type='button' class='btn btn-default' onClick="getAllMachines()">Get all machines</button>
             </th>
+            <th>
+                <input id="machineId" type="text">
+            </th>
+            <th>
+                <button id="getAllCustomer" type='button' class='btn btn-default' onClick="getMachineById($('#machineId').val())">Search by Id</button>  
+            </th>              
+            <th>
+                <button id="getAllCustomer" type='button' class='btn btn-default' onClick="getAllMachines()">Get all machines</button>  
+            </th>
+
+
 
 
             <th>&nbsp;</th>
@@ -415,7 +516,7 @@
         </div>
     </div>
     <br>
-    
+
     <h3>Revisions</h3>
 
     <ul class="list-group" id="mRevisions">
