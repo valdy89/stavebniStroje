@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Customers</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -12,10 +12,18 @@
 
         <script language="javascript">
             var baseUrl = '<%=application.getInitParameter("server") + application.getInitParameter("path")%>';
+
+            /**
+             * Function is used to show alert in case of any error
+             */
             function fail() {
                 $('#alert').show();
             }
 
+            /**
+             * Function loads user's information to the form in order to reuse for new user or for updating existing
+             * @param {Long} id Id of the user
+             */
             function editUser(id) {
                 $.ajax({
                     url: baseUrl + '/customer/get/' + id, // ukazujeme URL a
@@ -36,11 +44,12 @@
                     },
                     error: fail
                 });
-
-
             }
 
-
+            /**
+             * Function used for generating body of the table based on the input data
+             * @param {type} data which needs to be present by the table
+             */
             function flushList(data) { // funkce success zpracovává data
                 var print = '';
                 $.each(data, function () {
@@ -49,8 +58,10 @@
                 $('table#users tbody').empty().append(print);
             }
 
-
-
+            /*
+             * Funciton returns all users from the DB
+             * @returns {undefined}
+             */
             function getAllCustomers() {
                 $.ajax({
                     url: baseUrl + '/customer', // ukazujeme URL a
@@ -63,8 +74,12 @@
                 });
             }
 
+            /**
+             * Function returns user with given id
+             * @param {long} id of the user 
+             * @returns user with given id 
+             */
             function getUser(id) {
-                var id = 35;
                 $.ajax({
                     url: baseUrl + '/customer/get/' + id, // ukazujeme URL a
                     type: 'GET',
@@ -73,13 +88,17 @@
                     },
                     success: function (data, textStatus) { // funkce success zpracovává data
                         console.log(data);
-                        flushList(data);
+                        var print = '';
+                        print += "<tr><td>" + id + "</td><td>" + data.firstName + "</td><td>" + data.secondName + "</td><td>" + data.address + "</td><td>" + data.legalStatus + "</td><td><button type='button' class='btn btn-default' onclick='editUser(" + data.id + ")' >Edit</button><button type='button' class='btn btn-default' onclick='updateUser(" + data.id + ")' >Update</button><button type='button' class='btn btn-danger' onclick='deleteUser(" + data.id + ")' ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>Delete</button></td></tr>";
+                        $('table#users tbody').empty().append(print);
                     },
-                    error: fail
                 });
+
             }
 
-
+            /**
+             * Function for creating new user
+             */
             function createUser() {
 
                 var fName = $("#customerFirstName").val();
@@ -107,7 +126,11 @@
                 });
             }
 
-
+            /**
+             * Function for udpating the user with given id
+             * @param {long} id of the user
+             * @returns list of users
+             */
             function updateUser(id) {
 
                 var fName = $("#customerFirstName").val();
@@ -137,8 +160,11 @@
                 });
             }
 
+            /**
+             * Function which delete user with given id
+             * @param {long} id of the user
+             */
             function deleteUser(id) {
-
                 $.ajax({
                     url: baseUrl + '/customer/delete/' + id, // ukazujeme URL a
                     type: 'DELETE',
@@ -153,6 +179,11 @@
                 });
             }
 
+            /**
+             * Search user by name
+             * @param {String} search name of the user
+             * @returns list of users whith given name
+             */
             function searchUser(search) {
                 $.ajax({
                     url: baseUrl + '/customer/search/' + search, // ukazujeme URL a
@@ -165,16 +196,23 @@
                 });
             }
 
-            function preferedBrowser() {
-                prefer = document.forms[0].browsers.value;
-                alert("You prefer browsing internet with " + prefer);
-            }
-
-            //multiple choice    
+            /**
+             * multiple choice for user's legal status
+             */
             function legalStatus() {
-                c_legal = document.forms[0].c_legal.value;
+                var customerLegal = document.forms[0].customerLegal.value;
             }
 
+            /**
+             * multiple choice for user's roles
+             */
+            function userRole() {
+                var userRole = document.forms[0].userRole.value;
+            }
+
+            /**
+             * Function for resetting the form
+             */
             function resetForm() {
                 $("#customerFirstName").val("");
                 $("#customerSecondName").val("");
@@ -183,6 +221,11 @@
                 $("#username").val("");
                 $("#password").val("");
                 $("#userRole").val("");
+            }
+
+            function preferedBrowser() {
+                prefer = document.forms[0].browsers.value;
+                alert("You prefer browsing internet with " + prefer);
             }
         </script>
 
@@ -250,7 +293,7 @@
             <tr>
                 <th>User role:</th>
                 <th>
-                    <select id="userRole" onchange="legalStatus()">
+                    <select id="userRole" onchange="userRole()">
                         <option value="ROLE_USER">ROLE_USER</option>
                         <option value="ROLE_ADMIN">ROLE_ADMIN</option>
                     </select>
@@ -277,6 +320,7 @@
             <th><input id="searchParameter" type="text"></th>
             <th>
                 <button id="search"  type='button' class='btn btn-default' onClick="searchUser($('#searchParameter').val())">Search by name</button>
+                <button id="search"  type='button' class='btn btn-default' onClick="getUser($('#searchParameter').val())">Search by ID</button>
                 <button id="getAllCustomer" type='button' class='btn btn-default' onClick="getAllCustomers()">Get all customers</button>
             </th>
             <th></th>
