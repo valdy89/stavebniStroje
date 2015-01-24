@@ -5,7 +5,7 @@
          version="3.0">
     
     <!-- Spring -->
-   <listener>
+    <listener>
         <description>activates Spring IoC container during start</description>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -41,6 +41,10 @@
     <filter>
         <filter-name>CorsFilter</filter-name>
         <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+        <init-param>
+            <param-name>cors.allowed.methods</param-name>
+            <param-value>GET,POST,HEAD,OPTIONS,PUT,DELETE</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>CorsFilter</filter-name>
